@@ -1,5 +1,6 @@
 def main():
-    print "hello, world from PGSS14CC"
+    import sys
+    print sys.version
 
 if __name__ == '__main__':
     main()

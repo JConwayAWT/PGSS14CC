@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title PGSS 2014 Computational Chemistry
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    nav.navbar.navbar-inverse#no-border-radius role="navigation"
+      .container-fluid
+        .navbar-header
+          .navbar-brand PGSS CC 2014
+        ul.nav.navbar-nav
+          li
+            a href="#" Home
+          li
+            a href="#" Option 1
+          li
+            a href="#" Option 2
+          li
+            a href="#" Option 3
+    .container
+      = yield
