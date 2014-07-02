@@ -1,3 +1,5 @@
+import psycopg2
+
 def main():
     import sys
     print sys.version
