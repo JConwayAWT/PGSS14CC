@@ -1,7 +1,7 @@
-import pythonpg
+import psycopg2
 
 def main():
-    connection = pythonpg.connect("dbname='pgss_14_cc_prod'")
+    connection = psycopg2.connect("dbname='pgss_14_cc_dev'")
     import sys
     print sys.version
 
