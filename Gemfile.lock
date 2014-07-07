@@ -148,6 +148,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   debugger
   escape
+  execjs
   jbuilder (~> 2.0)
   jquery-rails
   pg

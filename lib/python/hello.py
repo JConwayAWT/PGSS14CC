@@ -20,7 +20,7 @@ def main():
       else:
         print "DATABASE_URL is missing"
     else:
-      connection = psycopg2.connect("dbname='pgss_14_cc_dev'")
+      connection = psycopg2.connect("dbname='pgss_14_cc_dev' user='postgres' password='password'")
       print sys.version
 
 if __name__ == '__main__':
