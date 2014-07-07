@@ -21,7 +21,7 @@ def main():
         print "DATABASE_URL is missing"
     else:
       connection = psycopg2.connect("dbname='pgss_14_cc_dev'")
-      print sys.version
+      print "I changed this line right here!"
 
 if __name__ == '__main__':
     main()
