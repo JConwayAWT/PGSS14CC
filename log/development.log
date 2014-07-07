@@ -2108,3 +2108,132 @@ Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-07 
 
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-07 13:36:30 -0400
+  [1m[36mSQL (1.0ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (228.0ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255)) 
+  [1m[36m (10.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (3.0ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (1.0ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (28.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140701174224')
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-07 15:22:49 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#index as HTML
+  Rendered users/index.html.slim within layouts/application (61.0ms)
+Completed 500 Internal Server Error in 4544ms
+
+ActionView::Template::Error (TypeError: Object doesn't support this property or method
+  (in c:/Sites/PGSS14CC/app/assets/stylesheets/application.css.scss)):
+    2: html
+    3:   head
+    4:     title PGSS 2014 Computational Chemistry
+    5:     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    6:     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    7:     = csrf_meta_tags
+    8:   body
+  app/views/layouts/application.html.slim:5:in `_app_views_layouts_application_html_slim__502695451_44894628'
+
+
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (60.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-07 15:25:31 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#index as HTML
+  Rendered users/index.html.slim within layouts/application (17.0ms)
+Completed 500 Internal Server Error in 563ms
+
+ActionView::Template::Error (TypeError: Object doesn't support this property or method
+  (in c:/Sites/PGSS14CC/app/assets/stylesheets/application.css.scss)):
+    2: html
+    3:   head
+    4:     title PGSS 2014 Computational Chemistry
+    5:     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    6:     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    7:     = csrf_meta_tags
+    8:   body
+  app/views/layouts/application.html.slim:5:in `_app_views_layouts_application_html_slim__1046500862_43225800'
+
+
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (48.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-07 15:48:26 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#index as HTML
+  Rendered users/index.html.slim within layouts/application (18.0ms)
+Completed 500 Internal Server Error in 2792ms
+
+ActionView::Template::Error (TypeError: Object doesn't support this property or method
+  (in c:/Sites/PGSS14CC/app/assets/stylesheets/application.css.scss)):
+    2: html
+    3:   head
+    4:     title PGSS 2014 Computational Chemistry
+    5:     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    6:     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    7:     = csrf_meta_tags
+    8:   body
+  app/views/layouts/application.html.slim:5:in `_app_views_layouts_application_html_slim___304314917_33309708'
+
+
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (50.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-07 15:55:03 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#index as HTML
+  Rendered users/index.html.slim within layouts/application (18.0ms)
+Completed 500 Internal Server Error in 3409ms
+
+ActionView::Template::Error (TypeError: Object doesn't support this property or method
+  (in c:/Sites/PGSS14CC/app/assets/stylesheets/application.css.scss)):
+    2: html
+    3:   head
+    4:     title PGSS 2014 Computational Chemistry
+    5:     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    6:     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    7:     = csrf_meta_tags
+    8:   body
+  app/views/layouts/application.html.slim:5:in `_app_views_layouts_application_html_slim__335822831_41501592'
+
+
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (5.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (102.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-07 15:55:23 -0400
+Processing by UsersController#index as HTML
+  Rendered users/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 91ms (Views: 13.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-07 15:55:37 -0400
+Processing by UsersController#index as HTML
+  Rendered users/index.html.slim within layouts/application (0.0ms)
+Completed 500 Internal Server Error in 2655ms
+
+ActionView::Template::Error (TypeError: Object doesn't support this property or method
+  (in c:/Sites/PGSS14CC/app/assets/stylesheets/application.css.scss)):
+    2: html
+    3:   head
+    4:     title PGSS 2014 Computational Chemistry
+    5:     = stylesheet_link_tag    'application', media: 'all'
+    6:     = javascript_include_tag 'application'
+    7:     = csrf_meta_tags
+    8:   body
+  app/views/layouts/application.html.slim:5:in `_app_views_layouts_application_html_slim__335822831_44629188'
+
+
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.0ms)
+  Rendered c:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.1.2/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (58.0ms)
