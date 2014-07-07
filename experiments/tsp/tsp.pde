@@ -1,5 +1,5 @@
 /**
-Lines never seem to overlap in solutions
+Lines never seem to cross in solutions
 
 */
 
