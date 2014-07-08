@@ -1,12 +1,18 @@
 /**
-Lines never seem to cross in solutions
+Lines never seem to overlap in solutions
 
 */
 
 int cities=0;
 int tests=0;
+double coefficientStart=0;
+double coefficient=coefficientStart;
+double coefficientIncrease=.00001;
+double coefficientMax=5;
 int moving=0;
 double best=Integer.MAX_VALUE;
+boolean drawShortest=true;
+boolean drawBackground=true;
 ArrayList<Coordinate>  bestOrder = new ArrayList<Coordinate>();
 ArrayList<Coordinate>  cords = new ArrayList<Coordinate>(); 
 
@@ -24,26 +30,85 @@ long startTime=0;
 
 class Coordinate {
   float x, y;
+  int i;
   Coordinate(float x, float y) {
     this.x=x;
     this.y=y;
+    this.i=cities;
   }  
   float dist(Coordinate a) {
     return sqrt(pow(x-a.x, 2)+pow(y-a.y, 2));
   }
 }
+class Color{
+   int r,g,b;
+  Color(int r, int g, int b){
+     this.r=r;
+     this.g=g;
+     this.b=b;
+  } 
+}
+
+
+void findEdges(){
+  Coordinate c = new Coordinate(0,0);
+  cords.add(c);
+  moving=cities; 
+  cities++;
+  drawShortest=false;
+  HashMap<Integer, Color> colors = new HashMap<Integer, Color>();
+  int sz=15;
+  for(int x=0;x<width;x+=sz){
+    for(int y=0;y<height;y+=sz){
+      c.x=x;
+      c.y=y;
+      computeShortestPath();
+      int bp=intBestPath();
+      if(!colors.containsKey(bp)){
+        println("new color");
+        colors.put(bp,new Color((int)random(0,255),(int)random(0,255),(int)random(0,255))); 
+      }
+      Color col =colors.get(bp);
+      fill(col.r,col.g,col.b);
+      stroke(col.r,col.g,col.b);
+      rect(x,y,sz,sz);
+      //println(x+" "+y+" "+bp);
+    }
+    println(x);
+  }
+  cords.remove(c);
+  cities--;
+  drawShortest=true;
+}
+
+int intBestPath(){
+  int bestP=0;
+  if (bestOrder.size()>0) {
+    for (Coordinate c : bestOrder) {
+      bestP*=10;
+      bestP+=c.i;
+    }
+  }  
+  return bestP;
+}
 
 void computeShortestPath() {
   best=Integer.MAX_VALUE;
-  drawBack();
+  if(drawShortest&&drawBackground){
+    drawBack();
+  }
   if (cities>0) {
-    drawCoordinates();
+    if(drawShortest){
+      drawCoordinates();
+    }
     tests=0;  
     compute(0, 0, -1, new ArrayList<Coordinate>());
-    //println(tests);
-    drawBestPath();
+    if(drawShortest){
+      drawBestPath();
+    }
   }
 }
+
 void drawBack(){
   fill(0, 0, 0);
   stroke(0, 0, 0);
@@ -53,7 +118,6 @@ void drawBack(){
 void drawLine(int a, int b) {
   Coordinate p = cords.get(a);
   Coordinate c = cords.get(b);
-  stroke(0, 0, 255);
   int offset=2;
   line(p.x+offset, p.y+offset, c.x+offset, c.y+offset);
 }
@@ -73,8 +137,12 @@ void drawCoordinates() {
 void drawBestPath() {
   if (bestOrder.size()>0) {
     Coordinate p=bestOrder.get(bestOrder.size()-1);
-    stroke(0, 255, 0);   
     for (Coordinate c : bestOrder) {
+      if(!drawBackground){
+        stroke(0, 0, 0);
+      }else{
+        stroke(0, 255, 0);
+      }
       line(p.x, p.y, c.x, c.y);
       p=c;
     }
@@ -125,7 +193,7 @@ boolean checkTraversed(long traversed, int n) {
 }
 
 void setup() {
-  size(1200, 600);
+  size(400, 300);
   computeShortestPath();
 }
 void draw() {
@@ -187,6 +255,12 @@ void keyPressed() {
     antTraverse();
     printBestPath();
   }
+  if(key=='f'){
+     findEdges();
+     drawBackground=false;
+     computeShortestPath();
+    drawBackground=true; 
+  }
   if(key=='r'){
    computeShortestPath(); 
   }
@@ -203,10 +277,13 @@ float distance(int a, int b) {
 void antTraverse() {
   start=0;
   initArrays(); 
-  for (int i=0; i<CALCULATIONS; i++) {
+  int i=0;
+  for (i=0; coefficient<=coefficientMax; i++) {
     resetArrays();
     oneStep(0);
+    coefficient+=coefficientIncrease;
   }
+  println("Ant: "+i);
 }
 
 void oneStep(int c) {
@@ -234,7 +311,7 @@ void oneStep(int c) {
       break;
     }
   }
-  phernomes[c][j]+=PHERNOME_SCALE/totalDistance/totalDistance/totalDistance;
+  phernomes[c][j]+=coefficient/pow((float)totalDistance,(float)coefficient);
 }
 void printBestPath() {
   resetArrays();
@@ -267,7 +344,8 @@ void bestStep(int c) {
   }
 }
 void initArrays() {
-  phernomes= new double [cities][cities];    
+  phernomes= new double [cities][cities];
+  coefficient=coefficientStart;
   resetArrays();
 }
 void resetArrays() {
