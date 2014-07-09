@@ -18,7 +18,6 @@ class TravelingSalesmanSolver:
 
 	def __init__(self, params):
 		data = json.loads(params)
-		print data
 		for c in range(0,len(data['x'])):
 			cord = Coordinate.Coordinate(data['x'][c], data['y'][c], c)
 			self.cords.append(cord)

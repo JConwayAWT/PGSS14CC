@@ -15081,3 +15081,459 @@ Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-09 
 
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-09 15:48:22 -0400
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-09 15:51:08 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 194ms (Views: 194.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/jcanvas.min.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:09 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:10 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:10 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:10 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:10 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:10 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:10 -0400
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-09 15:51:28 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 214ms (Views: 204.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:28 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/jcanvas.min.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:29 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:51:31 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["127.5", "333.5", "358.5"], "y"=>["409", "329", "381"]}}
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-09 19:51:31.465483"], ["problem_parameters", "{\"x\":[\"127.5\",\"333.5\",\"358.5\"],\"y\":[\"409\",\"329\",\"381\"]}"], ["updated_at", "2014-07-09 19:51:31.465483"]]
+  [1m[35m (26.0ms)[0m  COMMIT
+Completed 200 OK in 178ms (Views: 0.0ms | ActiveRecord: 28.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-09 15:51:47 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 122ms (Views: 121.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:47 -0400
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:47 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:47 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:47 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:47 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/jcanvas.min.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-09 15:51:48 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:51:52 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["81.5", "363.5", "109.5", "189.5"], "y"=>["423", "444", "320", "409"]}}
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-09 19:51:52.577690"], ["problem_parameters", "{\"x\":[\"81.5\",\"363.5\",\"109.5\",\"189.5\"],\"y\":[\"423\",\"444\",\"320\",\"409\"]}"], ["updated_at", "2014-07-09 19:51:52.577690"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 121ms (Views: 0.0ms | ActiveRecord: 3.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:52:31 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["81.5", "363.5", "109.5", "189.5"], "y"=>["423", "444", "320", "409"]}}
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-09 19:52:31.945942"], ["problem_parameters", "{\"x\":[\"81.5\",\"363.5\",\"109.5\",\"189.5\"],\"y\":[\"423\",\"444\",\"320\",\"409\"]}"], ["updated_at", "2014-07-09 19:52:31.945942"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+Completed 200 OK in 234ms (Views: 0.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (1.0ms)
+Completed 200 OK in 297ms (Views: 296.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/jcanvas.min.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:05 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:06 -0400
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-09 15:55:12 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 135ms (Views: 135.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/jcanvas.min.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:13 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-09 15:55:14 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:55:16 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["176.5", "341.5", "322.5", "168.5"], "y"=>["312", "265", "408", "449"]}}
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-09 19:55:16.643362"], ["problem_parameters", "{\"x\":[\"176.5\",\"341.5\",\"322.5\",\"168.5\"],\"y\":[\"312\",\"265\",\"408\",\"449\"]}"], ["updated_at", "2014-07-09 19:55:16.643362"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 118ms (Views: 0.0ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:55:27 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["176.5", "341.5", "322.5", "270.5", "297.5"], "y"=>["312", "265", "408", "184", "336"]}}
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-09 19:55:27.917007"], ["problem_parameters", "{\"x\":[\"176.5\",\"341.5\",\"322.5\",\"270.5\",\"297.5\"],\"y\":[\"312\",\"265\",\"408\",\"184\",\"336\"]}"], ["updated_at", "2014-07-09 19:55:27.917007"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+Completed 200 OK in 322ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:55:32 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["176.5", "341.5", "322.5", "270.5", "297.5", "142"], "y"=>["312", "265", "408", "184", "336", "197"]}}
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-09 19:55:32.926294"], ["problem_parameters", "{\"x\":[\"176.5\",\"341.5\",\"322.5\",\"270.5\",\"297.5\",\"142\"],\"y\":[\"312\",\"265\",\"408\",\"184\",\"336\",\"197\"]}"], ["updated_at", "2014-07-09 19:55:32.926294"]]
+  [1m[36m (7.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 337ms (Views: 0.0ms | ActiveRecord: 8.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:55:49 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["176.5", "341.5", "322.5", "270.5", "297.5", "142"], "y"=>["312", "265", "408", "184", "336", "197"]}}
+  [1m[35m (2.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-09 19:55:49.177223"], ["problem_parameters", "{\"x\":[\"176.5\",\"341.5\",\"322.5\",\"270.5\",\"297.5\",\"142\"],\"y\":[\"312\",\"265\",\"408\",\"184\",\"336\",\"197\"]}"], ["updated_at", "2014-07-09 19:55:49.177223"]]
+  [1m[35m (3.0ms)[0m  COMMIT
+Completed 200 OK in 284ms (Views: 1.0ms | ActiveRecord: 6.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:55:55 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["176.5", "341.5", "322.5", "270.5", "297.5", "142", "222.5"], "y"=>["312", "265", "408", "184", "336", "197", "259"]}}
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-09 19:55:55.082561"], ["problem_parameters", "{\"x\":[\"176.5\",\"341.5\",\"322.5\",\"270.5\",\"297.5\",\"142\",\"222.5\"],\"y\":[\"312\",\"265\",\"408\",\"184\",\"336\",\"197\",\"259\"]}"], ["updated_at", "2014-07-09 19:55:55.082561"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 265ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-09 15:55:59 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["176.5", "341.5", "322.5", "270.5", "297.5", "142", "222.5", "367"], "y"=>["312", "265", "408", "184", "336", "197", "259", "185"]}}
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-09 19:55:59.520815"], ["problem_parameters", "{\"x\":[\"176.5\",\"341.5\",\"322.5\",\"270.5\",\"297.5\",\"142\",\"222.5\",\"367\"],\"y\":[\"312\",\"265\",\"408\",\"184\",\"336\",\"197\",\"259\",\"185\"]}"], ["updated_at", "2014-07-09 19:55:59.520815"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+Completed 200 OK in 1878ms (Views: 0.0ms | ActiveRecord: 1.0ms)

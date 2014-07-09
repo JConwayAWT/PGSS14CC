@@ -13,8 +13,13 @@ function docReady(){
 
 	$("#traveling-salesman-submit").click(function(){
 
-		var xvalues =[5,4];
-		var yvalues=[3,3];
+		var xvalues =[];
+		var yvalues=[];
+		for(var i=0;i<cords.length;i++){
+			var cord = cords[i];
+			xvalues[xvalues.length]=cord.x;	
+			yvalues[yvalues.length]=cord.y;
+		}
 		var points = {x: xvalues, y: yvalues};
 
 		$.ajax({
@@ -25,6 +30,7 @@ function docReady(){
 		.done(function(data) {
 			console.log("success");
 			$("#output").html(data.pythonOutput);
+			drawSolution(data.pythonOutput);
 		})
 		.fail(function() {
 			console.log("error");
@@ -46,6 +52,20 @@ function docReady(){
 			removing=false;
 		}
 	});
+
+	function drawSolution(solutionText){
+		solution=solutionText.split(",");
+		p= solution[cords.length-1];
+		for(var i=0;i<cords.length;i++){
+			$('canvas').drawLine({
+			  strokeStyle: '#000',
+			  strokeWidth: 10,
+			  x1: cords[solution[i]].x, y1: cords[solution[i]].y,
+			  x2: cords[p].x, y2: cords[p].y,
+			});
+			p = solution[i];
+		}
+	}
 
 	$("canvas").on('mousedown', function(e){
 		var x=e.pageX - $('canvas').offset().left;

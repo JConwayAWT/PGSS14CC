@@ -45,7 +45,7 @@ def main():
     print solution
 
     #print sys.version
-  print "Success! ID:", database_row_id
+  #print "Success! ID:", database_row_id
 
 if __name__ == '__main__':
     main()
