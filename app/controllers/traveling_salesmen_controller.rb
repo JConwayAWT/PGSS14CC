@@ -16,11 +16,11 @@ class TravelingSalesmenController < ApplicationController
 
     #debugger; puts "db"
     t = TravelingSalesman.new
-    t.problem_parameters = params[:points].to_s
+    t.problem_parameters = params[:points].to_json
     t.save!
     my_id = t.id
     puts my_id
-    python_output = `python lib/python/BruteForceTravelingSalesman.py #{ENV["RAILS_ENV"]} my_id`
+    python_output = `python lib/python/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} my_id`
 
     returnData = {statusMessage: "Processed", pythonOutput: python_output}
 

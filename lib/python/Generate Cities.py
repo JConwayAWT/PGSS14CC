@@ -23,7 +23,8 @@ def city_generate_random(number_of_cities, startx, stopx, starty, stopy, mindist
             y = random.randint(starty,stopy)
             if i > 1:
                 for j in xrange(0,i-1):
-                    if abs(xpoint[i-1]-x) < mindistance and math.abs(ypoint[i-1]-y) < mindistance:
+                    #MARTIN : Was this intended to be a rectangular distance comparison?
+                    if abs(xpoint[i-1]-x) < mindistance and abs(ypoint[i-1]-y) < mindistance:
                         restart = True
         xpoint.append(x)
         ypoint.append(y)
