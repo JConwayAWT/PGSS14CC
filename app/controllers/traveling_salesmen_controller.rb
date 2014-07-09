@@ -12,6 +12,24 @@ class TravelingSalesmenController < ApplicationController
   def show
   end
 
+  def pose_problem
+
+    #debugger; puts "db"
+    t = TravelingSalesman.new
+    t.problem_parameters = params[:points].to_s
+    t.save!
+    my_id = t.id
+    puts my_id
+    python_output = `python lib/python/BruteForceTravelingSalesman.py #{ENV["RAILS_ENV"]} my_id`
+
+    returnData = {statusMessage: "Processed", pythonOutput: python_output}
+
+    #some_hash = {statusMessage: "new"}
+    #puts some_hash
+    #puts some_hash[:statusMessage]
+    render json: returnData and return
+  end
+
   # GET /traveling_salesmen/new
   def new
     @traveling_salesman = TravelingSalesman.new

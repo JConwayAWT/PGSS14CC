@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'traveling_salesmen#index'
 
+  match '/pose_traveling_salesman_problem', to: 'traveling_salesmen#pose_problem', via: :post
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
