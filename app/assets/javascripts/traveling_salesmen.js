@@ -10,15 +10,24 @@ function docReady(){
 	var cords = [];
 	var ACCESS_RADIUS=10;
 	var removing=false;
+	var displayedSolution;
+
+	addPoint(100,300);
+	addPoint(200,300);
+	addPoint(200,400);
+	addPoint(100,400);
 
 	$("#traveling-salesman-submit").click(function(){
 
 		var xvalues =[];
 		var yvalues=[];
+
+		$("#output").html("Processing...");
+
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
-			xvalues[xvalues.length]=cord.x;	
-			yvalues[yvalues.length]=cord.y;
+			xvalues[xvalues.length]=cord.x();	
+			yvalues[yvalues.length]=cord.y();
 		}
 		var points = {x: xvalues, y: yvalues};
 
@@ -56,22 +65,28 @@ function docReady(){
 	function drawSolution(solutionText){
 		solution=solutionText.split(",");
 		p= solution[cords.length-1];
+
+		displayedSolution = {
+		  strokeStyle: '#000',
+		  strokeWidth: 2,
+		   strokeDash: [5],
+  			strokeDashOffset: 0,
+		  rounded: true,
+		  closed: true
+		};
+
 		for(var i=0;i<cords.length;i++){
-			$('canvas').drawLine({
-			  strokeStyle: '#000',
-			  strokeWidth: 10,
-			  x1: cords[solution[i]].x, y1: cords[solution[i]].y,
-			  x2: cords[p].x, y2: cords[p].y,
-			});
-			p = solution[i];
+			displayedSolution['x'+(i+1)] = cords[solution[i]].x();
+		  	displayedSolution['y'+(i+1)] = cords[solution[i]].y();			
 		}
+		$('canvas').drawLine(displayedSolution);
 	}
+
 
 	$("canvas").on('mousedown', function(e){
 		var x=e.pageX - $('canvas').offset().left;
 		var y=e.pageY - $('canvas').offset().top;
-		console.log("pressed",x,y);
-	
+
 		var accessed=false;
 
 		for(var i=0;i<cords.length;i++){
@@ -92,24 +107,43 @@ function docReady(){
 		}
 	});
 
+	$("canvas").on('mouseup', function(e){
+		var x=e.pageX - $('canvas').offset().left;
+		var y=e.pageY - $('canvas').offset().top;
+		console.log("pressed",x,y);
+		for(var i=0;i<cords.length;i++){
+			var cord = cords[i];
+			if(cord.getDist(x,y)<ACCESS_RADIUS){
+				cord.layer.fillStyle="green"; 
+			}
+		}
+	});
+
+
+
+
 	function addPoint(x, y){
 		var point = $("canvas").drawArc({	
-		  fillStyle: "green",
+		  fillStyle: "red",
 		  draggable: true,
 		  x: x, y: y,
 		  radius: 5
 		});
-		var c = new Coordinate(x,y,$('canvas').getLayer(-1));
+		var c = new Coordinate($('canvas').getLayer(-1));
 		cords[cords.length]=c;
 	}
 }
 
-function Coordinate(x, y,l){
-	this.x=x;
-	this.y=y;
+function Coordinate(l){
 	this.layer=l;
+	this.x = function(){
+		return this.layer.x;
+	}
+	this.y = function(){
+		return this.layer.y;
+	}
 	this.getDist= function(px,py){
-		return Math.sqrt(Math.pow(px-x,2)+Math.pow(py-y,2));
+		return Math.sqrt(Math.pow(px-this.x(),2)+Math.pow(py-this.y(),2));
 	}
 }
 
