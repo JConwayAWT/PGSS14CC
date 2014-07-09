@@ -17,12 +17,7 @@ function docReady(){
 	var solution;
 
 	var moving=-1;
-
-	addPoint(100,300);
-	addPoint(200,300);
-	addPoint(200,400);
-	addPoint(100,400);
-
+	
 	animate();
 
 	function animate(){
@@ -33,10 +28,13 @@ function docReady(){
 		}
 		drawSolution();
 		setTimeout(animate,50);
+		//canvas.width=window.innerWidth-200;
 	}
 
 	$("#traveling-salesman-submit").click(function(){
-
+		getSolution();
+	});
+	function getSolution(){
 		var xvalues =[];
 		var yvalues=[];
 
@@ -66,7 +64,7 @@ function docReady(){
 			console.log("complete");
 		});
 		
-	});
+	}
 
 	$(document).keydown(function(event) {
 		if(event.which==65){
@@ -149,6 +147,8 @@ function docReady(){
 				moving=-1;
 			}
 		}
+
+		getSolution();
 	});
 
 
