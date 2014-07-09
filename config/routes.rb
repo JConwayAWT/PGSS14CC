@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :traveling_salesmen
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

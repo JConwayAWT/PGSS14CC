@@ -1,3 +1,7 @@
+# This is a non-Euclidean way of generating cities and calculating minimum distances.
+# It identifies the index of the nearest city from each given city, but doesn't create paths or remove cities visited.
+# needs more work to become an actual solution algorithm
+
 import random
 
 def main():
