@@ -7,15 +7,33 @@ $(document).ready(docReady);
 
 function docReady(){
 
+	var canvas=document.getElementById("canvas");
+	console.log(canvas);
+	var context= canvas.getContext('2d');
+
 	var cords = [];
 	var ACCESS_RADIUS=10;
 	var removing=false;
-	var displayedSolution;
+	var solution;
+
+	var moving=-1;
 
 	addPoint(100,300);
 	addPoint(200,300);
 	addPoint(200,400);
 	addPoint(100,400);
+
+	animate();
+
+	function animate(){
+		context.clearRect(0,0,canvas.width,canvas.height);
+		for(var i=0;i<cords.length;i++){
+			var cord = cords[i];
+			cord.draw();
+		}
+		drawSolution();
+		setTimeout(animate,50);
+	}
 
 	$("#traveling-salesman-submit").click(function(){
 
@@ -26,8 +44,8 @@ function docReady(){
 
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
-			xvalues[xvalues.length]=cord.x();	
-			yvalues[yvalues.length]=cord.y();
+			xvalues[xvalues.length]=cord.x;	
+			yvalues[yvalues.length]=cord.y;
 		}
 		var points = {x: xvalues, y: yvalues};
 
@@ -39,7 +57,7 @@ function docReady(){
 		.done(function(data) {
 			console.log("success");
 			$("#output").html(data.pythonOutput);
-			drawSolution(data.pythonOutput);
+			solution=data.pythonOutput.split(",");
 		})
 		.fail(function() {
 			console.log("error");
@@ -62,59 +80,73 @@ function docReady(){
 		}
 	});
 
-	function drawSolution(solutionText){
-		solution=solutionText.split(",");
-		p= solution[cords.length-1];
-
-		displayedSolution = {
-		  strokeStyle: '#000',
-		  strokeWidth: 2,
-		   strokeDash: [5],
-  			strokeDashOffset: 0,
-		  rounded: true,
-		  closed: true
-		};
-
-		for(var i=0;i<cords.length;i++){
-			displayedSolution['x'+(i+1)] = cords[solution[i]].x();
-		  	displayedSolution['y'+(i+1)] = cords[solution[i]].y();			
+	function drawSolution(){
+		if(solution!=null){
+			p= solution[cords.length-1];
+			for(var i=0;i<cords.length;i++){
+				context.beginPath();
+		    	context.moveTo(cords[p].x, cords[p].y);
+		    	context.lineTo(cords[solution[i]].x, cords[solution[i]].y);
+		    	context.stroke();
+		    	p=solution[i];
+			}
 		}
-		$('canvas').drawLine(displayedSolution);
 	}
 
+	$("#canvas").on('mousemove', function(e){
+		var x=e.pageX - $("#canvas").offset().left;
+		var y=e.pageY - $("#canvas").offset().top;
+		
 
-	$("canvas").on('mousedown', function(e){
-		var x=e.pageX - $('canvas').offset().left;
-		var y=e.pageY - $('canvas').offset().top;
+		if(moving>=0){
+			console.log(moving+" "+x+" "+y+" "+cords[moving]);
+			cords[moving].setX(x);
+			cords[moving].setY(y);
+		}
+	});
+
+
+
+	$("#canvas").on('mousedown', function(e){
+		var x=e.pageX - $("#canvas").offset().left;
+		var y=e.pageY - $("#canvas").offset().top;
+
+		solution=null;
 
 		var accessed=false;
 
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
 			if(cord.getDist(x,y)<ACCESS_RADIUS){
-				cord.layer.fillStyle="red";
 				if(removing){
 					cords.splice(i,1);
-					$('canvas').removeLayer(cord.layer);
 					i--;	
+				}else{
+					cord.moving=true;
+					moving=i;
 				}
 				accessed=true;
 			}
 		}
 
 		if(!accessed&&!removing){
-			addPoint(x,y);
+			moving=cords.length;
+			addPoint(x,y).moving=true;
+
 		}
 	});
 
-	$("canvas").on('mouseup', function(e){
-		var x=e.pageX - $('canvas').offset().left;
-		var y=e.pageY - $('canvas').offset().top;
-		console.log("pressed",x,y);
+	$("#canvas").on('mouseup', function(e){
+		var x=e.pageX - $("#canvas").offset().left;
+		var y=e.pageY - $("#canvas").offset().top;
+		
+		solution=null;
+
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
 			if(cord.getDist(x,y)<ACCESS_RADIUS){
-				cord.layer.fillStyle="green"; 
+				cord.moving=false;
+				moving=-1;
 			}
 		}
 	});
@@ -123,28 +155,34 @@ function docReady(){
 
 
 	function addPoint(x, y){
-		var point = $("canvas").drawArc({	
-		  fillStyle: "red",
-		  draggable: true,
-		  x: x, y: y,
-		  radius: 5
-		});
-		var c = new Coordinate($('canvas').getLayer(-1));
+		var c = new Coordinate(x,y);
 		cords[cords.length]=c;
+		return c;
 	}
-}
 
-function Coordinate(l){
-	this.layer=l;
-	this.x = function(){
-		return this.layer.x;
+function Coordinate(x,y){
+	this.x=x;
+	this.y=y;
+	this.moving=false;
+	this.setX = function (x){
+		this.x=x;
+		console.log(x);
 	}
-	this.y = function(){
-		return this.layer.y;
+	this.setY = function (y){
+		this.y=y;
 	}
 	this.getDist= function(px,py){
-		return Math.sqrt(Math.pow(px-this.x(),2)+Math.pow(py-this.y(),2));
+		return Math.sqrt(Math.pow(px-this.x,2)+Math.pow(py-this.y,2));
+	}
+	this.draw = function(){
+		context.beginPath();
+		context.arc(this.x, this.y, 5, 0, 2 * Math.PI, false);
+		context.fillStyle = this.moving?'red':'green';
+		context.fill();
+		context.stroke();
 	}
 }
 
 
+
+}
