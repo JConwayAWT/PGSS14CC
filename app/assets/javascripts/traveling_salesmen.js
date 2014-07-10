@@ -10,8 +10,8 @@ $(document).ready(docReady);
 function addJob(){
 	jobs++;
 	$("#jobs").prepend("<div id=\"job"+jobs+"\" class=\"job\">");
-	$("#job"+jobs).hide();
-	$("#job"+jobs).slideDown(500);
+	//$("#job"+jobs).hide();
+	//$("#job"+jobs).slideDown(200);
 	$("#job"+jobs).append("<h1>Job "+(jobs)+"</h1>");
 	$("#job"+jobs).append("<br>"+$("#algorithm").val());
 	$("#job"+jobs).append(" <div class=\"progress\"> <div class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span>Processing...</span></div></div>");
@@ -68,11 +68,11 @@ function docReady(){
 			yvalues[yvalues.length]=cord.y;
 		}
 		var points = {x: xvalues, y: yvalues};
-
+		var algorithm=$("#algorithm").val();
 		$.ajax({
 			url: '/pose_traveling_salesman_problem',
 			type: 'POST',
-			data: {points: points},
+			data: {points: points, algorithm: algorithm},
 		})
 		.done(function(data) {
 			doneProcessing();
