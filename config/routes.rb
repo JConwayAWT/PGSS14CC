@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+  resources :traveling_salesmen
+  resources :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'users#index'
+  root 'traveling_salesmen#index'
+
+  match '/pose_traveling_salesman_problem', to: 'traveling_salesmen#pose_problem', via: :post
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140701174224) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20140708004843) do
+=======
+ActiveRecord::Schema.define(version: 20140708000534) do
+>>>>>>> 87397741cf5cacaaac37662dcd3e34369a7a0645
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "traveling_salesmen", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+<<<<<<< HEAD
+    t.text     "problem_parameters"
+=======
+>>>>>>> 87397741cf5cacaaac37662dcd3e34369a7a0645
+  end
 
   create_table "users", force: true do |t|
     t.string "first_name"
