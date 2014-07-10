@@ -15,8 +15,10 @@ import os
 import urlparse
 import sys
 from solvers import TravelingSalesmanSolver
-from solvers import BruteForceTravelingSalesmanSolver
+from solvers import BruteForceTravelingSalesmanSolver as bft
+from solvers import AntTotalDistanceSolver as atd
 from database import database_connect as dbf
+
 def main():
   rails_environment = sys.argv[1]
   connection = dbf.connect_to_database(rails_environment)
@@ -26,11 +28,18 @@ def main():
   database_row = cur.fetchone()
   database_row_id = database_row[0]
   params = database_row[3]
-
-  solver = BruteForceTravelingSalesmanSolver.BruteForceTravelingSalesmanSolver(params)
-  solution = solver.solve()
-
-  print solution
+  algorithm = database_row[4]
+  if algorithm =="Brute Force (n!)":
+    solver = bft.BruteForceTravelingSalesmanSolver(params)
+  if algorithm =="Ant Total Distance (n^2)":
+    solver = atd.AntTotalDistanceSolver(params)
+  #if algorithm =="Ant Probability (n^2)"
+    #solver = AntSolver.AntSolver(params)    
+  if solver is None:
+    print "ERROR: Invalid solver!"
+  else:
+    solution = solver.solve()
+    print solution
 
 if __name__ == '__main__':
     main()
