@@ -19,3 +19,5 @@ class Coordinate:
     return math.sqrt(pow(self.px-a.x, 2)+pow(self.py-a.y, 2))
   def dist(self,a):
     return math.sqrt(pow(self.x - a.x, 2) + pow(self.y - a.y, 2))
+
+

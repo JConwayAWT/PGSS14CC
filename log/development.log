@@ -29261,3 +29261,583 @@ Processing by TravelingSalesmenController#pose_problem as */*
   [1m[35mSQL (1.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 18:41:42.210925"], ["problem_parameters", "{\"x\":[\"161\",\"339\",\"413\",\"447\",\"186\"],\"y\":[\"201\",\"367\",\"44\",\"240\",\"375\"]}"], ["updated_at", "2014-07-10 18:41:42.210925"]]
   [1m[36m (9.0ms)[0m  [1mCOMMIT[0m
 Completed 200 OK in 152ms (Views: 1.0ms | ActiveRecord: 11.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-10 14:57:00 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 138ms (Views: 134.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-10 14:57:00 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-10 14:57:00 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:00 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:00 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-10 14:57:01 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 14:57:03 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["102", "290", "314"], "y"=>["200", "91", "348"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-10 18:57:03.950645"], ["problem_parameters", "{\"x\":[\"102\",\"290\",\"314\"],\"y\":[\"200\",\"91\",\"348\"]}"], ["updated_at", "2014-07-10 18:57:03.950645"]]
+  [1m[35m (11.0ms)[0m  COMMIT
+Completed 200 OK in 223ms (Views: 1.0ms | ActiveRecord: 13.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 14:58:13 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["102", "290", "314", "472"], "y"=>["200", "91", "348", "253"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 18:58:13.534625"], ["problem_parameters", "{\"x\":[\"102\",\"290\",\"314\",\"472\"],\"y\":[\"200\",\"91\",\"348\",\"253\"]}"], ["updated_at", "2014-07-10 18:58:13.534625"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 298ms (Views: 0.0ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 14:58:15 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["102", "290", "314", "472", "132"], "y"=>["200", "91", "348", "253", "422"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (3.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-10 18:58:15.682748"], ["problem_parameters", "{\"x\":[\"102\",\"290\",\"314\",\"472\",\"132\"],\"y\":[\"200\",\"91\",\"348\",\"253\",\"422\"]}"], ["updated_at", "2014-07-10 18:58:15.682748"]]
+  [1m[35m (2.0ms)[0m  COMMIT
+Completed 200 OK in 262ms (Views: 1.0ms | ActiveRecord: 5.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 14:58:21 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["102", "374", "314", "472", "132"], "y"=>["200", "65", "348", "253", "422"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (19.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 18:58:21.041054"], ["problem_parameters", "{\"x\":[\"102\",\"374\",\"314\",\"472\",\"132\"],\"y\":[\"200\",\"65\",\"348\",\"253\",\"422\"]}"], ["updated_at", "2014-07-10 18:58:21.041054"]]
+  [1m[36m (28.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 186ms (Views: 0.0ms | ActiveRecord: 48.0ms)
+  [1m[36mTravelingSalesman Load (3.0ms)[0m  [1mSELECT "traveling_salesmen".* FROM "traveling_salesmen"[0m
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:08:46 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["109", "314", "472", "132"], "y"=>["202", "348", "253", "422"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-10 19:08:46.274816"], ["problem_parameters", "{\"x\":[\"109\",\"314\",\"472\",\"132\"],\"y\":[\"202\",\"348\",\"253\",\"422\"]}"], ["updated_at", "2014-07-10 19:08:46.274816"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+Completed 200 OK in 146ms (Views: 0.0ms | ActiveRecord: 4.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (4.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddAlgorithmToTspDatabase (20140710190933)
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140710190933"]]
+  [1m[35m (5.0ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:18:28 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["109", "314", "472", "132"], "y"=>["202", "348", "253", "422"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-10 19:18:28.609123"], ["problem_parameters", "{\"x\":[\"109\",\"314\",\"472\",\"132\"],\"y\":[\"202\",\"348\",\"253\",\"422\"]}"], ["updated_at", "2014-07-10 19:18:28.609123"]]
+  [1m[35m (0.0ms)[0m  COMMIT
+Completed 200 OK in 143ms (Views: 0.0ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 66ms (Views: 65.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:41 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:42 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:18:44 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["201", "417", "379"], "y"=>["179", "74", "332"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (7.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 19:18:44.469030"], ["problem_parameters", "{\"x\":[\"201\",\"417\",\"379\"],\"y\":[\"179\",\"74\",\"332\"]}"], ["updated_at", "2014-07-10 19:18:44.469030"]]
+  [1m[36m (3.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 249ms (Views: 0.0ms | ActiveRecord: 11.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 33ms (Views: 33.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-10 15:18:54 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:18:56 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["90", "315", "331"], "y"=>["177", "76", "379"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (16.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-10 19:18:56.502719"], ["problem_parameters", "{\"x\":[\"90\",\"315\",\"331\"],\"y\":[\"177\",\"76\",\"379\"]}"], ["updated_at", "2014-07-10 19:18:56.502719"]]
+  [1m[35m (20.0ms)[0m  COMMIT
+Completed 200 OK in 178ms (Views: 0.0ms | ActiveRecord: 36.0ms)
+  [1m[36mTravelingSalesman Load (39.0ms)[0m  [1mSELECT "traveling_salesmen".* FROM "traveling_salesmen"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 56ms (Views: 54.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-10 15:31:14 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:31:17 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["211", "371", "349"], "y"=>["131", "59", "327"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[36m (2.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 19:31:17.887123"], ["problem_parameters", "{\"x\":[\"211\",\"371\",\"349\"],\"y\":[\"131\",\"59\",\"327\"]}"], ["updated_at", "2014-07-10 19:31:17.887123"]]
+  [1m[36m (2.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 266ms (Views: 0.0ms | ActiveRecord: 9.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mTravelingSalesman Load (3.0ms)[0m  [1mSELECT "traveling_salesmen".* FROM "traveling_salesmen"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mTravelingSalesman Load (27.0ms)[0m  [1mSELECT "traveling_salesmen".* FROM "traveling_salesmen"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (5.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-10 15:51:50 -0400
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 95ms (Views: 92.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-10 15:51:50 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-10 15:51:50 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-10 15:51:50 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:50 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:50 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-10 15:51:51 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:51:53 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["267", "407", "439"], "y"=>["184", "50", "345"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 19:51:53.072772"], ["problem_parameters", "{\"x\":[\"267\",\"407\",\"439\"],\"y\":[\"184\",\"50\",\"345\"]}"], ["updated_at", "2014-07-10 19:51:53.072772"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 157ms (Views: 0.0ms | ActiveRecord: 4.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mTravelingSalesman Load (55.0ms)[0m  [1mSELECT "traveling_salesmen".* FROM "traveling_salesmen"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddAlgorithmToTspDatabase (20140710191933)
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (127.0ms)[0m  [1mALTER TABLE "traveling_salesmen" ADD COLUMN "algorithm" text[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140710191933"]]
+  [1m[36m (67.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-10 15:56:00 -0400
+  [1m[35mActiveRecord::SchemaMigration Load (2.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Processing by TravelingSalesmenController#index as HTML
+  Rendered traveling_salesmen/index.html.slim within layouts/application (0.0ms)
+Completed 200 OK in 143ms (Views: 138.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/traveling_salesmen.css?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/traveling_salesmen.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-07-10 15:56:01 -0400
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:56:04 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["167", "386", "318"], "y"=>["135", "93", "482"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 19:56:04.073128"], ["problem_parameters", "{\"x\":[\"167\",\"386\",\"318\"],\"y\":[\"135\",\"93\",\"482\"]}"], ["updated_at", "2014-07-10 19:56:04.073128"]]
+  [1m[36m (18.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 301ms (Views: 0.0ms | ActiveRecord: 26.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:56:08 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["167", "386", "318", "57"], "y"=>["135", "93", "482", "292"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-10 19:56:08.460379"], ["problem_parameters", "{\"x\":[\"167\",\"386\",\"318\",\"57\"],\"y\":[\"135\",\"93\",\"482\",\"292\"]}"], ["updated_at", "2014-07-10 19:56:08.460379"]]
+  [1m[35m (2.0ms)[0m  COMMIT
+Completed 200 OK in 257ms (Views: 0.0ms | ActiveRecord: 4.0ms)
+
+
+Started POST "/pose_traveling_salesman_problem" for 127.0.0.1 at 2014-07-10 15:56:56 -0400
+Processing by TravelingSalesmenController#pose_problem as */*
+  Parameters: {"points"=>{"x"=>["167", "386", "318", "57", "396", "434"], "y"=>["135", "93", "482", "292", "310", "210"]}, "algorithm"=>"Brute Force (n!)"}
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "traveling_salesmen" ("created_at", "problem_parameters", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-10 19:56:56.356119"], ["problem_parameters", "{\"x\":[\"167\",\"386\",\"318\",\"57\",\"396\",\"434\"],\"y\":[\"135\",\"93\",\"482\",\"292\",\"310\",\"210\"]}"], ["updated_at", "2014-07-10 19:56:56.356119"]]
+  [1m[36m (4.0ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 251ms (Views: 0.0ms | ActiveRecord: 5.0ms)

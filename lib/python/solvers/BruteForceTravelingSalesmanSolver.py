@@ -8,7 +8,11 @@
 # Copyright:   (c) Martin 2014
 # Licence:     Creative Commons (CC)
 #-------------------------------------------------------------------------------
+import os, sys
+lib_path = os.path.abspath('..')
+sys.path.append(lib_path)
 
+import Coordinate
 import math
 import TravelingSalesmanSolver
 
