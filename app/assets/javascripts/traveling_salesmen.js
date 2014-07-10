@@ -78,7 +78,9 @@ function docReady(){
 			doneProcessing();
 			console.log("success");
 			$("#output").html(data.pythonOutput);
-			solution=data.pythonOutput.split(",");
+			if(solution.indexOf("ERROR:")==-1){//No error
+				solution=data.pythonOutput.split(",");
+			}
 		})
 		.fail(function() {
 			doneProcessing();
