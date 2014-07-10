@@ -24,10 +24,3 @@ class TravelingSalesmanSolver:
 
 	def solve(self):
 		return "No solution implemented!"
-
-
-
-		
-
-
-	
