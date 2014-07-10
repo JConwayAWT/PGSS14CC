@@ -1,9 +1,26 @@
 var isDown=false;
 var x1=0;
 var y1=0;
+var jobs=0;
+var processing=false;
 
 // Draw a circle
 $(document).ready(docReady);
+
+function addJob(){
+	jobs++;
+	$("#jobs").prepend("<div id=\"job"+jobs+"\" class=\"job\">");
+	$("#job"+jobs).hide();
+	$("#job"+jobs).slideDown(500);
+	$("#job"+jobs).append("<h1>Job "+(jobs)+"</h1>");
+	$("#job"+jobs).append("<br>"+$("#algorithm").val());
+	$("#job"+jobs).append(" <div class=\"progress\"> <div class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span>Processing...</span></div></div>");
+}
+
+function doneProcessing(){
+	$("#job"+jobs+">.progress").fadeOut(500);
+	processing=false;
+}
 
 function docReady(){
 
@@ -17,7 +34,7 @@ function docReady(){
 	var solution;
 
 	var moving=-1;
-	
+
 	animate();
 
 	function animate(){
@@ -29,16 +46,21 @@ function docReady(){
 		drawSolution();
 		setTimeout(animate,50);
 		//canvas.width=window.innerWidth-200;
+		$("#submit_data").prop('disabled', processing);
 	}
 
-	$("#traveling-salesman-submit").click(function(){
+	$("#submit_data").click(function(){
 		getSolution();
 	});
 	function getSolution(){
+		if(processing)return;
 		var xvalues =[];
 		var yvalues=[];
 
 		$("#output").html("Processing...");
+		processing=true;
+
+		addJob();
 
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
@@ -53,14 +75,17 @@ function docReady(){
 			data: {points: points},
 		})
 		.done(function(data) {
+			doneProcessing();
 			console.log("success");
 			$("#output").html(data.pythonOutput);
 			solution=data.pythonOutput.split(",");
 		})
 		.fail(function() {
+			doneProcessing();
 			console.log("error");
 		})
 		.always(function() {
+			doneProcessing();
 			console.log("complete");
 		});
 		
@@ -148,7 +173,7 @@ function docReady(){
 			}
 		}
 
-		getSolution();
+		//getSolution();
 	});
 
 

@@ -1,3 +1,36 @@
 // Place all the styles related to the TravelingSalesmen controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#canvas{
+	float:left;
+	height:500px;
+}
+
+#jobs{
+	width:220px;
+	height:500px;
+	border-style:solid;
+	float:left;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+.job{
+	width:200px;
+	border-bottom-style:solid;
+
+	h1{
+			font-size:14px;
+			text-align:center;
+			font-weight: bold;
+	}
+
+	.progress{
+		width:180px;
+		margin-left: 10px;
+
+	}
+}
