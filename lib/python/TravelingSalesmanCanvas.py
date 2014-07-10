@@ -14,38 +14,32 @@ import psycopg2
 import os
 import urlparse
 import sys
-import TravelingSalesmanSolver
-import BruteForceTravelingSalesmanSolver
+from solvers import TravelingSalesmanSolver
+from solvers import BruteForceTravelingSalesmanSolver as bft
+from solvers import AntTotalDistanceSolver as atd
+from database import database_connect as dbf
 
 def main():
   rails_environment = sys.argv[1]
-  if rails_environment == "production":
-    if 'DATABASES' not in locals():
-      DATABASES = {}
+  connection = dbf.connect_to_database(rails_environment)
 
-    if 'DATABASE_URL' in os.environ:
-      url = urlparse.urlparse(os.environ['DATABASE_URL'])
-
-      DATABASES['default'] = DATABASES.get('default', {})
-      connection = psycopg2.connect("dbname='"+url.path[1:]+"' user='"+url.username+"' host='"+url.hostname+"' password='"+url.password+"'")
-      #print sys.version
-    #else:
-      #print "DATABASE_URL is missing"
+  cur = connection.cursor()
+  cur.execute ("SELECT * FROM traveling_salesmen ORDER by id DESC;")
+  database_row = cur.fetchone()
+  database_row_id = database_row[0]
+  params = database_row[3]
+  algorithm = database_row[4]
+  if algorithm =="Brute Force (n!)":
+    solver = bft.BruteForceTravelingSalesmanSolver(params)
+  if algorithm =="Ant Total Distance (n^2)":
+    solver = atd.AntTotalDistanceSolver(params)
+  #if algorithm =="Ant Probability (n^2)"
+    #solver = AntSolver.AntSolver(params)    
+  if solver is None:
+    print "ERROR: Invalid solver!"
   else:
-    connection = psycopg2.connect("dbname='pgss_14_cc_dev' user='postgres' password='password'")
-    cur = connection.cursor()
-    cur.execute ("SELECT * FROM traveling_salesmen ORDER by id DESC;")
-    database_row = cur.fetchone()
-    database_row_id = database_row[0]
-    params = database_row[3]
-
-    solver = BruteForceTravelingSalesmanSolver.BruteForceTravelingSalesmanSolver(params)
     solution = solver.solve()
-
     print solution
-
-    #print sys.version
-  #print "Success! ID:", database_row_id
 
 if __name__ == '__main__':
     main()
