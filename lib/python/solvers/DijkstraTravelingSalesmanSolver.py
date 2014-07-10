@@ -18,21 +18,46 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
 
 	bestOrder=[]
 	bestDistance=float("inf")
+	number_of_connections = []
+	distances_array = [[]]
 	
 	def solve(self):
-		self.cords[0].i
+		self.number_of_cities = len(self.cords)
+		self.city_used_in_path = [False]*self.number_of_cities
+  		self.city_used_in_path[0] = True
+  		self.itinerary = []
+  		number_of_connections = [0]*self.number_of_cities
+		self.compute_dist_to_next_city()
+		print "itinerary is: " + str(self.itinerary)
 
-		number_of_cities = len(self.cords)
-		city_used_in_path = [False]*number_of_cities
-  		city_used_in_path[0] = True
-  		index_of_min_distance = [1]
-
-	def dist(self):
-		for k in range(0,len(self.cords)):
+	def compute_all_distances(self): # creating a two-way array for all distances, doesn't seem to be working yet
+		for k in range(0, len(self.cords)):
 			for j in range(0, len(self.cords)):
-				dist_to_city = self.cords[k].dist(self.cords[j])
-				min_dist_from_city = min(dist_to_city)
-				next_city = self.cords.index(min_dist_from_city)
-				index_of_min_distance.append(next_city)
+				distances_array[k].append(self.cords[k].dist(self.cords[j]))
+		print distances_array
 
-		print index_of_min_distance
+	def compute_dist_to_next_city(self): # computes distances to all other cities from one individual city
+		self.dist_to_next_city = []
+		for j in range(0, len(self.cords)):
+			self.dist_to_next_city.append(self.cords[0].dist(self.cords[j]))
+			print "dist to next city is: " + str(self.dist_to_next_city)
+			print "this many coordinates: " + str(len(self.cords))
+		print "min dist is: " + str(min(dist for dist in self.dist_to_next_city if dist > 0))
+		self.next_city = self.dist_to_next_city.index(min(dist for dist in self.dist_to_next_city if dist > 0))
+		print "goto here: " + str(self.next_city)
+		self.itinerary.append(self.next_city)
+		self.city_used_in_path[0] = True
+		print "index of next city is: " + str(self.itinerary)
+
+
+
+dijkstra = DijkstraTravelingSalesmanSolver()
+
+dijkstra.cords.append(Coordinate.Coordinate(90,20))
+dijkstra.cords.append(Coordinate.Coordinate(21,34))
+dijkstra.cords.append(Coordinate.Coordinate(34,56))
+dijkstra.cords.append(Coordinate.Coordinate(28,50))
+dijkstra.cords.append(Coordinate.Coordinate(51,80))
+dijkstra.cords.append(Coordinate.Coordinate(68,72))
+
+print dijkstra.solve()
