@@ -9,16 +9,16 @@
 # Licence:     Creative Commons (CC)
 #-------------------------------------------------------------------------------
 
-import Coordinate
 import json
 
 class TravelingSalesmanSolver:
-	cords = []
-	answer=""
-
-	def __init__(self, params):
-		data = json.loads(params)
-		for c in range(0,len(data['x'])):
+    cords = []
+    answer=""
+    def __init__ (self, params = None):
+        if params == None:
+            return
+        data = json.loads(params)
+        for c in range(0,len(data['x'])):
 			cord = Coordinate.Coordinate(data['x'][c], data['y'][c], c)
 			self.cords.append(cord)
 
@@ -27,7 +27,6 @@ class TravelingSalesmanSolver:
 
 
 
-		
 
 
-	
+

@@ -11,7 +11,7 @@
 
 import math
 class Coordinate:
-  def __init__(self,x, y,i):
+  def __init__(self,x, y,i=0):
     self.x=float(x)
     self.y=float(y)
     self.i=int(i)
