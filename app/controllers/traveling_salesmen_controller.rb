@@ -22,7 +22,7 @@ class TravelingSalesmenController < ApplicationController
     puts my_id
     python_output = `python lib/python/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} my_id`
 
-    returnData = {statusMessage: "Processed", pythonOutput: python_output}
+    returnData = {statusMessage: "Processed", pythonOutput: python_output, algorithm: params[:algorithm]}
 
     #some_hash = {statusMessage: "new"}
     #puts some_hash
