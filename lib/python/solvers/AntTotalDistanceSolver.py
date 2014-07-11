@@ -20,7 +20,7 @@ import random
 class AntTotalDistanceSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
   probability =[[]]
   phermones =[[]]
-  CALCULATIONS=10000000
+  CALCULATIONS=1
   travelIncrease=.1
   traversed=[]
   numTraversed=0
@@ -39,6 +39,7 @@ class AntTotalDistanceSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
       self.traverse()
   def initArrays(self):
     self.probability = [[0]*len(self.cords)]*len(self.cords)
+    self.phermones = [[0]*len(self.cords)]*len(self.cords)
     self.resetArrays()
   def resetArrays(self):
     self.traversed = [False]*len(self.cords)
@@ -55,25 +56,26 @@ class AntTotalDistanceSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
 
     
     self.traversed[c]=True
-    self.total=0
+    total=0
     for j in range(0,len(self.cords)):
-      if self.traversed[j]:continue
-      self.total+=self.probability[c][j]+self.phermones[c][j]
+      if self.traversed[j]:
+        continue
+      total+=self.probability[c][j]+self.phermones[c][j]
     
-    r = Math.random()*total
+    r = random.random()*total
     cur=0
     
     j=0
     for j in range(0,len(self.cords)):
       if self.traversed[j]:continue
-      cur+=probability[c][j]+phernomes[c][j]
+      cur+=self.probability[c][j]+self.phermones[c][j]
       if cur>r:
         self.totalDistance+=self.cords[c].dist(self.cords[j])
-        oneStep(j)
+        self.oneStep(j)
         break
       
     
-    phernomes[c][j]+=self.PHERNOME_SCALE/self.totalDistance/self.totalDistance/self.totalDistance
+    self.phermones[c][j]+=self.PHERNOME_SCALE/self.totalDistance/self.totalDistance/self.totalDistance
   
   def printBestPath(self):
     resetArrays()
@@ -93,8 +95,8 @@ class AntTotalDistanceSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
     bc=0
     for i in range(1,len(self.cords)):
       if traversed[i]:continue
-      if phernomes[c][i]>best:
-        best=phernomes[c][i]
+      if phermones[c][i]>best:
+        best=phermones[c][i]
         bc=i
       
     
@@ -109,13 +111,13 @@ class AntTotalDistanceSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
   def randomPheromes(self):
     for i in range(0,len(self.cords)):
       for j in range(0,len(self.cords)):
-        self.phernomes[i][j]=Math.random()
+        self.phermones[i][j]=Math.random()
       
   
  # def initArrays():
 #    distance= new [len(self.cords)][len(self.cords)]
 #    probability= new [len(self.cords)][len(self.cords)]
-    #phernomes= new [len(self.cords)][len(self.cords)]   
+    #phermones= new [len(self.cords)][len(self.cords)]   
   
   def calculateDistances(self):
     for i in range(0,len(self.cords)):
