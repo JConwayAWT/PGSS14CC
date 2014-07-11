@@ -30,6 +30,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
   PHERNOME_SCALE=10000
   answer=";"
   order = []
+  bestOrder = []
   def solve(self):
     self.calculateIntersects()
     self.initArrays()
@@ -61,21 +62,21 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     self.order.append(c)
 
     if self.numTraversed>=len(self.cords):
-      #x=self.order[0]
-      #for i in range(1,len(self.order)):
-        #x=self.order[i-1]
-        #if(not works):break
-        #xi = (min(x,i),max(x,i))
-        #for a in range(1,len(self.order)):
-          #b=self.order[a-1]
-          #if(not works):break
-          #ab = (min(a,b),max(a,b))
+      x=self.order[0]
+      for i in range(1,len(self.order)):
+        x=self.order[i-1]
+        if(not works):break
+        xi = (min(x,i),max(x,i))
+        for a in range(1,len(self.order)):
+          b=self.order[a-1]
+          if(not works):break
+          ab = (min(a,b),max(a,b))
           #print "<br> Test", x,i,a,b
-          #for l in range(1,len(self.intersecting[min(x,i)][max(x,i)])):
-            #if ab == xi:
+          for l in range(1,len(self.intersecting[min(x,i)][max(x,i)])):
+            if ab == xi:
               #print "OVERLAP"
-              #works=False
-              #break
+              works=False
+              break
       if works:
         self.updatePhermones(c,self.start)
       return works
@@ -109,6 +110,23 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     #self.printPhermones()
     self.resetArrays()
     self.bestStep(0)
+
+    x=self.bestOrder[0]
+    for i in range(1,len(self.bestOrder)):
+      x=self.bestOrder[i-1]
+      if(not works):break
+      xi = (min(x,i),max(x,i))
+      for a in range(1,len(self.bestOrder)):
+        b=self.bestOrder[a-1]
+        if(not works):break
+        ab = (min(a,b),max(a,b))
+        print "<br> Test", x,i,a,b
+        for l in range(1,len(self.intersecting[min(x,i)][max(x,i)])):
+          if ab == xi:
+            print "OVERLAP"
+            works=False
+            break
+
     if self.totalDistance!=0:
       self.bestDistance=min(self.totalDistance,self.bestDistance)
   
@@ -121,6 +139,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
 
   def bestStep(self,c):
     self.answer+=str(c )+","
+    self.bestOrder.append(c)
     self.numTraversed+=1
     if self.numTraversed>=len(self.cords):
       self.totalDistance+=self.cords[c].dist(self.cords[0])
