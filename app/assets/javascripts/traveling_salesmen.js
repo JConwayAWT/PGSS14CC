@@ -79,7 +79,9 @@ function docReady(){
 			console.log("success");
 			$("#output").html(data.pythonOutput);
 			if(data.pythonOutput.indexOf("ERROR:")==-1){//No error
-				solution=data.pythonOutput.split(",");
+				var ansStart=data.pythonOutput.lastIndexOf(';')+1;
+				var ans=data.pythonOutput.substring(ansStart)
+				solution=ans.split(",");
 			}
 		})
 		.fail(function() {

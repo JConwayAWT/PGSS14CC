@@ -19,6 +19,7 @@ from solvers import BruteForceTravelingSalesmanSolver as bft
 from solvers import AntTotalDistanceSolver as atd
 from database import database_connect as dbf
 
+
 def main():
   rails_environment = sys.argv[1]
   connection = dbf.connect_to_database(rails_environment)

@@ -28,6 +28,7 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
     return self.answer;
 
   def getAnswer(self):
+    self.answer=";"
     for c in self.bestOrder:
       self.answer+=str(c.i)+","
       
