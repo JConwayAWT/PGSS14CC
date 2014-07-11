@@ -14,9 +14,9 @@ class TravelingSalesmenController < ApplicationController
 
   def pose_problem
 
-    #debugger; puts "db"
     t = TravelingSalesman.new
     t.problem_parameters = params[:points].to_json
+    t.algorithm = params[:algorithm]
     t.save!
     my_id = t.id
     puts my_id
