@@ -23,8 +23,10 @@ def main():
   rails_environment = sys.argv[1]
   connection = dbf.connect_to_database(rails_environment)
 
+  database_row_id=sys.argv[2]
+
   cur = connection.cursor()
-  cur.execute ("SELECT * FROM traveling_salesmen ORDER by id DESC;")
+  cur.execute ("SELECT * FROM traveling_salesmen WHERE id=\'"+database_row_id+"\' LIMIT 1;")
   database_row = cur.fetchone()
   database_row_id = database_row[0]
   params = database_row[3]
