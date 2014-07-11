@@ -20,7 +20,7 @@ class TravelingSalesmenController < ApplicationController
     t.save!
     my_id = t.id
     puts my_id
-    python_output = `python lib/python/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} my_id`
+    python_output = `python lib/python/tsp/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} my_id`
 
     returnData = {statusMessage: "Processed", pythonOutput: python_output, algorithm: params[:algorithm]}
 

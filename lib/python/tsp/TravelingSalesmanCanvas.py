@@ -33,8 +33,6 @@ def main():
     solver = bft.BruteForceTravelingSalesmanSolver(params)
   if algorithm =="Ant Total Distance (n^2)":
     solver = atd.AntTotalDistanceSolver(params)
-  #if algorithm =="Ant Probability (n^2)"
-    #solver = AntSolver.AntSolver(params)    
   if solver is None:
     print "ERROR: Invalid solver!"
   else:
