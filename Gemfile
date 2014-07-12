@@ -40,7 +40,6 @@ gem 'rails_12factor', group: :production
 # Use unicorn as the app server
 platforms :ruby do
   gem 'unicorn'
-  gem 'rack-timeout'
 end
 
 # Use Capistrano for deployment

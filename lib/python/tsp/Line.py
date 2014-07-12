@@ -1,5 +1,5 @@
 
-def linesIntersect(self,c1,c2,c3,c4):
+def linesIntersect(c1,c2,c3,c4):
     if c2.x==c1.x:
       m1=float("inf")
     else:

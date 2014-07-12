@@ -19,8 +19,7 @@ import Line
 import random
 
 class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
-  def calculateIntersects(self):
-    return 
+  def calculateIntersects(self):    
     self.intersecting= [[ [] for i in range(0,len(self.cords))] for i in range(0,len(self.cords))]
     for i in range(0,len(self.cords)):
       for x in range(i+1,len(self.cords)):
