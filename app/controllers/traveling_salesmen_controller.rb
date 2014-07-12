@@ -14,15 +14,21 @@ class TravelingSalesmenController < ApplicationController
 
   def pose_problem
 
-    t = TravelingSalesman.new
-    t.problem_parameters = params[:points].to_json
-    t.algorithm = params[:algorithm]
-    t.save!
-    my_id = t.id
-    puts my_id
-    python_output = `python lib/python/tsp/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} #{my_id}`
+    x=1
+    for i in 0..1000000000
+      x+=1
+    end
 
-    returnData = {statusMessage: "Processed", pythonOutput: python_output, algorithm: params[:algorithm]}
+    #t = TravelingSalesman.new
+    #t.problem_parameters = params[:points].to_json
+    #t.algorithm = params[:algorithm]
+    #t.save!
+    #my_id = t.id
+    #puts my_id
+    #python_output = `python lib/python/tsp/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} #{my_id}`
+
+    returnData = {statusMessage: "ALter",pythonOutput: "ERROR:A"}
+    #returnData = {statusMessage: "Processed", pythonOutput: python_output, algorithm: params[:algorithm]}
 
     #some_hash = {statusMessage: "new"}
     #puts some_hash
