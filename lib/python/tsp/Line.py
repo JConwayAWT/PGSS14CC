@@ -15,7 +15,9 @@ def linesIntersect(c1,c2,c3,c4):
       y = m1*(x-c1.x)+c1.y
 
       if min(x,c1.x,c2.x)!=x and min(x,c3.x,c4.x)!=x:
-        if min(y,c1.y,c2.y)!=y and min(y,c3.y,c4.y)!=y:
-          return True
+        if max(x,c1.x,c2.x)!=x and max(x,c3.x,c4.x)!=x:
+          if min(y,c1.y,c2.y)!=y and min(y,c3.y,c4.y)!=y:
+            if max(y,c1.y,c2.y)!=y and max(y,c3.y,c4.y)!=y:
+              return True
       return False
         

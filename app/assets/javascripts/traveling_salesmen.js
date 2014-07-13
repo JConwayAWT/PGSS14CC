@@ -27,6 +27,7 @@ function docReady(){
 	var canvas=document.getElementById("canvas");
 	console.log(canvas);
 	var context= canvas.getContext('2d');
+	context.font="14px Georgia";
 
 	var cords = [];
 	var ACCESS_RADIUS=10;
@@ -36,6 +37,14 @@ function docReady(){
 	var moving=-1;
 
 	animate();
+	addRandomCoordinates(50);
+
+	function addRandomCoordinates(numCords){
+		for(var i=0;i<numCords;i++){
+			var c = new Coordinate(Math.random()*500,Math.random()*500,cords.length);
+			cords[cords.length]=c;
+		}
+	}
 
 	function animate(){
 		context.clearRect(0,0,canvas.width,canvas.height);
@@ -147,6 +156,9 @@ function docReady(){
 			if(cord.getDist(x,y)<ACCESS_RADIUS){
 				if(removing){
 					cords.splice(i,1);
+					for(var j=i;j<cords.length;j++){
+						cords[j].i=j;
+					}
 					i--;	
 				}else{
 					cord.moving=true;
@@ -184,14 +196,15 @@ function docReady(){
 
 
 	function addPoint(x, y){
-		var c = new Coordinate(x,y);
+		var c = new Coordinate(x,y,cords.length);
 		cords[cords.length]=c;
 		return c;
 	}
 
-function Coordinate(x,y){
+function Coordinate(x,y,i){
 	this.x=x;
 	this.y=y;
+	this.i=i;
 	this.moving=false;
 	this.setX = function (x){
 		this.x=x;
@@ -204,11 +217,14 @@ function Coordinate(x,y){
 		return Math.sqrt(Math.pow(px-this.x,2)+Math.pow(py-this.y,2));
 	}
 	this.draw = function(){
+		var radius=5;
 		context.beginPath();
-		context.arc(this.x, this.y, 5, 0, 2 * Math.PI, false);
+		context.arc(this.x, this.y, radius, 0, 2 * Math.PI, false);
 		context.fillStyle = this.moving?'red':'green';
 		context.fill();
 		context.stroke();
+		context.fillStyle='black';
+		context.fillText(this.i,this.x+radius,this.y+radius/2); 
 	}
 }
 

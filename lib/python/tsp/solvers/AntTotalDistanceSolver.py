@@ -17,6 +17,7 @@ import math
 import TravelingSalesmanSolver
 import LineOverlapEliminatorTravelingSalesmanSolver
 import random
+import copy
 
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 #  probability =[[]]
@@ -28,11 +29,10 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
   totalDistance=0  
   bestDistance=float("inf")
   PHERNOME_SCALE=10000
-  answer=";"
   order = []
-  bestOrder = []
   def solve(self):
-    self.calculateIntersects()
+    if self.REMOVE_LINE_CROSSES:
+      self.calculateIntersects()
     self.initArrays()
     self.compute()
     self.printBestPath()  
@@ -106,25 +106,11 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     self.phermones[j][c]+=self.PHERNOME_SCALE/self.totalDistance/self.totalDistance/self.totalDistance
 
   def printBestPath(self):
-    #self.printPhermones()
     self.resetArrays()
     self.bestStep(0)
-    #works = True
-    #x=self.bestOrder[0]
-    #for i in range(1,len(self.bestOrder)):
-      #x=self.bestOrder[i-1]
-      #if(not works):break
-      #xi = (min(x,i),max(x,i))
-      #for a in range(1,len(self.bestOrder)):
-        #b=self.bestOrder[a-1]
-        #if(not works):break
-        #ab = (min(a,b),max(a,b))
-        #print "<br> Test", x,i,a,b
-        #for l in range(1,len(self.intersecting[min(x,i)][max(x,i)])):
-          #if ab == xi:
-            #print "OVERLAP"
-            #works=False
-            #break
+    self.removeLineCrosses()
+    for c in range(0,len(self.bestOrder)):
+      self.answer+=str(self.bestOrder[c])+","
 
     if self.totalDistance!=0:
       self.bestDistance=min(self.totalDistance,self.bestDistance)
@@ -137,7 +123,6 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
         print self.phermones[i][j]," "
 
   def bestStep(self,c):
-    self.answer+=str(c )+","
     self.bestOrder.append(c)
     self.numTraversed+=1
     if self.numTraversed>=len(self.cords):

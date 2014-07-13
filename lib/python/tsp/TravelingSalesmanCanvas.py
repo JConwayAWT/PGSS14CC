@@ -17,6 +17,7 @@ import sys
 from solvers import TravelingSalesmanSolver
 from solvers import BruteForceTravelingSalesmanSolver as bft
 from solvers import AntTotalDistanceSolver as atd
+from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from database import database_connect as dbf
 
 
@@ -36,6 +37,11 @@ def main():
     solver = bft.BruteForceTravelingSalesmanSolver(params)
   if algorithm =="Ant Total Distance (n^2)":
     solver = atd.AntTotalDistanceSolver(params)
+    solver.REMOVE_LINE_CROSSES=False
+  if algorithm =="Ant Total Distance Remove Line Crosses (n^3)":
+    solver = atd.AntTotalDistanceSolver(params) 
+  if algorithm =="Random Remove Line Crosses (n^2 to n^3)":
+    solver = loe.LineOverlapEliminatorTravelingSalesmanSolver(params)
   if solver is None:
     print "ERROR: Invalid solver!"
   else:
