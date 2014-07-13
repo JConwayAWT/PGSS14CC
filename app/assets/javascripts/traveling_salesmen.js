@@ -18,8 +18,8 @@ function addJob(){
 }
 
 function doneProcessing(){
-	$("#job"+jobs+">.progress").fadeOut(500);
 	processing=false;
+	$("#job"+jobs+">.progress").fadeOut(500);
 }
 
 function docReady(){
@@ -34,10 +34,13 @@ function docReady(){
 	var removing=false;
 	var solution;
 
+	var startTime=0;
+	var totalDist=0;
+
 	var moving=-1;
 
 	animate();
-	addRandomCoordinates(50);
+	//addRandomCoordinates(150);
 
 	function addRandomCoordinates(numCords){
 		for(var i=0;i<numCords;i++){
@@ -78,6 +81,7 @@ function docReady(){
 		}
 		var points = {x: xvalues, y: yvalues};
 		var algorithm=$("#algorithm").val();
+		var startTime= (new Date().getTime());
 		$.ajax({
 			url: '/pose_traveling_salesman_problem',
 			type: 'POST',
@@ -86,11 +90,15 @@ function docReady(){
 		.done(function(data) {
 			doneProcessing();
 			console.log("success");
+			$("#job"+jobs).append("<br>Points: "+cords.length);
+			$("#job"+jobs).append("<br>Time (s): "+Math.floor(((new Date().getTime())-startTime)/1000));
 			$("#output").html(data.pythonOutput);
 			if(data.pythonOutput.indexOf("ERROR:")==-1){//No error
 				var ansStart=data.pythonOutput.lastIndexOf(';')+1;
 				var ans=data.pythonOutput.substring(ansStart)
 				solution=ans.split(",");
+				calculateTotalDist();
+				$("#job"+jobs).append("<br>Total Distance (px): "+Math.floor(totalDist));
 			}
 		})
 		.fail(function() {
@@ -115,8 +123,16 @@ function docReady(){
 			removing=false;
 		}
 	});
-
+	function calculateTotalDist(){
+		totalDist=0;
+		p= solution[cords.length-1];
+		for(var i=0;i<cords.length;i++){
+		   	totalDist+=cords[p].getDistCord(cords[solution[i]]);
+		   	p=solution[i];	
+		}
+	}
 	function drawSolution(){
+		totalDist=0;
 		if(solution!=null){
 			p= solution[cords.length-1];
 			for(var i=0;i<cords.length;i++){
@@ -125,6 +141,7 @@ function docReady(){
 		    	context.lineTo(cords[solution[i]].x, cords[solution[i]].y);
 		    	context.stroke();
 		    	p=solution[i];
+		    	totalDist+=cords[p].getDistCord(cords[solution[i]]);
 			}
 		}
 	}
@@ -215,6 +232,9 @@ function Coordinate(x,y,i){
 	}
 	this.getDist= function(px,py){
 		return Math.sqrt(Math.pow(px-this.x,2)+Math.pow(py-this.y,2));
+	}
+	this.getDistCord = function(c){
+		return this.getDist(c.x,c.y);
 	}
 	this.draw = function(){
 		var radius=5;

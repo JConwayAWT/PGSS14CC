@@ -26,6 +26,9 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
 
   def solve(self):
     self.bestOrder = [i for i in range(0,len(self.cords))]
+
+    random.shuffle(self.bestOrder)
+
     self.calculateIntersects()
     self.removeLineCrosses()
     self.printBestPath()  
@@ -38,37 +41,34 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
   def removeLineCrosses(self):
     restarts=0
     if self.REMOVE_LINE_CROSSES:
-      self.bestOrder.append(0)
+      #self.bestOrder.append(0)
       restarts=-1
       restart=True
       while restart:
+        #print "<br> <b> START</b>"
         restart=False
         restarts+=1
-        if restarts==2*len(self.cords):
+        if restarts==len(self.cords):
           break
         for iindex in range(1,len(self.bestOrder)):
-          if restart:
-              break
           i=self.bestOrder[iindex] 
           x=self.bestOrder[iindex-1]
           xi = (min(x,i),max(x,i))
-          for aindex in range(iindex+2,len(self.bestOrder)):
-            if restart:
-              break
-            a=self.bestOrder[aindex]           
+          for aindex in range(iindex+2,len(self.bestOrder)+1):
+            aindexAdjusted= aindex if aindex<len(self.bestOrder) else 0
+            a=self.bestOrder[aindexAdjusted]           
             b=self.bestOrder[aindex-1]
             ab = (min(a,b),max(a,b))
-            #print "<br>?",x,i,b,a,iindex,aindex,len(self.bestOrder),len(self.intersecting[min(x,i)][max(x,i)])
-            for l in range(1,len(self.intersecting[min(x,i)][max(x,i)])):
-              #print " L ",l
+            #print "<br>?",x,i,b,a,iindex,aindexAdjusted,len(self.bestOrder),len(self.intersecting[min(x,i)][max(x,i)]),ab,xi
+            for l in range(0,len(self.intersecting[min(x,i)][max(x,i)])):
+              #print "<br>L ",ab,min(x,i),max(i,x),self.intersecting[min(x,i)][max(x,i)][l]
               if ab == self.intersecting[min(x,i)][max(x,i)][l]:
                 bestOrderCopy = copy.copy(self.bestOrder)
-                #print "<br> REPLACE ",iindex,aindex
                 for r in range(iindex,(aindex-1)+1):
                   self.bestOrder[r]=bestOrderCopy[aindex-1-(r-iindex)]
                 restart=True
                 break
-    print "Restarts: ",restarts,";"
+    #print "Restarts: ",restarts,";"
 
   def calculateIntersects(self):    
     self.intersecting= [[ [] for i in range(0,len(self.cords))] for i in range(0,len(self.cords))]
@@ -81,6 +81,7 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
             if b == x or b == i:
               continue
             if Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b]):
+              #print "<br> Intersect ",i,x,a,b
               self.intersecting[i][x].append((a,b))
               self.intersecting[a][b].append((i,x))
               

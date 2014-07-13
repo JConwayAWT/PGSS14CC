@@ -4,7 +4,7 @@ class TravelingSalesmenController < ApplicationController
   # GET /traveling_salesmen
   # GET /traveling_salesmen.json
   def index
-    
+     
   end
 
   # GET /traveling_salesmen/1
