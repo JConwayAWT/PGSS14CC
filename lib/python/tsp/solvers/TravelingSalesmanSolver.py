@@ -19,7 +19,7 @@ import json
 
 class TravelingSalesmanSolver:
 	cords = []
-	answer=""
+	answer=";"
 
 	def __init__(self, params=None):
 		if params == None:

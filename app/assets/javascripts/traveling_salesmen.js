@@ -18,8 +18,8 @@ function addJob(){
 }
 
 function doneProcessing(){
-	$("#job"+jobs+">.progress").fadeOut(500);
 	processing=false;
+	$("#job"+jobs+">.progress").fadeOut(500);
 }
 
 function docReady(){
@@ -27,15 +27,27 @@ function docReady(){
 	var canvas=document.getElementById("canvas");
 	console.log(canvas);
 	var context= canvas.getContext('2d');
+	context.font="14px Georgia";
 
 	var cords = [];
 	var ACCESS_RADIUS=10;
 	var removing=false;
 	var solution;
 
+	var startTime=0;
+	var totalDist=0;
+
 	var moving=-1;
 
 	animate();
+	//addRandomCoordinates(150);
+
+	function addRandomCoordinates(numCords){
+		for(var i=0;i<numCords;i++){
+			var c = new Coordinate(Math.random()*500,Math.random()*500,cords.length);
+			cords[cords.length]=c;
+		}
+	}
 
 	function animate(){
 		context.clearRect(0,0,canvas.width,canvas.height);
@@ -69,6 +81,7 @@ function docReady(){
 		}
 		var points = {x: xvalues, y: yvalues};
 		var algorithm=$("#algorithm").val();
+		var startTime= (new Date().getTime());
 		$.ajax({
 			url: '/pose_traveling_salesman_problem',
 			type: 'POST',
@@ -77,11 +90,15 @@ function docReady(){
 		.done(function(data) {
 			doneProcessing();
 			console.log("success");
+			$("#job"+jobs).append("<br>Points: "+cords.length);
+			$("#job"+jobs).append("<br>Time (s): "+Math.floor(((new Date().getTime())-startTime)/1000));
 			$("#output").html(data.pythonOutput);
 			if(data.pythonOutput.indexOf("ERROR:")==-1){//No error
 				var ansStart=data.pythonOutput.lastIndexOf(';')+1;
 				var ans=data.pythonOutput.substring(ansStart)
 				solution=ans.split(",");
+				calculateTotalDist();
+				$("#job"+jobs).append("<br>Total Distance (px): "+Math.floor(totalDist));
 			}
 		})
 		.fail(function() {
@@ -106,8 +123,16 @@ function docReady(){
 			removing=false;
 		}
 	});
-
+	function calculateTotalDist(){
+		totalDist=0;
+		p= solution[cords.length-1];
+		for(var i=0;i<cords.length;i++){
+		   	totalDist+=cords[p].getDistCord(cords[solution[i]]);
+		   	p=solution[i];	
+		}
+	}
 	function drawSolution(){
+		totalDist=0;
 		if(solution!=null){
 			p= solution[cords.length-1];
 			for(var i=0;i<cords.length;i++){
@@ -116,6 +141,7 @@ function docReady(){
 		    	context.lineTo(cords[solution[i]].x, cords[solution[i]].y);
 		    	context.stroke();
 		    	p=solution[i];
+		    	totalDist+=cords[p].getDistCord(cords[solution[i]]);
 			}
 		}
 	}
@@ -147,6 +173,9 @@ function docReady(){
 			if(cord.getDist(x,y)<ACCESS_RADIUS){
 				if(removing){
 					cords.splice(i,1);
+					for(var j=i;j<cords.length;j++){
+						cords[j].i=j;
+					}
 					i--;	
 				}else{
 					cord.moving=true;
@@ -184,14 +213,15 @@ function docReady(){
 
 
 	function addPoint(x, y){
-		var c = new Coordinate(x,y);
+		var c = new Coordinate(x,y,cords.length);
 		cords[cords.length]=c;
 		return c;
 	}
 
-function Coordinate(x,y){
+function Coordinate(x,y,i){
 	this.x=x;
 	this.y=y;
+	this.i=i;
 	this.moving=false;
 	this.setX = function (x){
 		this.x=x;
@@ -203,12 +233,18 @@ function Coordinate(x,y){
 	this.getDist= function(px,py){
 		return Math.sqrt(Math.pow(px-this.x,2)+Math.pow(py-this.y,2));
 	}
+	this.getDistCord = function(c){
+		return this.getDist(c.x,c.y);
+	}
 	this.draw = function(){
+		var radius=5;
 		context.beginPath();
-		context.arc(this.x, this.y, 5, 0, 2 * Math.PI, false);
+		context.arc(this.x, this.y, radius, 0, 2 * Math.PI, false);
 		context.fillStyle = this.moving?'red':'green';
 		context.fill();
 		context.stroke();
+		context.fillStyle='black';
+		context.fillText(this.i,this.x+radius,this.y+radius/2); 
 	}
 }
 
