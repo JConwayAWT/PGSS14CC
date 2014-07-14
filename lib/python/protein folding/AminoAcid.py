@@ -1,20 +1,25 @@
 class AminoAcid:
-    polarity #will be either A or B (A = hydrophobic, B = hydrophilic
-    num #tells the order of the amino acid change
-    locationx
-    locationy #the coordinates of the AminoAcid on the coordinate plane
-    isUsed #shows if the amino acid has been placed onto the coordinate plane
+##    polarity #will be either A or B (A = hydrophobic, B = hydrophilic
+##    num #tells the order of the amino acid change
+##    locationx
+##    locationy #the coordinates of the AminoAcid on the coordinate plane
+##    isUsed #shows if the amino acid has been placed onto the coordinate plane
 
-    def __init__(self, pole, num1): #pole = A/B, num1 is the order
-        polarity = pole
-        num = num1
-        isUsed = false
+    def __init__(self):
+        self.pole = None #Polarity of AA
+        self.index = None #Index # of AA in chain
+        self.coord = None #coordinate of Amino Acid
+        self.pNeighbor = None #previousNeighbor
+        self.nNeighbor = None #nextNeighbor
 
-    def isUsed():
-        isUsed = true
+    def set_Polarity_and_Index(AAlist, indexnum):
+        self.Pole = AAlist[indexnum]
+        self.index = indexnum
 
-    def setLocation(locationx1, locationy1): #places the amino acids at coordinates
-        locationx = locationx1
-        locationy = locationy1
+    def setCoord(coord):
+        self.coord = coord
 
-    def returnLocation(): #returns where the amino acid is
+    def setPreviousNeighbor(pAcid): #asks for a coordinate
+        self.pNeighbor = pAcid
+    def setNextNeighbor(nAcid): #asks for a coordinate
+        self.nNeighbor = nAcid
