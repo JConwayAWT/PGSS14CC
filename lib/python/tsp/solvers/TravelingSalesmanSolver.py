@@ -12,7 +12,8 @@
 import os, sys
 lib_path = os.path.abspath('..')
 sys.path.append(lib_path)
-
+lib_path = os.path.abspath('../../helpers')
+sys.path.append(lib_path)
 import time
 import Coordinate
 import json
