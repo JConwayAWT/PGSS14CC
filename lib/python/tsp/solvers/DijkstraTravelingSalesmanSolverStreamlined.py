@@ -32,7 +32,7 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
     distances_from_outbound = self.distances_array[outward_index]
     print self.distances_array
     print distances_from_outbound
-    minimum_distance_from_outbound = 1000
+    minimum_distance_from_outbound = 9999999999999999
     index_minimum_current_outbound_city = 0
     for i in range(len(self.cords)):
       if distances_from_outbound[i] < minimum_distance_from_outbound and distances_from_outbound[i] != 0 and self.degree_for_city_as_index[i] != 2:
@@ -43,7 +43,7 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
 
     distances_from_inbound = self.distances_array[inward_index]
     print distances_from_inbound
-    minimum_distance_from_inbound = 1000
+    minimum_distance_from_inbound = 99999999999999
     index_minimum_current_inbound_city = 0
     print "minimum_distance_from_inbound" + str(minimum_distance_from_inbound)
     for i in range(len(self.cords)):
