@@ -29,7 +29,6 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
     # This isn't perfect:
     self.CALCULATIONS=math.sqrt(len(self.cords))*math.factorial(len(self.cords))
 
-
     self.bestDistance=float("inf")
     self.compute(0, 0, -1, []);
     self.getAnswer()
