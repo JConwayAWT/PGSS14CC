@@ -1,10 +1,10 @@
 #-------------------------------------------------------------------------------
-# Name:        SimulatedAnnealingSalesmanSolver
-# Purpose:     model traveling salesman problem based on simulated annealing
+# Name:        module2
+# Purpose:
 #
 # Author:      Justin
 #
-# Created:     10/07/2014
+# Created:     14/07/2014
 # Copyright:   (c) Justin 2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     xold=self.cord[index].x
     yold=self.cord[index].y
     cords=self.getcenterofmass()
-    self.cord[index].init(xold-cords[0],yold-cords[1], 0);
+    self.cord[index].init(xold-cords[0],yold-cords[1], i);
 
   def getradius(self, point):
     return ((self.cords[point].x)**2 + (self.cords[point].y)**2)**0.5
@@ -66,6 +66,22 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
 
 
 
+import database
+get Center of mass
+add to database distance
+find max distance points
+    if new is farther then save abs
+    else save old
+choose longest distance between points
+find parallel line to longest passing through COM
+order distance by radius
+for point if closer than parallel line break at parallel line
+
+
+
+annealing
+score based on angle
+it
 
 
 
