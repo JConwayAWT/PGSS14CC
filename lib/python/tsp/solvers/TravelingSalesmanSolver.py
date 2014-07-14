@@ -20,6 +20,8 @@ import json
 class TravelingSalesmanSolver:
 	cords = []
 	answer=";"
+	cur=None
+	database_row_id=0
 
 	def __init__(self, params=None):
 		if params == None:
@@ -32,11 +34,22 @@ class TravelingSalesmanSolver:
 	def solve(self):
 		return "No solution implemented!"
 
+	def setStatusDone(self,statusDone):
+		self.cur.execute ("UPDATE traveling_salesmen SET statusDone=\'"+statusDone+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+
+	def setSolution(self,answer):
+		print "Solution"
+		print answer
+		print self.cur
+		print self.database_row_id
+		self.cur.execute ("UPDATE traveling_salesmen SET answer=\'"+answer+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+
 	def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
 		assert len(xPoints) == len(yPoints)
 		for i in range(0,len(xPoints)):
 			c = Coordinate.Coordinate(xPoints[i],yPoints[i])
 			self.cords.append(c)
+
 
 
 

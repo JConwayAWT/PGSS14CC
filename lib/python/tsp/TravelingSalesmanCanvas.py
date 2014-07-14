@@ -22,10 +22,10 @@ from database import database_connect as dbf
 
 
 def main():
-  rails_environment = sys.argv[1]
+  rails_environment = sys.argv[0]
   connection = dbf.connect_to_database(rails_environment)
 
-  database_row_id=sys.argv[2]
+  database_row_id=sys.argv[1]
 
   cur = connection.cursor()
   cur.execute ("SELECT * FROM traveling_salesmen WHERE id=\'"+database_row_id+"\' LIMIT 1;")
@@ -45,7 +45,10 @@ def main():
   if solver is None:
     print "ERROR: Invalid solver!"
   else:
-    solution = solver.solve()
+    solver.cur = cur
+    solver.database_row_id=database_row_id
+    solution =solver.solve()
+    solver.setSolution(solution)
     print solution
 
 if __name__ == '__main__':

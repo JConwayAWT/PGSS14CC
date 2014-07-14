@@ -18,15 +18,10 @@ class TravelingSalesmenController < ApplicationController
     t.problem_parameters = params[:points].to_json
     t.algorithm = params[:algorithm]
     t.save!
-    my_id = t.id
-    puts my_id
-    python_output = `python lib/python/tsp/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} #{my_id}`
+    t.delay.pose_problem
 
-    returnData = {statusMessage: "Processed", pythonOutput: python_output, algorithm: params[:algorithm]}
+    returnData = {statusMessage: "Processed"}
 
-    #some_hash = {statusMessage: "new"}
-    #puts some_hash
-    #puts some_hash[:statusMessage]
     render json: returnData and return
   end
 
