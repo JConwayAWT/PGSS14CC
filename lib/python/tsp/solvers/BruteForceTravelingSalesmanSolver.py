@@ -8,7 +8,11 @@
 # Copyright:   (c) Martin 2014
 # Licence:     Creative Commons (CC)
 #-------------------------------------------------------------------------------
+import os, sys
+lib_path = os.path.abspath('..')
+sys.path.append(lib_path)
 
+import Coordinate
 import math
 import TravelingSalesmanSolver
 
@@ -16,19 +20,34 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
 
   bestOrder=[]
   bestDistance=float("inf")
+  CALCS_DONE=0
+  CALCULATIONS=0
+  CALCULATION_UPDATES=100000
 
   def solve(self):
+    # I dont understand what the actual running time is... for some reason it isn't N!
+    # This isn't perfect:
+    self.CALCULATIONS=math.sqrt(len(self.cords))*math.factorial(len(self.cords))
+
+
     self.bestDistance=float("inf")
     self.compute(0, 0, -1, []);
     self.getAnswer()
     return self.answer;
 
   def getAnswer(self):
+    self.answer=";"
     for c in self.bestOrder:
       self.answer+=str(c.i)+","
-      
+    self.answer+="0"
 
   def compute(self,traversed, totalDistance, srcNum, order):
+
+    self.CALCS_DONE+=1
+    if self.CALCS_DONE%self.CALCULATION_UPDATES==0:
+      pDone=float(self.CALCS_DONE)/self.CALCULATIONS
+      self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+
     if traversed==(pow(2, len(self.cords))-1):
       totalDistance+=order[len(order)-1].dist(order[0])
       if (totalDistance<self.bestDistance):
