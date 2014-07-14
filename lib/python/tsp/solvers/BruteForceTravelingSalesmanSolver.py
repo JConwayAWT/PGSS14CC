@@ -75,6 +75,12 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
         o.append(self.cords[i])
         self.compute(setTraversed(traversed, i), totalDistance+dist, i, o)
 
+    #available_indexes = range(len(self.cords))
+    #for permutation in itertools.permutations(available_indexes, len(self.colds)):
+      #current_distance = calculate_distance_for(permutation)
+
+
+
 
 def setTraversed(traversed, n):
   return traversed | 1<<n

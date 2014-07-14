@@ -8,18 +8,21 @@ var processing=false;
 $(document).ready(docReady);
 
 function addJob(){
+	
 	jobs++;
-	$("#jobs").prepend("<div id=\"job"+jobs+"\" class=\"job\">");
-	//$("#job"+jobs).hide();
-	//$("#job"+jobs).slideDown(200);
+	$("#jobs").append("<div id=\"job"+jobs+"\" class=\"job\">");
 	$("#job"+jobs).append("<h1>Job "+(jobs)+"</h1>");
 	$("#job"+jobs).append("<br>"+$("#algorithm").val());
-	$("#job"+jobs).append(" <div class=\"progress\"> <div id=\"progress"+jobs+"\" class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Waiting in queue...</span></div></div>");
+	//$("#job"+jobs).append(" <div class=\"progress\"> <div id=\"progress"+jobs+"\" class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Waiting in queue...</span></div></div>");
+	$("#floatingProgressBar").fadeIn(500);
 }
+
+
+	
 
 function doneProcessing(){
 	processing=false;
-	$("#job"+jobs+">.progress").fadeOut(500);
+	$("#floatingProgressBar").fadeOut(500);
 }
 
 function docReady(){
@@ -43,16 +46,56 @@ function docReady(){
 
 	animate();
 	getSolutionProgress();
-	addRandomCoordinates(10);
+	addRandomCoordinates(100);
+	doneProcessing();
+
+	$(".handle").mousedown(function(e) {
+		dragging=$(this);
+		dragY=e.pageY-parseInt(dragging.parent().css('top'));
+		dragX=e.pageX-parseInt(dragging.parent().css('left'));
+	});
+
+
+	var dragging=null;
+	var dragY=0;
+	var dragX=0;
+	
+
+	$(window).mouseup(function(e) {
+		dragging=null;
+	});
+
+	$(window).mousemove(function(e) {
+		if(dragging!=null){
+			var dispY=e.pageY-dragY;
+			var dispX=e.pageX-dragX;
+
+			if(dispY<30)dispY=30;
+			var bottomY=$(window).height()-dragging.parent().height();
+			if(dispY>bottomY)dispY=bottomY;
+
+			var rightX=$(window).width()-dragging.parent().width();
+			if(dispX>rightX)dispX=rightX;
+			if(dispX<0)dispX=0;
+			
+			dragging.parent().css('top',dispY);
+			dragging.parent().css('left',dispX);
+		}
+	});
+	
 
 	function addRandomCoordinates(numCords){
 		for(var i=0;i<numCords;i++){
-			var c = new Coordinate(Math.random()*500,Math.random()*500,cords.length);
+			var c = new Coordinate(500+Math.random()*500,60+Math.random()*500,cords.length);
 			cords[cords.length]=c;
 		}
 	}
 
 	function animate(){
+
+		context.canvas.width=innerWidth-20;
+		context.canvas.height=innerHeight-20;
+
 		context.clearRect(0,0,canvas.width,canvas.height);
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
@@ -118,8 +161,8 @@ function docReady(){
 				//console.log(data.message);
 				//console.log(data.statusDone);
 				//console.log(data.done)
-				$("#statusDone"+jobs).html(data.statusDone);
-				$("#progress"+jobs).css("width",data.statusDone.substring(0,data.statusDone.indexOf('%')),"%");
+				$("#statusDone").html(data.statusDone);
+				$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#floatingProgressBar").width());
 				if(data.answer!=""){
 					$("#output").html(data.answer);
 					if(data.answer.indexOf("ERROR:")==-1){//No error

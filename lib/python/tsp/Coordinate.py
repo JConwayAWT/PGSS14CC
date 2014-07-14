@@ -1,4 +1,3 @@
-#-------------------------------------------------------------------------------
 # Name:        Coordinate
 # Purpose:     A coordinate
 #
@@ -14,7 +13,7 @@ class Coordinate:
   def __init__(self,x, y,i=0):
     self.x=float(x)
     self.y=float(y)
-    self.i=int(i)  
+    self.i=int(i)
   def dist(self,px, py):
     return math.sqrt(pow(self.px-a.x, 2)+pow(self.py-a.y, 2))
   def dist(self,a):
