@@ -24,6 +24,7 @@ from database import database_connect as dbf
 def main():
   rails_environment = sys.argv[1]
   connection = dbf.connect_to_database(rails_environment)
+  connection.autocommit = True
 
   database_row_id=sys.argv[2]
 
@@ -33,19 +34,28 @@ def main():
   database_row_id = database_row[0]
   params = database_row[3]
   algorithm = database_row[4]
+
   if algorithm =="Brute Force (n!)":
     solver = bft.BruteForceTravelingSalesmanSolver(params)
+
   if algorithm =="Ant Total Distance (n^2)":
     solver = atd.AntTotalDistanceSolver(params)
     solver.REMOVE_LINE_CROSSES=False
+
   if algorithm =="Ant Total Distance Remove Line Crosses (n^3)":
     solver = atd.AntTotalDistanceSolver(params) 
+
   if algorithm =="Random Remove Line Crosses (n^2 to n^3)":
     solver = loe.LineOverlapEliminatorTravelingSalesmanSolver(params)
+
   if solver is None:
     print "ERROR: Invalid solver!"
   else:
-    solution = solver.solve()
+    solver.cur = cur
+    solver.database_row_id=database_row_id
+    solution =solver.solve()
+    solver.setSolution(solution)
+    solver.setDone('y')
     print solution
 
 if __name__ == '__main__':

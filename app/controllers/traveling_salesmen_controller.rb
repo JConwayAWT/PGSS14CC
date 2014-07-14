@@ -12,21 +12,27 @@ class TravelingSalesmenController < ApplicationController
   def show
   end
 
+  def retreive_problem
+    t = TravelingSalesman.find(params[:id])
+
+    returnData = {message: t.message,answer: t.answer,statusDone: t.statusdone,done: t.done}
+
+    render json: returnData and return
+  end
+
   def pose_problem
 
     t = TravelingSalesman.new
     t.problem_parameters = params[:points].to_json
     t.algorithm = params[:algorithm]
+    t.statusdone = "Waiting in queue..."
+    t.done=false
     t.save!
-    my_id = t.id
-    puts my_id
-    python_output = `python lib/python/tsp/TravelingSalesmanCanvas.py #{ENV["RAILS_ENV"]} #{my_id}`
+    
+    SolverJob.new.async.perform(t.id)
 
-    returnData = {statusMessage: "Processed", pythonOutput: python_output, algorithm: params[:algorithm]}
+    returnData = {statusMessage: "Processed",databaseId: t.id}
 
-    #some_hash = {statusMessage: "new"}
-    #puts some_hash
-    #puts some_hash[:statusMessage]
     render json: returnData and return
   end
 
