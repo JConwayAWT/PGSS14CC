@@ -22,6 +22,7 @@ from solvers import TravelingSalesmanSolver
 from solvers import BruteForceTravelingSalesmanSolver as bft
 from solvers import AntTotalDistanceSolver as atd
 from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
+from solvers import GravitationalTravelingSalesmanSolver as gts
 from database import database_connect as dbf
 
 
@@ -51,6 +52,9 @@ def main():
 
   if algorithm =="Random Remove Line Crosses (n^2 to n^3)":
     solver = loe.LineOverlapEliminatorTravelingSalesmanSolver(params)
+
+  if algorithm =="Gravity":
+    solver = gts.GravitationalTravelingSalesmanSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"

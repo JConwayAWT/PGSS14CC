@@ -20,9 +20,6 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
       current = Coordinate.Coordinate(0, 0, 0);
       pointsLeft = [];
 
-      def __init__(self):
-        pass
-
       def solve(self):
         if len(self.cords) < 3:
             BruteForceTravelingSalesmanSolver.solve();
