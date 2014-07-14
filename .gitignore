@@ -1,3 +1,3 @@
 /tmp
 /log/*.log
-/lib/python/*.pyc
+*.pyc

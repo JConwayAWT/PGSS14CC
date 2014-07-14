@@ -1,0 +1,19 @@
+import random
+
+hydrophobicA = ['A', 'A', 'A', 'A', 'A', 'A', 'A']
+hydrophilicB = ['B', 'B', 'B', 'B', 'B', 'B', 'B','B', 'B', 'B', 'B', 'B', 'B']
+totalAminoAcids = hydrophobicA + hydrophilicB
+
+
+def repeatAAGen(n):    # generate AAs
+    chain = ""
+    counter = 0
+    while counter < n:
+        acid = random.choice(totalAminoAcids)
+        chain += acid
+        counter += 1
+    return chain
+
+n=21
+chain = repeatAAGen(n)
+print chain
