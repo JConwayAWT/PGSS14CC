@@ -43,7 +43,7 @@ function docReady(){
 
 	animate();
 	getSolutionProgress();
-	addRandomCoordinates(100);
+	addRandomCoordinates(10);
 
 	function addRandomCoordinates(numCords){
 		for(var i=0;i<numCords;i++){
