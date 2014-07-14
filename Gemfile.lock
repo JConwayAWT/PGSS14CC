@@ -33,6 +33,8 @@ GEM
     bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
     builder (3.2.2)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -125,6 +127,8 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sucker_punch (1.1)
+      celluloid (~> 0.15.2)
     temple (0.6.8)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
@@ -132,6 +136,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timers (1.1.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -170,6 +175,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   slim
   spring
+  sucker_punch
   therubyracer
   turbolinks
   tzinfo-data

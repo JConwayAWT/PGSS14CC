@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  match "/users/change_first_name", to: "users#change_first_name", via: :get
   resources :traveling_salesmen
   resources :users
 
