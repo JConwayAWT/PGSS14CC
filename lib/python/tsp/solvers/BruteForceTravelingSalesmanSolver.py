@@ -11,7 +11,8 @@
 import os, sys
 lib_path = os.path.abspath('..')
 sys.path.append(lib_path)
-
+lib_path = os.path.abspath('../../helpers')
+sys.path.append(lib_path)
 import Coordinate
 import math
 import TravelingSalesmanSolver
@@ -28,7 +29,6 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
     # I dont understand what the actual running time is... for some reason it isn't N!
     # This isn't perfect:
     self.CALCULATIONS=math.sqrt(len(self.cords))*math.factorial(len(self.cords))
-
 
     self.bestDistance=float("inf")
     self.compute(0, 0, -1, []);
@@ -74,6 +74,12 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
         o = list(order)
         o.append(self.cords[i])
         self.compute(setTraversed(traversed, i), totalDistance+dist, i, o)
+
+    #available_indexes = range(len(self.cords))
+    #for permutation in itertools.permutations(available_indexes, len(self.colds)):
+      #current_distance = calculate_distance_for(permutation)
+
+
 
 
 def setTraversed(traversed, n):

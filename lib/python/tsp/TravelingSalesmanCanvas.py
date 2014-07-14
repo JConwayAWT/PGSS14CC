@@ -10,6 +10,10 @@
 #-------------------------------------------------------------------------------
 
 
+import os, sys
+lib_path = os.path.abspath('../helpers')
+sys.path.append(lib_path)
+
 import psycopg2
 import os
 import urlparse
