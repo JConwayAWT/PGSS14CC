@@ -14,7 +14,7 @@ function addJob(){
 	//$("#job"+jobs).slideDown(200);
 	$("#job"+jobs).append("<h1>Job "+(jobs)+"</h1>");
 	$("#job"+jobs).append("<br>"+$("#algorithm").val());
-	$("#job"+jobs).append(" <div class=\"progress\"> <div class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Processing...</span></div></div>");
+	$("#job"+jobs).append(" <div class=\"progress\"> <div class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Waiting in queue...</span></div></div>");
 }
 
 function doneProcessing(){
@@ -72,7 +72,7 @@ function docReady(){
 		var xvalues =[];
 		var yvalues=[];
 
-		$("#output").html("Processing...");
+		$("#output").html("Waiting in queue...");
 		processing=true;
 
 		addJob();
