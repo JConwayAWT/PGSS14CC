@@ -1,42 +1,3 @@
-<<<<<<< HEAD
-# encoding: UTF-8
-# This file is auto-generated from the current state of the database. Instead
-# of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
-#
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
-#
-# It's strongly recommended that you check this file into your version control system.
-
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20140708004843) do
-=======
-ActiveRecord::Schema.define(version: 20140708000534) do
->>>>>>> 87397741cf5cacaaac37662dcd3e34369a7a0645
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "traveling_salesmen", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-<<<<<<< HEAD
-    t.text     "problem_parameters"
-=======
->>>>>>> 87397741cf5cacaaac37662dcd3e34369a7a0645
-  end
-
-  create_table "users", force: true do |t|
-    t.string "first_name"
-    t.string "last_name"
-  end
-
-end
-=======
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -67,4 +28,3 @@ ActiveRecord::Schema.define(version: 20140708004843) do
   end
 
 end
->>>>>>> 1e485f741f6a262ebaeeaa27c387b99467810a0f
