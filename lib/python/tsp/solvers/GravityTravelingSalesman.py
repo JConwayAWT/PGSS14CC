@@ -26,17 +26,22 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
             BruteForceTravelingSalesmanSolver.solve();
         for index in range(0, len(self.cords)):
             self.pointsLeft.append(self.cords[index]);
-        self.bestDistance=float("inf");
+        self.bestDistance= float("inf");
+        self.CM = self.getCM();
         index = self.findFarthest();
         if index > 0:
             temp = self.cords[index];
             self.cords[index] = self.cords[0];
             self.cords[0] = temp;
+            self.pointsLeft[index] = self.cords[index];
+            self.pointsLeft[0] = temp;
         else:
             temp = self.cords[index];
             self.cords[index] = self.cords[len(self.cords) - 1];
             self.cords[len(self.cords) - 1] = temp;
-        current = self.cords[0];
+            self.pointsLeft[index] = self.cords[index];
+            self.pointsLeft[len(self.cords) - 1] = temp;
+        self.current = self.cords[0];
         self.compute();
         self.getAnswer();
         return self.answer;
@@ -51,8 +56,8 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
         for i in range(0, len(self.cords)):
             xsum += self.cords[i].x;
             ysum += self.cords[i].y;
-        CM = Coordinate(self, xsum/len(self.cords), ysum/len(self.cords), 0);
-        return CM;
+        self.CM = Coordinate.Coordinate(xsum/len(self.cords), ysum/len(self.cords), 0);
+        return self.CM;
 
       def findFarthest(self):
         maxdist = 0.0;
@@ -61,21 +66,27 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
             if self.cords[k].dist(self.CM) > maxdist:
                 maxdist = self.cords[k].dist(self.CM);
                 i = k;
-
         return i;
 
       def compute(self):
+        self.bestOrder.append(self.pointsLeft[0]);
         while len(self.pointsLeft) > 0 :
             minEnergy = float("inf");
             index = 0;
-            for i in range(1, len(self.pointsLeft)):
-                energy = 1.0/self.current.dist(self.pointsLeft[i]) - 1.0/self.lineDistance(self.current, self.pointsLeft[i], self.CM);
+            self.pointsLeft.remove(self.current);
+            for i in range(0, len(self.pointsLeft)):
+                #print(str(i) + " " + str(self.current.dist(self.pointsLeft[i])));
+                #print(" " + str(self.lineDistance(self.current, self.pointsLeft[i], self.CM)));
+                if(self.lineDistance(self.current, self.pointsLeft[i], self.CM) == 0):
+                    energy = float("inf");
+                else:
+                    energy = -1.0/self.current.dist(self.pointsLeft[i]) + 1.0/self.lineDistance(self.current, self.pointsLeft[i], self.CM);
                 if energy < minEnergy:
                     minEnergy = energy;
                     index = i;
-            bestOrder.add(pointsLeft[i]);
-            current = pointsLeft[i];
-            pointsLeft.remove(i);
+            if len(self.pointsLeft) > 0:
+                self.bestOrder.append(self.pointsLeft[index]);
+                self.current = self.pointsLeft[index];
 
       def lineDistance(self, point1, point2, CM):
         if point1.x == point2.x:
@@ -86,12 +97,14 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
         #maximum = max(point1.dist(self.CM), point2.dist(self.CM));
         #if(math.sqrt(maximum**2 - pow(self.CM.x - point1.x, 2))):
         #PERFORM TEST HERE TO FIND OUT WHETHER PERPENDICULAR FROM CM LIES ON SEGMENT OR NOT!!! INVOLVES RIGHT TRIANGLES AND INEQUALITY!
-        numerator = -(point2.y + point1.y)/(point2.x - point1.x)*CM.x +(point1.x)*(point2.y - point1.y)/(point2.x - point1.x)*point1.x - point1.y;
+        numerator = -(point2.y - point1.y)/(point2.x - point1.x)*CM.x + CM.y + (point1.x)*(point2.y - point1.y)/(point2.x - point1.x) - point1.y;
         denominator = math.sqrt(pow((point2.y - point1.y)/(point2.x - point1.x), 2) + 1);
-        return numerator/denominator;
+        return abs(numerator/denominator);
 
 gravity = GravitationalTravelingSalesmanSolver();
 gravity.cords.append(Coordinate.Coordinate(0, 0, 0));
-gravity.cords.append(Coordinate.Coordinate(0, 8, 0));
-gravity.cords.append(Coordinate.Coordinate(8, 0, 0));
+gravity.cords.append(Coordinate.Coordinate(0, 8, 1));
+gravity.cords.append(Coordinate.Coordinate(8, 0, 2));
+gravity.cords.append(Coordinate.Coordinate(8, 8, 3));
+gravity.cords.append(Coordinate.Coordinate(24, 0, 4));
 print(gravity.solve());
