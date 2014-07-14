@@ -13,9 +13,10 @@ import os, sys
 lib_path = os.path.abspath('..')
 sys.path.append(lib_path)
 
-
+import time
 import Coordinate
 import json
+import math
 
 class TravelingSalesmanSolver:
 	cords = []
@@ -24,6 +25,9 @@ class TravelingSalesmanSolver:
 	database_row_id=0
 
 	def __init__(self, params=None):
+
+		self.startTime = self.millis()
+
 		if params == None:
 			return
 		data = json.loads(params)
@@ -34,21 +38,29 @@ class TravelingSalesmanSolver:
 	def solve(self):
 		return "No solution implemented!"
 
+	def setMessage(self,message):
+		self.cur.execute ("UPDATE traveling_salesmen SET message=\'"+message+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+
 	def setStatusDone(self,statusDone):
-		self.cur.execute ("UPDATE traveling_salesmen SET statusDone=\'"+statusDone+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+		self.cur.execute ("UPDATE traveling_salesmen SET statusdone=\'"+statusDone+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
 	def setSolution(self,answer):
-		print "Solution"
-		print answer
-		print self.cur
-		print self.database_row_id
 		self.cur.execute ("UPDATE traveling_salesmen SET answer=\'"+answer+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+
+	def setDone(self,done):
+		self.cur.execute ("UPDATE traveling_salesmen SET done=\'"+done+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
 	def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
 		assert len(xPoints) == len(yPoints)
 		for i in range(0,len(xPoints)):
 			c = Coordinate.Coordinate(xPoints[i],yPoints[i])
 			self.cords.append(c)
+	def millis(self):
+		return int(round(time.time() * 1000))
+	def remainingTime(self,pDone):
+		if pDone==0:
+			pDone=1
+		return str(int((self.millis()-self.startTime)/1000))+"/"+str(int((self.millis()-self.startTime)/pDone/1000))+"s"
 
 
 

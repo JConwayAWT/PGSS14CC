@@ -14,7 +14,7 @@ function addJob(){
 	//$("#job"+jobs).slideDown(200);
 	$("#job"+jobs).append("<h1>Job "+(jobs)+"</h1>");
 	$("#job"+jobs).append("<br>"+$("#algorithm").val());
-	$("#job"+jobs).append(" <div class=\"progress\"> <div class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span>Processing...</span></div></div>");
+	$("#job"+jobs).append(" <div class=\"progress\"> <div class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Processing...</span></div></div>");
 }
 
 function doneProcessing(){
@@ -25,7 +25,7 @@ function doneProcessing(){
 function docReady(){
 
 	var canvas=document.getElementById("canvas");
-	console.log(canvas);
+	//console.log(canvas);
 	var context= canvas.getContext('2d');
 	context.font="14px Georgia";
 
@@ -34,13 +34,16 @@ function docReady(){
 	var removing=false;
 	var solution;
 
+	var DB_ID=0;
+
 	var startTime=0;
 	var totalDist=0;
 
 	var moving=-1;
 
 	animate();
-	//addRandomCoordinates(150);
+	getSolutionProgress();
+	addRandomCoordinates(100);
 
 	function addRandomCoordinates(numCords){
 		for(var i=0;i<numCords;i++){
@@ -81,35 +84,65 @@ function docReady(){
 		}
 		var points = {x: xvalues, y: yvalues};
 		var algorithm=$("#algorithm").val();
-		var startTime= (new Date().getTime());
+		startTime= (new Date().getTime());
 		$.ajax({
 			url: '/pose_traveling_salesman_problem',
 			type: 'POST',
 			data: {points: points, algorithm: algorithm},
 		})
 		.done(function(data) {
-			doneProcessing();
-			console.log("success");
-			$("#job"+jobs).append("<br>Points: "+cords.length);
-			$("#job"+jobs).append("<br>Time (s): "+Math.floor(((new Date().getTime())-startTime)/1000));
-			$("#output").html(data.pythonOutput);
-			if(data.pythonOutput.indexOf("ERROR:")==-1){//No error
-				var ansStart=data.pythonOutput.lastIndexOf(';')+1;
-				var ans=data.pythonOutput.substring(ansStart)
-				solution=ans.split(",");
-				calculateTotalDist();
-				$("#job"+jobs).append("<br>Total Distance (px): "+Math.floor(totalDist));
-			}
+			//console.log("success");
+			DB_ID=data.databaseId;
+			//console.log("DB_ID "+DB_ID);
 		})
 		.fail(function() {
+			//console.log("error");
 			doneProcessing();
-			console.log("error");
 		})
 		.always(function() {
-			doneProcessing();
-			console.log("complete");
+			//console.log("complete");
 		});
 		
+	}
+	function getSolutionProgress(){		
+		setTimeout(getSolutionProgress,1000);
+		if(DB_ID>0){
+			$.ajax({
+				url: '/retreive_traveling_salesman_problem',
+				type: 'POST',
+				data: {id: DB_ID},
+			})
+			.done(function(data) {
+				//console.log(data);
+				//console.log(data.answer);
+				//console.log(data.message);
+				//console.log(data.statusDone);
+				//console.log(data.done)
+				$("#statusDone"+jobs).html(data.statusDone);
+				if(data.answer!=""){
+					$("#output").html(data.answer);
+					if(data.answer.indexOf("ERROR:")==-1){//No error
+						var ansStart=data.answer.lastIndexOf(';')+1;
+						var ans=data.answer.substring(ansStart)
+						solution=ans.split(",");
+					}
+				}
+				if(data.done){
+					DB_ID=0;
+					doneProcessing();
+					$("#job"+jobs).append("<br>Points: "+cords.length);
+					$("#job"+jobs).append("<br>Time (s): "+Math.floor(((new Date().getTime())-startTime)/1000));
+					calculateTotalDist();
+					$("#job"+jobs).append("<br>Total Distance (px): "+Math.floor(totalDist));
+				}
+			})
+			.fail(function() {
+				//console.log("error");
+			})
+			.always(function() {
+				//console.log("complete");
+			});		
+		}
 	}
 
 	$(document).keydown(function(event) {
@@ -147,66 +180,70 @@ function docReady(){
 	}
 
 	$("#canvas").on('mousemove', function(e){
-		var x=e.pageX - $("#canvas").offset().left;
-		var y=e.pageY - $("#canvas").offset().top;
-		
+		if(!processing){
+			var x=e.pageX - $("#canvas").offset().left;
+			var y=e.pageY - $("#canvas").offset().top;
+			
 
-		if(moving>=0){
-			console.log(moving+" "+x+" "+y+" "+cords[moving]);
-			cords[moving].setX(x);
-			cords[moving].setY(y);
+			if(moving>=0){
+				//console.log(moving+" "+x+" "+y+" "+cords[moving]);
+				cords[moving].setX(x);
+				cords[moving].setY(y);
+			}
 		}
 	});
 
 
 
 	$("#canvas").on('mousedown', function(e){
-		var x=e.pageX - $("#canvas").offset().left;
-		var y=e.pageY - $("#canvas").offset().top;
+		if(!processing){
+			var x=e.pageX - $("#canvas").offset().left;
+			var y=e.pageY - $("#canvas").offset().top;
 
-		solution=null;
+			solution=null;
 
-		var accessed=false;
+			var accessed=false;
 
-		for(var i=0;i<cords.length;i++){
-			var cord = cords[i];
-			if(cord.getDist(x,y)<ACCESS_RADIUS){
-				if(removing){
-					cords.splice(i,1);
-					for(var j=i;j<cords.length;j++){
-						cords[j].i=j;
+			for(var i=0;i<cords.length;i++){
+				var cord = cords[i];
+				if(cord.getDist(x,y)<ACCESS_RADIUS){
+					if(removing){
+						cords.splice(i,1);
+						for(var j=i;j<cords.length;j++){
+							cords[j].i=j;
+						}
+						i--;	
+					}else{
+						cord.moving=true;
+						moving=i;
 					}
-					i--;	
-				}else{
-					cord.moving=true;
-					moving=i;
+					accessed=true;
 				}
-				accessed=true;
 			}
-		}
 
-		if(!accessed&&!removing){
-			moving=cords.length;
-			addPoint(x,y).moving=true;
+			if(!accessed&&!removing){
+				moving=cords.length;
+				addPoint(x,y).moving=true;
 
+			}
 		}
 	});
 
 	$("#canvas").on('mouseup', function(e){
-		var x=e.pageX - $("#canvas").offset().left;
-		var y=e.pageY - $("#canvas").offset().top;
-		
-		solution=null;
+		if(!processing){
+			var x=e.pageX - $("#canvas").offset().left;
+			var y=e.pageY - $("#canvas").offset().top;
+			
+			solution=null;
 
-		for(var i=0;i<cords.length;i++){
-			var cord = cords[i];
-			if(cord.getDist(x,y)<ACCESS_RADIUS){
-				cord.moving=false;
-				moving=-1;
+			for(var i=0;i<cords.length;i++){
+				var cord = cords[i];
+				if(cord.getDist(x,y)<ACCESS_RADIUS){
+					cord.moving=false;
+					moving=-1;
+				}
 			}
 		}
-
-		//getSolution();
 	});
 
 
@@ -225,7 +262,7 @@ function Coordinate(x,y,i){
 	this.moving=false;
 	this.setX = function (x){
 		this.x=x;
-		console.log(x);
+		//console.log(x);
 	}
 	this.setY = function (y){
 		this.y=y;

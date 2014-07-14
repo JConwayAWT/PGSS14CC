@@ -12,15 +12,26 @@ class TravelingSalesmenController < ApplicationController
   def show
   end
 
+  def retreive_problem
+    t = TravelingSalesman.find(params[:id])
+
+    returnData = {message: t.message,answer: t.answer,statusDone: t.statusdone,done: t.done}
+
+    render json: returnData and return
+  end
+
   def pose_problem
 
     t = TravelingSalesman.new
     t.problem_parameters = params[:points].to_json
     t.algorithm = params[:algorithm]
+    t.statusdone = "Processing..."
+    t.done=false
     t.save!
-    t.delay.pose_problem
+    
+    SolverJob.new.async.perform(t.id)
 
-    returnData = {statusMessage: "Processed"}
+    returnData = {statusMessage: "Processed",databaseId: t.id}
 
     render json: returnData and return
   end
