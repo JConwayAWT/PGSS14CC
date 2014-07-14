@@ -33,8 +33,8 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
 	def compute_all_distances(self): # creating a two-way array for all distances, doesn't seem to be working yet
 		for k in range(0, len(self.cords)):
 			for j in range(0, len(self.cords)):
-				distances_array[k].append(self.cords[k].dist(self.cords[j]))
-		print distances_array
+				self.distances_array[k].append(self.cords[k].dist(self.cords[j]))
+		print self.distances_array
 
 	def compute_dist_to_next_city(self): # computes distances to all other cities from one individual city
 		self.dist_to_next_city = []

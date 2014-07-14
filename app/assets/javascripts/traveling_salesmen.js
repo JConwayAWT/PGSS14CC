@@ -14,7 +14,7 @@ function addJob(){
 	//$("#job"+jobs).slideDown(200);
 	$("#job"+jobs).append("<h1>Job "+(jobs)+"</h1>");
 	$("#job"+jobs).append("<br>"+$("#algorithm").val());
-	$("#job"+jobs).append(" <div class=\"progress\"> <div class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Waiting in queue...</span></div></div>");
+	$("#job"+jobs).append(" <div class=\"progress\"> <div id=\"progress"+jobs+"\" class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Waiting in queue...</span></div></div>");
 }
 
 function doneProcessing(){
@@ -119,6 +119,7 @@ function docReady(){
 				//console.log(data.statusDone);
 				//console.log(data.done)
 				$("#statusDone"+jobs).html(data.statusDone);
+				$("#progress"+jobs).css("width",data.statusDone.substring(0,data.statusDone.indexOf('%')),"%");
 				if(data.answer!=""){
 					$("#output").html(data.answer);
 					if(data.answer.indexOf("ERROR:")==-1){//No error
