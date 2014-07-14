@@ -14,8 +14,14 @@ import random;
 import math as m
 lib_path = os.path.abspath('..');
 sys.path.append(lib_path);
+<<<<<<< HEAD
 
 import Coordinate as CC
+=======
+lib_path = os.path.abspath('../../helpers')
+sys.path.append(lib_path)
+
+>>>>>>> cf4ba8c88580060409d13f094dd27705898f8d12
 
 import math
 import TravelingSalesmanSolver
