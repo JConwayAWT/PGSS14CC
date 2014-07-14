@@ -44,6 +44,8 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
         self.current = self.cords[0];
         self.compute();
         self.getAnswer();
+        #for i in range(0, len(self.bestOrder)):
+            #print("X: " + str(self.bestOrder[i].x) + " Y: " + str(self.bestOrder[i].y));
         return self.answer;
 
       def getAnswer(self):
@@ -103,8 +105,9 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
 
 gravity = GravitationalTravelingSalesmanSolver();
 gravity.cords.append(Coordinate.Coordinate(0, 0, 0));
-gravity.cords.append(Coordinate.Coordinate(0, 8, 1));
-gravity.cords.append(Coordinate.Coordinate(8, 0, 2));
-gravity.cords.append(Coordinate.Coordinate(8, 8, 3));
-gravity.cords.append(Coordinate.Coordinate(24, 0, 4));
+gravity.cords.append(Coordinate.Coordinate(1, 0, 1));
+gravity.cords.append(Coordinate.Coordinate(2, 0, 2));
+gravity.cords.append(Coordinate.Coordinate(3, 5, 3));
+gravity.cords.append(Coordinate.Coordinate(9, 0, 4));
+gravity.cords.append(Coordinate.Coordinate(10, 0, 4));
 print(gravity.solve());
