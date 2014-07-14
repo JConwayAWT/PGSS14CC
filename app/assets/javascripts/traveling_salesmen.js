@@ -115,7 +115,7 @@ function docReady(){
 		var xvalues =[];
 		var yvalues=[];
 
-		$("#output").html("Waiting in queue...");
+		//$("#output").html("Waiting in queue...");
 		processing=true;
 
 		addJob();
@@ -164,7 +164,7 @@ function docReady(){
 				$("#statusDone").html(data.statusDone);
 				$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#floatingProgressBar").width());
 				if(data.answer!=""){
-					$("#output").html(data.answer);
+					//$("#output").html(data.answer);
 					if(data.answer.indexOf("ERROR:")==-1){//No error
 						var ansStart=data.answer.lastIndexOf(';')+1;
 						var ans=data.answer.substring(ansStart)

@@ -61,7 +61,9 @@ class TravelingSalesmanSolver:
 	def remainingTime(self,pDone):
 		if pDone==0:
 			pDone=1
-		return str(int((self.millis()-self.startTime)/1000))+"/"+str(int((self.millis()-self.startTime)/pDone/1000))+"s"
+		elapsedSec=int((self.millis()-self.startTime)/1000)
+		totalSec =int(elapsedSec/pDone)
+		return str(totalSec-elapsedSec)+"s remaining /"+str(totalSec)+"s total"
 
 
 
