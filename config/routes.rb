@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  match "/users/change_first_name", to: "users#change_first_name", via: :get
   resources :traveling_salesmen
   resources :users
 
@@ -9,6 +11,8 @@ Rails.application.routes.draw do
   root 'traveling_salesmen#index'
 
   match '/pose_traveling_salesman_problem', to: 'traveling_salesmen#pose_problem', via: :post
+  match '/retreive_traveling_salesman_problem', to: 'traveling_salesmen#retreive_problem', via: :post
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
