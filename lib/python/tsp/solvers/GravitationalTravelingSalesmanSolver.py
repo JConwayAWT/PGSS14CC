@@ -102,11 +102,11 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
         denominator = math.sqrt(pow((point2.y - point1.y)/(point2.x - point1.x), 2) + 1);
         return abs(numerator/denominator);
 
-gravity = GravitationalTravelingSalesmanSolver();
-gravity.cords.append(Coordinate.Coordinate(0, 0, 0));
-gravity.cords.append(Coordinate.Coordinate(1, 0, 1));
-gravity.cords.append(Coordinate.Coordinate(2, 0, 2));
-gravity.cords.append(Coordinate.Coordinate(3, 5, 3));
-gravity.cords.append(Coordinate.Coordinate(9, 0, 4));
-gravity.cords.append(Coordinate.Coordinate(10, 0, 4));
-print(gravity.solve());
+#gravity = GravitationalTravelingSalesmanSolver();
+#gravity.cords.append(Coordinate.Coordinate(0, 0, 0));
+#gravity.cords.append(Coordinate.Coordinate(1, 0, 1));
+#gravity.cords.append(Coordinate.Coordinate(2, 0, 2));
+#gravity.cords.append(Coordinate.Coordinate(3, 5, 3));
+#gravity.cords.append(Coordinate.Coordinate(9, 0, 4));
+#gravity.cords.append(Coordinate.Coordinate(10, 0, 4));
+#print(gravity.solve());

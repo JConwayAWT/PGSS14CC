@@ -3,7 +3,6 @@ canvas#canvas height="500" width="500"
 div.floating.floatingTools
 	div.handle.progress-bar-striped
 	div.content
-		div#jobs
 		div#output
 		br
 		form
@@ -20,9 +19,9 @@ div.floating.floatingTools
 			center
 				input#submit_data type="button" value="Run Test" class="btn btn-success"
 				input#submit_data type="button" value="Cancel" class="btn btn-danger"
+		div#jobs
 
 div#floatingProgressBar
-	
 	div.progress style="overflow:hidden;"
 		div.progress-bar.progress-bar-striped.active#progress role="progressbar"aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"  
 			span#statusDone Loading Page...

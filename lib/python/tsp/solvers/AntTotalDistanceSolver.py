@@ -23,9 +23,9 @@ import copy
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 #  probability =[[]]
   phermones =[[]]
-  CALCULATIONS=100000
+  CALCULATIONS=10000
   CALCULATION_UPDATES=100
-  BEST_UPDATES=5000
+  BEST_UPDATES=1000
   traversed=[]
   numTraversed=0
   start=0

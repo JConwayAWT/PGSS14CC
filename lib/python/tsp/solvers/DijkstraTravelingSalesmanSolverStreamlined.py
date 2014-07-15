@@ -18,7 +18,7 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
     self.degree_for_city_as_index = [0]*len(self.cords)
     for i in range(len(self.cords)):
       self.pick_the_next_best_available_path(i)
-    print self.itinerary
+    return ",".join(str(self.itinerary[i]) for i in range(len(self.itinerary)))
 
   def pick_the_next_best_available_path(self, i):
     #figure out what is currently the tip of the incoming path

@@ -23,6 +23,7 @@ from solvers import BruteForceTravelingSalesmanSolver as bft
 from solvers import AntTotalDistanceSolver as atd
 from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from solvers import GravitationalTravelingSalesmanSolver as gts
+from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from database import database_connect as dbf
 
 
@@ -56,11 +57,15 @@ def main():
   if algorithm =="Gravity":
     solver = gts.GravitationalTravelingSalesmanSolver(params)
 
+  if algorithm =="Dijkstra":
+    solver =dts.DijkstraSolver(params)
+
   if solver is None:
     print "ERROR: Invalid solver!"
   else:
     solver.cur = cur
     solver.database_row_id=database_row_id
+    solver.setStatusDone("Calculating solution...")
     solution =solver.solve()
     solver.setSolution(solution)
     solver.setDone('y')
