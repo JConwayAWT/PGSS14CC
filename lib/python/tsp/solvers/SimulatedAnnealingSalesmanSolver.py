@@ -14,14 +14,11 @@ import random;
 import math as m
 lib_path = os.path.abspath('..');
 sys.path.append(lib_path);
-<<<<<<< HEAD
 
 import Coordinate as CC
-=======
+
 lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
-
->>>>>>> cf4ba8c88580060409d13f094dd27705898f8d12
 
 import math
 import TravelingSalesmanSolver
@@ -95,19 +92,20 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     scorefn=math.e*((-self.distance(path))/Temperature)
 
   def generatenewpath (self, path):#######bug########
+    print((path,"aa"))
     answerpath = ""
     randint1 = random.randint(0,(len(self.cords)%2))
-    switchedentry = None
+    switchedentry = 0
     index = 0
     for entry in path:
         entry = str(entry)
         if index == randint1:
             switchedentry = entry
         elif index == (randint1 + 1):
-            answerpath += (string(switchedentry) + entry)
+            answerpath += (str(switchedentry) + entry)
         else:
             answerpath += entry
-
+    return answerpath
   def AnnealingMC(self):
     currentpath = self.generatepath()
     newpath =self.generatenewpath(currentpath)

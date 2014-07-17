@@ -100,7 +100,12 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
         #PERFORM TEST HERE TO FIND OUT WHETHER PERPENDICULAR FROM CM LIES ON SEGMENT OR NOT!!! INVOLVES RIGHT TRIANGLES AND INEQUALITY!
         numerator = -(point2.y - point1.y)/(point2.x - point1.x)*CM.x + CM.y + (point1.x)*(point2.y - point1.y)/(point2.x - point1.x) - point1.y;
         denominator = math.sqrt(pow((point2.y - point1.y)/(point2.x - point1.x), 2) + 1);
-        return abs(numerator/denominator);
+        maxdist = max(point1.dist(self.CM), point2.dist(self.CM));
+        pointdist = max(point1.dist(point2));
+        if(maxdist**2 - abs(numerator/denominator)**2 > pointdist**2):
+            return min(point1.dist(self.CM), point2.dist(self.CM));
+        else:
+            return abs(numerator/denominator);
 
 #gravity = GravitationalTravelingSalesmanSolver();
 #gravity.cords.append(Coordinate.Coordinate(0, 0, 0));
