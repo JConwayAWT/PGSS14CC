@@ -38,5 +38,6 @@ class AminoAcid:
 
     def setPreviousNeighbor(self,pAcid): #asks for a coordinate
         self.pNeighbor = pAcid
+        
     def setNextNeighbor(self,nAcid): #asks for a coordinate
         self.nNeighbor = nAcid

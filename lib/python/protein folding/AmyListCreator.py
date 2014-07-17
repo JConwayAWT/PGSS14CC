@@ -1,5 +1,8 @@
 import random
 import AminoAcid
+import os, sys
+lib_path = os.path.abspath('../helpers')
+sys.path.append(lib_path)
 
 coords = [[0,0]]
 
