@@ -14,7 +14,6 @@ class DijkstraSolver(TravelingSalesmanSolver.TravelingSalesmanSolver):
     self.distances_array = self.initialize_distances_array()
     while None in self.itinerary:
       self.add_nearest_city_to_head_or_tail()
-    print self.itinerary
     return ",".join([str(element) for element in self.itinerary])
 
 
@@ -125,15 +124,17 @@ class DijkstraSolver(TravelingSalesmanSolver.TravelingSalesmanSolver):
 
 dijkstra = DijkstraSolver()
 
-import random, time
-for number in [10, 20, 30, 40, 50]:
-  for k in range(10):
-    randomX = random.randint(0, 1000)
-    randomY = random.randint(0, 1000)
-    dijkstra.cords.append(Coordinate.Coordinate(randomX,randomY))
 
-  start_time = time.time()
-  solution = dijkstra.solve()
-  finish_time = time.time()
+### Time test
+# import random, time
+# for number in range(10):
+#   for k in range(100):
+#     randomX = random.randint(0, 1000)
+#     randomY = random.randint(0, 1000)
+#     dijkstra.cords.append(Coordinate.Coordinate(randomX,randomY))
 
-  print str(number) + " cities; Time in seconds: ", finish_time-start_time
+#   start_time = time.time()
+#   solution = dijkstra.solve()
+#   finish_time = time.time()
+
+#   print str((number+1)*100) + " cities; Time in seconds: ", finish_time-start_time
