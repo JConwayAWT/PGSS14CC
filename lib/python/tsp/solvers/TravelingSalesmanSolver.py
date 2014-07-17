@@ -24,6 +24,7 @@ class TravelingSalesmanSolver:
 	answer=";"
 	cur=None
 	database_row_id=0
+	TIMEOUT_TIME=10000
 
 	def __init__(self, params=None):
 
@@ -54,8 +55,9 @@ class TravelingSalesmanSolver:
 	def checkTimeout(self,done):
 		self.cur.execute ("SELECT FROM lastTick WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
 		database_row = cur.fetchone()
-  		database_row_id = database_row[0]
-  		#if self.millis()-
+  		lastTick = database_row[0]
+  		if self.millis()-lastTick>TIMEOUT_TIME:
+			sys.exit(0)
 
 	def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
 		assert len(xPoints) == len(yPoints)
