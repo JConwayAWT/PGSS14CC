@@ -102,17 +102,3 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
         current_city_list.append(j.dist(k))
       distances_per_city.append(current_city_list)
     return distances_per_city
-
-
-
-
-dijkstra = DijkstraTravelingSalesmanSolver()
-
-dijkstra.cords.append(Coordinate.Coordinate(1,20))
-dijkstra.cords.append(Coordinate.Coordinate(2,485))
-dijkstra.cords.append(Coordinate.Coordinate(50,3))
-dijkstra.cords.append(Coordinate.Coordinate(28,99))
-dijkstra.cords.append(Coordinate.Coordinate(8,12))
-dijkstra.cords.append(Coordinate.Coordinate(864,9))
-
-print dijkstra.solve()
