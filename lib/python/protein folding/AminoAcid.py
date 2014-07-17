@@ -1,3 +1,20 @@
+import random
+
+def repeatAAGen(n):    # generate AAs
+## given a length n, return a string of length n
+## consisting of A or B at each slot
+    hydrophobicA = ['A', 'A', 'A', 'A', 'A', 'A', 'A']
+    hydrophilicB = ['B', 'B', 'B', 'B', 'B', 'B', 'B','B', 'B', 'B', 'B', 'B', 'B']
+    totalAminoAcids = hydrophobicA + hydrophilicB
+    chain = ""
+    counter = 0
+    n = int(n)
+    while counter < n:
+        acid = random.choice(totalAminoAcids)
+        chain += acid
+        counter += 1
+    return chain
+
 class AminoAcid:
 ##    polarity #will be either A or B (A = hydrophobic, B = hydrophilic
 ##    num #tells the order of the amino acid change
