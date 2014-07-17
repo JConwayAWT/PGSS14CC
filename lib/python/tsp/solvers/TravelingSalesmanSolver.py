@@ -77,10 +77,3 @@ class TravelingSalesmanSolver:
 		elapsedSec=int((self.millis()-self.startTime)/1000)
 		totalSec =int(elapsedSec/pDone)
 		return str(totalSec-elapsedSec)+"s remaining /"+str(totalSec)+"s total"
-
-
-
-
-
-
-
