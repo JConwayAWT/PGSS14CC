@@ -1,3 +1,20 @@
+import random
+
+def repeatAAGen(n):    # generate AAs
+## given a length n, return a string of length n
+## consisting of A or B at each slot
+    hydrophobicA = ['A', 'A', 'A', 'A', 'A', 'A', 'A']
+    hydrophilicB = ['B', 'B', 'B', 'B', 'B', 'B', 'B','B', 'B', 'B', 'B', 'B', 'B']
+    totalAminoAcids = hydrophobicA + hydrophilicB
+    chain = ""
+    counter = 0
+    n = int(n)
+    while counter < n:
+        acid = random.choice(totalAminoAcids)
+        chain += acid
+        counter += 1
+    return chain
+
 class AminoAcid:
 ##    polarity #will be either A or B (A = hydrophobic, B = hydrophilic
 ##    num #tells the order of the amino acid change
@@ -12,14 +29,15 @@ class AminoAcid:
         self.pNeighbor = None #previousNeighbor
         self.nNeighbor = None #nextNeighbor
 
-    def set_Polarity_and_Index(AAlist, indexnum):
+    def set_Polarity_and_Index(self,AAlist, indexnum):
         self.Pole = AAlist[indexnum]
         self.index = indexnum
 
-    def setCoord(coord):
+    def setCoord(self,coord):
         self.coord = coord
 
-    def setPreviousNeighbor(pAcid): #asks for a coordinate
+    def setPreviousNeighbor(self,pAcid): #asks for a coordinate
         self.pNeighbor = pAcid
-    def setNextNeighbor(nAcid): #asks for a coordinate
+        
+    def setNextNeighbor(self,nAcid): #asks for a coordinate
         self.nNeighbor = nAcid
