@@ -24,6 +24,7 @@ from solvers import AntTotalDistanceSolver as atd
 from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from solvers import GravitationalTravelingSalesmanSolver as gts
 from solvers import DijkstraTravelingSalesmanSolverFinal as dts
+from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
 from database import database_connect as dbf
 
 
@@ -59,6 +60,9 @@ def main():
 
   if algorithm =="Dijkstra":
     solver =dts.DijkstraSolver(params)
+
+  if algorithm =="Dijkstra 2":
+    solver = dts2.DijkstraTravelingSalesmanSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"
