@@ -17,11 +17,9 @@ function addJob(){
 	$("#floatingProgressBar").fadeIn(500);
 }
 
-
-	
-
 function doneProcessing(){
 	processing=false;
+	DB_ID=0;
 	$("#floatingProgressBar").fadeOut(500);
 }
 
@@ -106,11 +104,39 @@ function docReady(){
 		setTimeout(animate,50);
 		//canvas.width=window.innerWidth-200;
 		$("#submit_data").prop('disabled', processing);
+		$("#cancel_solution").prop('disabled', !processing);
 	}
 
 	$("#submit_data").click(function(){
 		getSolution();
 	});
+
+	$("#cancel_solution").click(function(){
+		cancelSolution();
+	});
+
+	function cancelSolution(){
+		if(DB_ID>0){			
+			$.ajax({
+				url: '/cancel_traveling_salesman_problem',
+				type: 'POST',
+				data: {id: DB_ID},
+			})
+			.done(function(data) {
+				//console.log("success");
+				
+				//console.log("DB_ID "+DB_ID);
+			})
+			.fail(function() {
+				//console.log("error");
+				doneProcessing();
+			})
+			.always(function() {
+				//console.log("complete");
+			});
+		}
+		
+	}
 	function getSolution(){
 		if(processing)return;
 		var xvalues =[];

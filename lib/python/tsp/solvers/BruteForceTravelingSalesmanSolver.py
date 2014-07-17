@@ -55,6 +55,8 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
         self.bestOrder=order
       return
 
+      self.cords[i].dist(self.cords[j])
+
     src=None
     if (srcNum>=0):
       src=self.cords[srcNum]

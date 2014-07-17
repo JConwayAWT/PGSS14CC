@@ -24,6 +24,7 @@ class TravelingSalesmanSolver:
 	answer=";"
 	cur=None
 	database_row_id=0
+	TIMEOUT_TIME=10
 
 	def __init__(self, params=None):
 
@@ -35,6 +36,8 @@ class TravelingSalesmanSolver:
 		for c in range(0,len(data['x'])):
 			cord = Coordinate.Coordinate(data['x'][c], data['y'][c], c)
 			self.cords.append(cord)
+
+
 
 	def solve(self):
 		return "No solution implemented!"
@@ -52,10 +55,14 @@ class TravelingSalesmanSolver:
 		self.cur.execute ("UPDATE traveling_salesmen SET done=\'"+done+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
 	def checkTimeout(self,done):
-		self.cur.execute ("SELECT FROM lastTick WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
-		database_row = cur.fetchone()
-  		database_row_id = database_row[0]
-  		#if self.millis()-
+		self.cur.execute ("SELECT last_tick FROM traveling_salesmen WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
+		database_row = self.cur.fetchone()
+  		last_tick = database_row[0]
+  	
+  		#self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
+  		if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
+  			self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+			sys.exit(0)
 
 	def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
 		assert len(xPoints) == len(yPoints)
@@ -70,10 +77,3 @@ class TravelingSalesmanSolver:
 		elapsedSec=int((self.millis()-self.startTime)/1000)
 		totalSec =int(elapsedSec/pDone)
 		return str(totalSec-elapsedSec)+"s remaining /"+str(totalSec)+"s total"
-
-
-
-
-
-
-

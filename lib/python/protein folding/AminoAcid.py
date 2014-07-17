@@ -29,8 +29,8 @@ class AminoAcid:
         self.pNeighbor = None #previousNeighbor
         self.nNeighbor = None #nextNeighbor
 
-    def set_Polarity_and_Index(self,AAlist, indexnum):
-        self.Pole = AAlist[indexnum]
+    def set_Polarity_and_Index(self, AA, indexnum):
+        self.pole = AA
         self.index = indexnum
 
     def setCoord(self,coord):
@@ -38,6 +38,6 @@ class AminoAcid:
 
     def setPreviousNeighbor(self,pAcid): #asks for a coordinate
         self.pNeighbor = pAcid
-        
+
     def setNextNeighbor(self,nAcid): #asks for a coordinate
         self.nNeighbor = nAcid
