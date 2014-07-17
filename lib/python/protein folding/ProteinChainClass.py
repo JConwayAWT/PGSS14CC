@@ -10,20 +10,6 @@ class ProteinChain:
     self.number_of_acids = len(self.amino_acid_chain)
     self.chainAminoAcids = []
 
-  def list_of_as_in_a_row(self,chain):
-    list_of_a_indexes = []
-    current_list = []
-    for k in range(len(chain)):
-        if chain[k] == 'A':
-            current_list.append(k)
-        else:
-            if current_list != []:
-                list_of_a_indexes.append(current_list)
-            current_list= []
-        if k == len(chain) -1:
-            list_of_a_indexes.append(current_list)
-    print (element for element in list_of_a_indexes if element != [])
-
   def add_or_subtract_one_from_x_or_y(self,coordinates):
     R = random.random() #range of [0,1]
     last_coord = coordinates[-1]
@@ -75,3 +61,18 @@ class ProteinChain:
 
   def getChain(self):
     return self.chainAminoAcids
+
+
+def list_of_as_in_a_row(chain):
+  list_of_a_indexes = []
+  current_list = []
+  for k in range(len(chain)):
+      if chain[k] == 'A':
+          current_list.append(k)
+      else:
+          if current_list != []:
+              list_of_a_indexes.append(current_list)
+          current_list= []
+      if k == len(chain) -1:
+          list_of_a_indexes.append(current_list)
+  return [element for element in list_of_a_indexes if element != []]
