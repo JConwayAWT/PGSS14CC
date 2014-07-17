@@ -157,15 +157,15 @@ function docReady(){
 				data: {id: DB_ID},
 			})
 			.done(function(data) {
-				//console.log(data);
-				//console.log(data.answer);
-				//console.log(data.message);
-				//console.log(data.statusDone);
-				//console.log(data.done)
+				console.log(data);
+				console.log(data.answer);
+				console.log(data.message);
+				console.log(data.statusDone);
+				console.log(data.done)
 				$("#statusDone").html(data.statusDone);
 				$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#floatingProgressBar").width());
 				if(data.answer!=null&&data.answer!=""){
-					//$("#output").html(data.answer);
+					$("#output").html(data.answer);
 					if(data.answer.indexOf("ERROR:")==-1){//No error
 						var ansStart=data.answer.lastIndexOf(';')+1;
 						var ans=data.answer.substring(ansStart)
