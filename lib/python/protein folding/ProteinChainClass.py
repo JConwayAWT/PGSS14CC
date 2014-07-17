@@ -6,18 +6,19 @@ list_of_amino_acids = range(100)
 number_of_acids = len(list_of_amino_acids)
 def add_or_subtract_one_from_x_or_y(coordinates):
     R = random.random()#range of [0,1]
-    last_coord = deepcopy(coordinates[-1])
+    last_coord = coordinates[-1]
+    new_coord = deepcopy(coordinates[-1])
     if (R >= 0) and (R <= 0.25):
-        last_coord[0]+=1
+        new_coord[0]+=1
     elif (R <= .5):
-        last_coord[0]-=1
+        new_coord[0]-=1
     elif(R <= 0.75):
-        last_coord[1]+=1
+        new_coord[1]+=1
     else:
-        last_coord[1]-=1
+        new_coord[1]-=1
 
-    if last_coord not in coordinates:
-        if trapped(last_coord, coordinates):
+    if new_coord not in coordinates:
+        if trapped(new_coord, coordinates):
             coordinates.pop(-1)
             coordinates.pop(-1)
             coordinates.pop(-1)
@@ -40,4 +41,3 @@ while len(coords) < number_of_acids:
     coords = add_or_subtract_one_from_x_or_y(coords)
 
 print coords
-
