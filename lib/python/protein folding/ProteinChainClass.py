@@ -1,14 +1,16 @@
 import random
 from copy import deepcopy
+import AminoAcid
 
 class ProteinChain:
 
   def __init__(self,amino_acid_chain_string):
-    self.amino_acid_chain = list(amino_acid_chain)
+    self.amino_acid_chain = list(amino_acid_chain_string)
     self.coords = [[0,0]]
     self.number_of_acids = len(self.amino_acid_chain)
+    self.chainAminoAcids = []
 
-  def add_or_subtract_one_from_x_or_y(coordinates):
+  def add_or_subtract_one_from_x_or_y(self,coordinates):
     R = random.random() #range of [0,1]
     last_coord = coordinates[-1]
     new_coord = deepcopy(coordinates[-1])
@@ -20,23 +22,42 @@ class ProteinChain:
       new_coord[1]+=1
     else:
       new_coord[1]-=1
-    if new_coord not in coordinates:
-      if trapped(new_coord, coordinates):
+    if (new_coord not in coordinates):
+      if self.trapped(new_coord, coordinates):
         coordinates.pop(-1)
         #removing the acid, starting from the right hand of the list, denoted by the minus
       else:
         coordinates.append(new_coord)
-      return coordinates
+    return coordinates
 
-  def trapped(last_coord, coordinates):
-    if ([last_coord[0]+1, last_coord[1]] in coordinates)and([last_coord[0]-1, last_coord[1]] in coordinates)and([last_coord[0], last_coord[1]+1] in coordinates)and([last_coord[0], last_coord[1]-1] in coordinates):
+  def trapped(self,last_coord, coordinates):
+    if (([last_coord[0]+1, last_coord[1]] in coordinates) and ([last_coord[0]-1, last_coord[1]] in coordinates)and([last_coord[0], last_coord[1]+1] in coordinates)and([last_coord[0], last_coord[1]-1] in coordinates)):
       return True
     else:
       return False
 
-  def generateChain():
+  def generateChainCoordinates(self):
     while (len(self.coords) < self.number_of_acids):
-      self.coords = add_or_subtract_one_from_x_or_y(self.coords)
+      self.coords = self.add_or_subtract_one_from_x_or_y(self.coords)
 
-  def getCoords():
+  def getCoords(self):
     return self.coords
+
+  def generateChainAminoAcids(self):
+    try:
+      assert len(self.coords) == self.number_of_acids
+    except:
+      self.generateChainCoordinates()
+    for i in range(self.number_of_acids):
+      acid = self.amino_acid_chain[i]
+      coord = self.coords[i]
+      self.chainAminoAcids.append(AminoAcid.AminoAcid())
+      self.chainAminoAcids[i].setCoord(coord)
+      self.chainAminoAcids[i].set_Polarity_and_Index(acid,i)
+      if (i > 0):
+        self.chainAminoAcids[i].setPreviousNeighbor(self.coords[i - 1])
+      if (i < (len(self.coords) - 1)):
+        self.chainAminoAcids[i].setNextNeighbor(self.coords[i + 1])
+
+  def getChain(self):
+    return self.chainAminoAcids
