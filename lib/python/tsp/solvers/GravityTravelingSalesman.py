@@ -20,6 +20,9 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
       current = Coordinate.Coordinate(0, 0, 0);
       pointsLeft = [];
 
+      def __init__(self):
+        pass
+
       def solve(self):
         if len(self.cords) < 3:
             BruteForceTravelingSalesmanSolver.solve();
@@ -100,18 +103,13 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
         #PERFORM TEST HERE TO FIND OUT WHETHER PERPENDICULAR FROM CM LIES ON SEGMENT OR NOT!!! INVOLVES RIGHT TRIANGLES AND INEQUALITY!
         numerator = -(point2.y - point1.y)/(point2.x - point1.x)*CM.x + CM.y + (point1.x)*(point2.y - point1.y)/(point2.x - point1.x) - point1.y;
         denominator = math.sqrt(pow((point2.y - point1.y)/(point2.x - point1.x), 2) + 1);
-        maxdist = max(point1.dist(self.CM), point2.dist(self.CM));
-        pointdist = point1.dist(point2);
-        if(maxdist**2 - abs(numerator/denominator)**2 > pointdist**2):
-            return min(point1.dist(self.CM), point2.dist(self.CM));
-        else:
-            return abs(numerator/denominator);
+        return abs(numerator/denominator);
 
-#gravity = GravitationalTravelingSalesmanSolver();
-#gravity.cords.append(Coordinate.Coordinate(0, 0, 0));
-#gravity.cords.append(Coordinate.Coordinate(8, 0, 1));
-#gravity.cords.append(Coordinate.Coordinate(1, 6, 2));
-#gravity.cords.append(Coordinate.Coordinate(7, 6, 3));
-#gravity.cords.append(Coordinate.Coordinate(0, 12, 4));
-#gravity.cords.append(Coordinate.Coordinate(8, 12, 5));
-#print(gravity.solve());
+gravity = GravitationalTravelingSalesmanSolver();
+gravity.cords.append(Coordinate.Coordinate(0, 0, 0));
+gravity.cords.append(Coordinate.Coordinate(1, 0, 1));
+gravity.cords.append(Coordinate.Coordinate(2, 0, 2));
+gravity.cords.append(Coordinate.Coordinate(3, 5, 3));
+gravity.cords.append(Coordinate.Coordinate(9, 0, 4));
+gravity.cords.append(Coordinate.Coordinate(10, 0, 4));
+print(gravity.solve());

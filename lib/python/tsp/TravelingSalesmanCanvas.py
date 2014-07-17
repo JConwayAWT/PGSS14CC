@@ -39,7 +39,7 @@ def main():
   database_row = cur.fetchone()
   database_row_id = database_row[0]
   params = database_row[3]
-  algorithm = database_row[4]
+  algorithm = database_row[4] 
 
   if algorithm =="Brute Force (n!)":
     solver = bft.BruteForceTravelingSalesmanSolver(params)
