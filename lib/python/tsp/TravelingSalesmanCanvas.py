@@ -22,6 +22,9 @@ from solvers import TravelingSalesmanSolver
 from solvers import BruteForceTravelingSalesmanSolver as bft
 from solvers import AntTotalDistanceSolver as atd
 from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
+from solvers import GravitationalTravelingSalesmanSolver as gts
+from solvers import DijkstraTravelingSalesmanSolverFinal as dts
+from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
 from database import database_connect as dbf
 
 
@@ -37,7 +40,7 @@ def main():
   database_row = cur.fetchone()
   database_row_id = database_row[0]
   params = database_row[3]
-  algorithm = database_row[4]
+  algorithm = database_row[4] 
 
   if algorithm =="Brute Force (n!)":
     solver = bft.BruteForceTravelingSalesmanSolver(params)
@@ -52,11 +55,21 @@ def main():
   if algorithm =="Random Remove Line Crosses (n^2 to n^3)":
     solver = loe.LineOverlapEliminatorTravelingSalesmanSolver(params)
 
+  if algorithm =="Gravity":
+    solver = gts.GravitationalTravelingSalesmanSolver(params)
+
+  if algorithm =="Dijkstra":
+    solver =dts.DijkstraSolver(params)
+
+  if algorithm =="Dijkstra 2":
+    solver = dts2.DijkstraTravelingSalesmanSolver(params)
+
   if solver is None:
     print "ERROR: Invalid solver!"
   else:
     solver.cur = cur
     solver.database_row_id=database_row_id
+    solver.setStatusDone("Calculating solution...")
     solution =solver.solve()
     solver.setSolution(solution)
     solver.setDone('y')

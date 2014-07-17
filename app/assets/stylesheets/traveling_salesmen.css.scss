@@ -18,6 +18,11 @@ html,body{
 	-moz-border-radius-topright: 5px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	cursor:auto;
+}
+
+.handle:hover{
+	cursor:pointer;
 }
 
 .floating{
@@ -37,6 +42,7 @@ html,body{
 .floatingTools{
 	left:10px;
 	top:60px;
+	height: calc(100% - 100px);
 }
 #floatingProgressBar{
 	width:100%;
@@ -51,6 +57,11 @@ html,body{
 #output{
 	width:300px;
 	overflow:auto;
+}
+#jobs{
+	//height: calc(100% - 200px);
+	overflow-y: auto;
+	overflow-x:hidden;
 }
 .job{
 	margin-right:20px;

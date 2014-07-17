@@ -12,20 +12,34 @@ class TravelingSalesmenController < ApplicationController
   def show
   end
 
+  def cancel
+    t = TravelingSalesman.find(params[:id])
+    t.last_tick=0
+    t.done=true
+    t.save!
+    render json: {} and return
+  end
+    
   def retreive_problem
     t = TravelingSalesman.find(params[:id])
 
     returnData = {message: t.message,answer: t.answer,statusDone: t.statusdone,done: t.done}
 
+    unless t.done
+      t.last_tick=Time.now
+      t.save!
+    end
+
+
     render json: returnData and return
   end
 
   def pose_problem
-
     t = TravelingSalesman.new
     t.problem_parameters = params[:points].to_json
     t.algorithm = params[:algorithm]
     t.statusdone = "Waiting in queue..."
+    t.last_tick=Time.now
     t.done=false
     t.save!
     

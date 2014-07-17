@@ -71,9 +71,17 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
                 break
     #print "Restarts: ",restarts,";"
 
+  def intersecting(a,b,x,i):
+    if self.intersecting[a][b][x][i] == None:
+      self.intersecting[a][b][x][i]=Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b])
+    return self.intersecting[a][b][x][i]
+
+
   def calculateIntersects(self):    
     self.intersecting= [[ [] for i in range(0,len(self.cords))] for i in range(0,len(self.cords))]
     for i in range(0,len(self.cords)):
+      pDone = float(i)/len(self.cords)
+      self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone)+" | Calculating intersections...")
       for x in range(i+1,len(self.cords)):
         for a in range(i+1,len(self.cords)):
           if a == x or a == i:
@@ -82,7 +90,7 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
             if b == x or b == i:
               continue
             if Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b]):
-              #print "<br> Intersect ",i,x,a,b
+              print "<br> Intersect ",i,x,a,b
               self.intersecting[i][x].append((a,b))
               self.intersecting[a][b].append((i,x))
               

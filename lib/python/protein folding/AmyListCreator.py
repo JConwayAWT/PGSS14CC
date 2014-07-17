@@ -1,17 +1,18 @@
 import random
-import ListCreater
+import AminoAcid
+import os, sys
+lib_path = os.path.abspath('../helpers')
+sys.path.append(lib_path)
 
 coords = [[0,0]]
 
-print("Please type in an amino acid chain")
+amino_acid_chain = 'AAAAAAABBBBBBBBBB'
 
-amino_acid_chain = input()
-
-list_of_amino_acids = ListCreater.makeList(amino_acid_chain)
+list_of_amino_acids = list(amino_acid_chain)
 
 num_of_acids = len(list_of_amino_acids)
 
-def add_or_sub_one (coords):
+def add_or_sub_one(coords):
     R = random.random()
     if (R >= 0) and (R <= .25):
         last_coord = coords[-1]

@@ -17,11 +17,9 @@ function addJob(){
 	$("#floatingProgressBar").fadeIn(500);
 }
 
-
-	
-
 function doneProcessing(){
 	processing=false;
+	DB_ID=0;
 	$("#floatingProgressBar").fadeOut(500);
 }
 
@@ -49,17 +47,16 @@ function docReady(){
 	addRandomCoordinates(100);
 	doneProcessing();
 
+	var dragging=null;
+	var dragY=0;
+	var dragX=0;
+	
 	$(".handle").mousedown(function(e) {
 		dragging=$(this);
 		dragY=e.pageY-parseInt(dragging.parent().css('top'));
 		dragX=e.pageX-parseInt(dragging.parent().css('left'));
 	});
 
-
-	var dragging=null;
-	var dragY=0;
-	var dragX=0;
-	
 
 	$(window).mouseup(function(e) {
 		dragging=null;
@@ -70,7 +67,7 @@ function docReady(){
 			var dispY=e.pageY-dragY;
 			var dispX=e.pageX-dragX;
 
-			if(dispY<30)dispY=30;
+			if(dispY<60)dispY=60;
 			var bottomY=$(window).height()-dragging.parent().height();
 			if(dispY>bottomY)dispY=bottomY;
 
@@ -96,6 +93,8 @@ function docReady(){
 		context.canvas.width=innerWidth-20;
 		context.canvas.height=innerHeight-20;
 
+		$("#jobs").height(innerHeight-250);
+
 		context.clearRect(0,0,canvas.width,canvas.height);
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
@@ -105,17 +104,45 @@ function docReady(){
 		setTimeout(animate,50);
 		//canvas.width=window.innerWidth-200;
 		$("#submit_data").prop('disabled', processing);
+		$("#cancel_solution").prop('disabled', !processing);
 	}
 
 	$("#submit_data").click(function(){
 		getSolution();
 	});
+
+	$("#cancel_solution").click(function(){
+		cancelSolution();
+	});
+
+	function cancelSolution(){
+		if(DB_ID>0){			
+			$.ajax({
+				url: '/cancel_traveling_salesman_problem',
+				type: 'POST',
+				data: {id: DB_ID},
+			})
+			.done(function(data) {
+				//console.log("success");
+				
+				//console.log("DB_ID "+DB_ID);
+			})
+			.fail(function() {
+				//console.log("error");
+				doneProcessing();
+			})
+			.always(function() {
+				//console.log("complete");
+			});
+		}
+		
+	}
 	function getSolution(){
 		if(processing)return;
 		var xvalues =[];
 		var yvalues=[];
 
-		$("#output").html("Waiting in queue...");
+		//$("#output").html("Waiting in queue...");
 		processing=true;
 
 		addJob();
@@ -156,14 +183,14 @@ function docReady(){
 				data: {id: DB_ID},
 			})
 			.done(function(data) {
-				//console.log(data);
-				//console.log(data.answer);
-				//console.log(data.message);
-				//console.log(data.statusDone);
-				//console.log(data.done)
+				console.log(data);
+				console.log(data.answer);
+				console.log(data.message);
+				console.log(data.statusDone);
+				console.log(data.done)
 				$("#statusDone").html(data.statusDone);
 				$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#floatingProgressBar").width());
-				if(data.answer!=""){
+				if(data.answer!=null&&data.answer!=""){
 					$("#output").html(data.answer);
 					if(data.answer.indexOf("ERROR:")==-1){//No error
 						var ansStart=data.answer.lastIndexOf(';')+1;
