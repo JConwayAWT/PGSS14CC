@@ -10,7 +10,7 @@ class ProteinChain:
     self.number_of_acids = len(self.amino_acid_chain)
     self.chainAminoAcids = []
 
-  def list_of_as_in_a_row (chain):
+  def list_of_as_in_a_row(self,chain):
     list_of_a_indexes = []
     current_list = []
     for k in range(len(chain)):
