@@ -49,17 +49,16 @@ function docReady(){
 	addRandomCoordinates(100);
 	doneProcessing();
 
+	var dragging=null;
+	var dragY=0;
+	var dragX=0;
+	
 	$(".handle").mousedown(function(e) {
 		dragging=$(this);
 		dragY=e.pageY-parseInt(dragging.parent().css('top'));
 		dragX=e.pageX-parseInt(dragging.parent().css('left'));
 	});
 
-
-	var dragging=null;
-	var dragY=0;
-	var dragX=0;
-	
 
 	$(window).mouseup(function(e) {
 		dragging=null;
@@ -70,7 +69,7 @@ function docReady(){
 			var dispY=e.pageY-dragY;
 			var dispX=e.pageX-dragX;
 
-			if(dispY<30)dispY=30;
+			if(dispY<60)dispY=60;
 			var bottomY=$(window).height()-dragging.parent().height();
 			if(dispY>bottomY)dispY=bottomY;
 
@@ -96,6 +95,8 @@ function docReady(){
 		context.canvas.width=innerWidth-20;
 		context.canvas.height=innerHeight-20;
 
+		$("#jobs").height(innerHeight-250);
+
 		context.clearRect(0,0,canvas.width,canvas.height);
 		for(var i=0;i<cords.length;i++){
 			var cord = cords[i];
@@ -115,7 +116,7 @@ function docReady(){
 		var xvalues =[];
 		var yvalues=[];
 
-		$("#output").html("Waiting in queue...");
+		//$("#output").html("Waiting in queue...");
 		processing=true;
 
 		addJob();
@@ -156,14 +157,14 @@ function docReady(){
 				data: {id: DB_ID},
 			})
 			.done(function(data) {
-				//console.log(data);
-				//console.log(data.answer);
-				//console.log(data.message);
-				//console.log(data.statusDone);
-				//console.log(data.done)
+				console.log(data);
+				console.log(data.answer);
+				console.log(data.message);
+				console.log(data.statusDone);
+				console.log(data.done)
 				$("#statusDone").html(data.statusDone);
 				$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#floatingProgressBar").width());
-				if(data.answer!=""){
+				if(data.answer!=null&&data.answer!=""){
 					$("#output").html(data.answer);
 					if(data.answer.indexOf("ERROR:")==-1){//No error
 						var ansStart=data.answer.lastIndexOf(';')+1;

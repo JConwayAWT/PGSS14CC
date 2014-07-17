@@ -135,10 +135,10 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     self.setSolution(path)
     return path
 
-if __name__ == '__main__':
-    A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(0,0,0))
-    A.cords.append(CC.Coordinate(1,1,1))
-    A.cords.append(CC.Coordinate(1,2,2))
-    print(A.debug())
+#if __name__ == '__main__':
+    #A=SimulatedAnnealingSalesmanSolver()
+    #A.cords.append(CC.Coordinate(0,0,0))
+    #A.cords.append(CC.Coordinate(1,1,1))
+    #A.cords.append(CC.Coordinate(1,2,2))
+    #print(A.debug())
     #print(A.main())

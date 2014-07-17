@@ -26,19 +26,22 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
   CALCULATIONS=10000
   CALCULATION_UPDATES=100
   BEST_UPDATES=1000
+  debugData=""
   traversed=[]
   numTraversed=0
   start=0
   totalDistance=0  
   bestDistance=float("inf")
-  PHERNOME_SCALE=10000
+  avgEdgeWeight=0
+  PHERNOME_SCALE=1000000
+  PHERNOME_EXP  =3#must be odd
   order = []
   def solve(self):
     if self.REMOVE_LINE_CROSSES:
       self.calculateIntersects()
     self.initArrays()
     self.compute()
-    self.answer=""
+    #self.printPhermones()
     self.printBestPath()  
     return self.answer;
 
@@ -53,11 +56,31 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
 
       self.traverse()
       #self.printPhermones()
+  def printPhermones(self):
+    self.debugData+="PHERMONES:"
+    for i in range(0,len(self.cords)):
+      self.debugData+="<br>"
+      for j in range(0,len(self.cords)):
+        self.debugData+=str(round(self.phermones[i][j]*10000)/10000)+" "
 
   def initArrays(self):
     #self.probability = [[0.0000001]*len(self.cords)]*len(self.cords)    
     self.phermones =[[1 for i in range(0,len(self.cords))] for i in range(0,len(self.cords))]
-    self.resetArrays()
+    totalEdgeDist=0
+    for i in range(0,len(self.cords)):
+      for j in range(0,len(self.cords)):
+        if i==j:
+          continue
+        totalEdgeDist+=self.cords[i].dist(self.cords[j])
+    self.avgEdgeWeight=totalEdgeDist/pow(len(self.cords),2)
+    edgeDistScale=self.PHERNOME_SCALE#totalEdgeDist/len(self.cords)
+    for i in range(0,len(self.cords)):
+      for j in range(0,len(self.cords)):
+        if i==j:
+          continue              
+        self.phermones[i][j]+=edgeDistScale/pow(self.cords[i].dist(self.cords[j]),3)#self.PHERNOME_EXP)
+        self.phermones[j][i]+=edgeDistScale/pow(self.cords[i].dist(self.cords[j]),3)#self.PHERNOME_EXP)
+    self.resetArrays()    
   def resetArrays(self):
     self.traversed = [False for i in range(0,len(self.cords))]
     self.totalDistance=0
@@ -100,7 +123,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
       total+=self.phermones[c][j]
 
     r = random.uniform(0,total)
-
+    #self.debugData+="<br>"+" "+str(r)+" "+str(total)
     cur=0
     for j in range(0,len(self.cords)):
       if self.traversed[j]:
@@ -115,27 +138,23 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
       self.updatePhermones(c,j)
     return works
   def updatePhermones(self, c, j):
-    self.phermones[c][j]+=self.PHERNOME_SCALE/self.totalDistance/self.totalDistance/self.totalDistance
-    self.phermones[j][c]+=self.PHERNOME_SCALE/self.totalDistance/self.totalDistance/self.totalDistance
+    avg = self.avgEdgeWeight*len(self.cords)
+    self.phermones[c][j]+=self.PHERNOME_SCALE/pow(avg-self.totalDistance,self.PHERNOME_EXP)
+    self.phermones[j][c]+=self.PHERNOME_SCALE/pow(avg-self.totalDistance,self.PHERNOME_EXP)
 
   def printBestPath(self):
     self.resetArrays()
+    
+
     self.bestStep(0)
     self.removeLineCrosses()
-    self.answer=""
+    self.answer=self.debugData
     for c in range(0,len(self.bestOrder)):
       self.answer+=str(self.bestOrder[c])+","
 
     if self.totalDistance!=0:
       self.bestDistance=min(self.totalDistance,self.bestDistance)
   
-  def printPhermones(self):
-    print "<br> PHERMONES"
-    for i in range(0,len(self.cords)):
-      print "<br>"
-      for j in range(0,len(self.cords)):
-        print self.phermones[i][j]," "
-
   def bestStep(self,c):
     self.bestOrder.append(c)
     self.numTraversed+=1

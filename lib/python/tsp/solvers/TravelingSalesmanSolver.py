@@ -51,6 +51,12 @@ class TravelingSalesmanSolver:
 	def setDone(self,done):
 		self.cur.execute ("UPDATE traveling_salesmen SET done=\'"+done+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
+	def checkTimeout(self,done):
+		self.cur.execute ("SELECT FROM lastTick WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
+		database_row = cur.fetchone()
+  		database_row_id = database_row[0]
+  		#if self.millis()-
+
 	def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
 		assert len(xPoints) == len(yPoints)
 		for i in range(0,len(xPoints)):
@@ -61,7 +67,9 @@ class TravelingSalesmanSolver:
 	def remainingTime(self,pDone):
 		if pDone==0:
 			pDone=1
-		return str(int((self.millis()-self.startTime)/1000))+"/"+str(int((self.millis()-self.startTime)/pDone/1000))+"s"
+		elapsedSec=int((self.millis()-self.startTime)/1000)
+		totalSec =int(elapsedSec/pDone)
+		return str(totalSec-elapsedSec)+"s remaining /"+str(totalSec)+"s total"
 
 
 
