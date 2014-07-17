@@ -6,7 +6,8 @@ class AddDone < ActiveRecord::Migration
   end
   def self.down
 	
-	remove_column :done, :answer	
+	remove_column :traveling_salesmen, :done
+	remove_column :traveling_salesmen, :answer
 
   end
 end

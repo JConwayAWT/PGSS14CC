@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20140717183009) do
     t.text     "message"
     t.text     "statusdone"
     t.boolean  "done"
-    t.integer  "lastTick"
+    t.integer  "last_tick"
   end
 
   create_table "users", force: true do |t|

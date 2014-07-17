@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   match '/pose_traveling_salesman_problem', to: 'traveling_salesmen#pose_problem', via: :post
   match '/retreive_traveling_salesman_problem', to: 'traveling_salesmen#retreive_problem', via: :post
-  match '/cancel_traveling_salesman_problem', to: 'traveling_salesmen#cancel'
+  match '/cancel_traveling_salesman_problem', to: 'traveling_salesmen#cancel', via: :post
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
