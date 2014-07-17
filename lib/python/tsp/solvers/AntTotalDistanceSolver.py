@@ -23,7 +23,7 @@ import copy
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 #  probability =[[]]
   phermones =[[]]
-  CALCULATIONS=10000
+  CALCULATIONS=10000000
   CALCULATION_UPDATES=100
   BEST_UPDATES=1000
   debugData=""
@@ -49,7 +49,8 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     for i in range(0,self.CALCULATIONS):
       if i%self.CALCULATION_UPDATES==0:
         pDone=float(i)/self.CALCULATIONS
-        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+#        self.setStatusDone(str(i))#str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+        self.checkTimeout(self)
       if i%self.BEST_UPDATES==0:
         self.printBestPath()
         self.setSolution(self.answer)
