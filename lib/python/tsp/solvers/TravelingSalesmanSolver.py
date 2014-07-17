@@ -59,7 +59,7 @@ class TravelingSalesmanSolver:
 		database_row = self.cur.fetchone()
   		last_tick = database_row[0]
   	
-  		self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
+  		#self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
   		if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
   			self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 			sys.exit(0)
