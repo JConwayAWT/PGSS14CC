@@ -39,9 +39,9 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
   def solve(self):
     if self.REMOVE_LINE_CROSSES:
       self.calculateIntersects()
+    self.startTime = self.millis()
     self.initArrays()
     self.compute()
-    #self.printPhermones()
     self.printBestPath()  
     return self.answer;
 

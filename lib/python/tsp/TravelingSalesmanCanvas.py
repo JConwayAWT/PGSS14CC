@@ -49,10 +49,10 @@ def main():
     solver = atd.AntTotalDistanceSolver(params)
     solver.REMOVE_LINE_CROSSES=False
 
-  if algorithm =="Ant Total Distance Remove Line Crosses (n^3)":
+  if algorithm =="Ant Total Distance Remove Line Crosses (n^2)":
     solver = atd.AntTotalDistanceSolver(params) 
 
-  if algorithm =="Random Remove Line Crosses (n^2 to n^3)":
+  if algorithm =="Random Remove Line Crosses (n^2)":
     solver = loe.LineOverlapEliminatorTravelingSalesmanSolver(params)
 
   if algorithm =="Gravity":

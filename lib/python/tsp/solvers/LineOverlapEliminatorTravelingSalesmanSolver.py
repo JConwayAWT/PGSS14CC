@@ -36,6 +36,7 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
     return self.answer;
 
   def printBestPath(self):
+    self.answer+=";"
     for c in range(0,len(self.bestOrder)):
       self.answer+=str(self.bestOrder[c])+","
 
@@ -49,6 +50,8 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
         #print "<br> <b> START</b>"
         restart=False
         restarts+=1
+        #self.answer+="Start<br>"
+        self.setStatusDone(str(restarts))
         if restarts==len(self.cords):
           break
         for iindex in range(1,len(self.bestOrder)):
@@ -59,39 +62,41 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
             aindexAdjusted= aindex if aindex<len(self.bestOrder) else 0
             a=self.bestOrder[aindexAdjusted]           
             b=self.bestOrder[aindex-1]
+            if a==x:
+              continue
             ab = (min(a,b),max(a,b))
-            #print "<br>?",x,i,b,a,iindex,aindexAdjusted,len(self.bestOrder),len(self.intersecting[min(x,i)][max(x,i)]),ab,xi
-            for l in range(0,len(self.intersecting[min(x,i)][max(x,i)])):
-              #print "<br>L ",ab,min(x,i),max(i,x),self.intersecting[min(x,i)][max(x,i)][l]
-              if ab == self.intersecting[min(x,i)][max(x,i)][l]:
-                bestOrderCopy = copy.copy(self.bestOrder)
-                for r in range(iindex,(aindex-1)+1):
-                  self.bestOrder[r]=bestOrderCopy[aindex-1-(r-iindex)]
-                restart=True
-                break
+            #self.answer+="<br>L "+str(a)+" "+str(b)+" "+str(x)+" "+str(i)+" "+str(aindex)+" "+str(iindex)
+            if self.intersects(a,b,x,i):#ab == self.intersecting[min(x,i)][max(x,i)][l]:
+              bestOrderCopy = copy.copy(self.bestOrder)
+              #self.answer+="New Inter"+" "+str(iindex)+" "+str(aindex)
+              for r in range(iindex,(aindex-1)+1):
+                self.bestOrder[r]=bestOrderCopy[aindex-1-(r-iindex)]
+                restart=True 
+            #break
     #print "Restarts: ",restarts,";"
 
-  def intersecting(a,b,x,i):
-    if self.intersecting[a][b][x][i] == None:
-      self.intersecting[a][b][x][i]=Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b])
-    return self.intersecting[a][b][x][i]
+  def intersects(self, a,b,x,i):
+    #if self.intersecting[a][b][x][i] == None:
+      #self.intersecting[a][b][x][i]=Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b])
+    #return self.intersecting[a][b][x][i]
+    return Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b])
 
 
   def calculateIntersects(self):    
     self.intersecting= [[ [] for i in range(0,len(self.cords))] for i in range(0,len(self.cords))]
-    for i in range(0,len(self.cords)):
-      pDone = float(i)/len(self.cords)
-      self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone)+" | Calculating intersections...")
-      for x in range(i+1,len(self.cords)):
-        for a in range(i+1,len(self.cords)):
-          if a == x or a == i:
-            continue
-          for b in range(a+1,len(self.cords)):
-            if b == x or b == i:
-              continue
-            if Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b]):
-              print "<br> Intersect ",i,x,a,b
-              self.intersecting[i][x].append((a,b))
-              self.intersecting[a][b].append((i,x))
+    #for i in range(0,len(self.cords)):
+      #pDone = float(i)/len(self.cords)
+      #self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone)+" | Calculating intersections...")
+      #for x in range(i+1,len(self.cords)):
+        #for a in range(i+1,len(self.cords)):
+          #if a == x or a == i:
+            #continue
+          #for b in range(a+1,len(self.cords)):
+            #if b == x or b == i:
+              #continue
+            #if Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b]):
+              #print "<br> Intersect ",i,x,a,b
+              #self.intersecting[i][x].append((a,b))
+              #self.intersecting[a][b].append((i,x))
               
   
