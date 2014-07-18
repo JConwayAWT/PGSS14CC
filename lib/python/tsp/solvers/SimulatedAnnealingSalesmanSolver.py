@@ -29,11 +29,6 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
   bestDistance=float("inf")
   Temperature = 1.0
   bestscore = 0
-  def debug (self):
-    print("A")
-    print (self.main())
-    print("Z")
-
   def __init__(self):
     pass
   def solve(self):
@@ -77,34 +72,45 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
   def generatepath(self):
     answerpath = ""
     for index in range(0,len(self.cords)):
-            answerpath += str(self.cords[index])
+            answerpath += str(self.cords[index].i)
+    print (answerpath)
     return answerpath #organize based on angle value
 
 
   def distance(self, path):
     distance = 0
-    for node in path:
-        print(node)
-        distance += self.cords[path[int(node)]].dist(self.cords[path[int(node)+1]])
+    countruns =0
+    finalnode = 0
+    pathclone = path
+    for node in pathclone:
+        if countruns == 0:
+            finalnode = node
+        nextnode= int(node)+1
+        if nextnode == (len(pathclone)):
+            nextnode = int(finalnode)
+        distance += self.cords[int(node)].dist(self.cords[nextnode])
+        countruns += 1
+
     return distance
 
   def Scoringfunction(self,path):
-    scorefn=math.e*((-self.distance(path))/Temperature)
-
+    scorefn=-self.distance(path)#math.e*((-self.distance(path))/self.Temperature)
+    return scorefn
   def generatenewpath (self, path):#######bug########
     print((path,"aa"))
     answerpath = ""
-    randint1 = random.randint(0,(len(self.cords)%2))
-    switchedentry = 0
+    randint1 = random.randint(0,(len(path)-2))
+    switchedentry = ""
     index = 0
     for entry in path:
         entry = str(entry)
         if index == randint1:
             switchedentry = entry
         elif index == (randint1 + 1):
-            answerpath += (str(switchedentry) + entry)
+            answerpath += (entry + str(switchedentry) )
         else:
             answerpath += entry
+        index += 1
     return answerpath
   def AnnealingMC(self):
     currentpath = self.generatepath()
@@ -113,11 +119,12 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     newscore = self.Scoringfunction(newpath)
     currentscore = self.Scoringfunction(currentpath)
 
-    score = [newscore,currentscore]
-    if currentscore < newscore:
+    score = newscore
+
+    if currentscore <= newscore:
         return [newpath, score]
     else:
-        randint = random.randint(100)
+        randint = random.randint(0,100)
         probability = newscore/currentscore
         if randint > 100*probability:
             return [newpath, score]
@@ -126,19 +133,25 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
 
   def main(self):
     self.addpolarcord()
+    bestpath=""
     path = "a"
     #path=self.generatepath()
-    for timestried in range(10):
+    for timestried in range(1000):
         solution = self.AnnealingMC()
-        if solution[1]>bestscore:
+        print (solution[1])
+        if path == "a":
+                path = solution[0]
+        if solution[1]<self.bestscore:
             path = solution[0]
-    self.setSolution(path)
+            bestscore = solution[1]
+    print(path, bestscore, "path")
+    #self.setSolution(path)
     return path
 
-#if __name__ == '__main__':
-    #A=SimulatedAnnealingSalesmanSolver()
-    #A.cords.append(CC.Coordinate(0,0,0))
-    #A.cords.append(CC.Coordinate(1,1,1))
-    #A.cords.append(CC.Coordinate(1,2,2))
-    #print(A.debug())
-    #print(A.main())
+if __name__ == '__main__':
+    A=SimulatedAnnealingSalesmanSolver()
+    A.cords.append(CC.Coordinate(-1,-1,0))
+    A.cords.append(CC.Coordinate(-1,1,1))
+    A.cords.append(CC.Coordinate(1,1,2))
+    A.cords.append(CC.Coordinate(1,-1,3))
+    print(A.main(), "sol")

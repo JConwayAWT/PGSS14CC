@@ -59,5 +59,38 @@ class ProteinChain:
       if (i < (len(self.coords) - 1)):
         self.chainAminoAcids[i].setNextNeighbor(self.coords[i + 1])
 
+  def setCoords(self, newCoords):
+    try:
+      assert (len(newCoords) == len(self.coords))
+    except:
+      print "Size mismatch in coords!"
+      return
+    try:
+      assert (len(self.chainAminoAcids) == self.number_of_acids)
+    except:
+      self.generateChainAminoAcid()
+    for i in range(self.number_of_acids):
+      coord = newCoords[i]
+      self.chainAminoAcids[i].setCoord(coord)
+      if (i > 0):
+        self.chainAminoAcids[i].setPreviousNeighbor(newCoords[i - 1])
+      if (i < (len(self.coords) - 1)):
+        self.chainAminoAcids[i].setNextNeighbor(newCoords[i + 1])
+    self.coords = newCoords
+
   def getChain(self):
     return self.chainAminoAcids
+
+def list_of_as_in_a_row(chain):
+  list_of_a_indexes = []
+  current_list = []
+  for k in range(len(chain)):
+      if chain[k] == 'A':
+          current_list.append(k)
+      else:
+          if current_list != []:
+              list_of_a_indexes.append(current_list)
+          current_list= []
+      if k == len(chain) -1:
+          list_of_a_indexes.append(current_list)
+  return [element for element in list_of_a_indexes if element != []]

@@ -44,15 +44,6 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
       if distances_from_inbound[i] < minimum_distance_from_inbound and distances_from_inbound[i] != 0 and self.degree_for_city_as_index[i] != 2 and self.visited_cities_by_index[i] == False:
         minimum_distance_from_inbound = distances_from_inbound[i]
         index_minimum_current_inbound_city=i
-    # minimum_distance_from_outbound = min(distance for distance in distances_from_outbound if distance > 0)
-    # minimum_distance_from_inbound = min(distance for distance in distances_from_inbound if distance > 0) 
-    # index_minimum_current_outbound_city = distances_from_outbound.index(minimum_distance_from_outbound)
-    # index_minimum_current_inbound_city = distances_from_outbound.index(minimum_distance_from_outbound)
-
-    #choose the minimum distance city which meets the following criteria:
-    # -- the distance is not 0 (don't travel to yourself)
-    # -- the degree is not 2 (already has incoming/outgoing route)
-    # -- we don't connect incoming and outgoing UNLESS this is the final move
 
     if len(self.itinerary) == (len(self.cords) - 1):
       index_minimum_current_distance_city = 0
@@ -73,26 +64,6 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
       self.degree_for_city_as_index[inward_index] += 1
       self.inward_bound_current_city_index = index_minimum_current_distance_city
       self.itinerary.insert(0,index_minimum_current_distance_city)
-
-
-    # It may be more efficient to do a check such as this:
-    # if ():
-    #   index_minimum_current_distance_city = inward_index
-    #   minimum_current_distance = minimum_distance_from_outbound
-    #   self.degree_for_city_as_index[outward_index, inward_index] += 1
-    #   connect_incoming_and_outgoing()
-    # else:
-    #   do_the_logic_from_above_except_for_the_last_line
-    #
-    # after choosing the next city:
-    # -- update the degree of both cities involved
-    # --- did this above
-    # -- update the tip of whichever path is involved
-    # --- did this above
-    # -- update the itinerary
-    
-    # the return value should probably be the index of the city
-
 
   def initialize_distances_to_and_from_each_city(self):
     distances_per_city = []
