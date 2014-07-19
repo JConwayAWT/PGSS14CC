@@ -1,6 +1,9 @@
 import random
 from copy import deepcopy
 import AminoAcid
+import os, sys
+lib_path = os.path.abspath('../helpers')
+sys.path.append(lib_path)
 
 class ProteinChain:
 

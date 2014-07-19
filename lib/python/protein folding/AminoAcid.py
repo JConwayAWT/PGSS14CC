@@ -1,10 +1,13 @@
 import random
+import os, sys
+lib_path = os.path.abspath('../helpers')
+sys.path.append(lib_path)
 
 def repeatAAGen(n):    # generate AAs
 ## given a length n, return a string of length n
-## consisting of A or B at each slot
-    hydrophobicA = ['A', 'A', 'A', 'A', 'A', 'A', 'A']
-    hydrophilicB = ['B', 'B', 'B', 'B', 'B', 'B', 'B','B', 'B', 'B', 'B', 'B', 'B']
+## consisting of H or P at each slot
+    hydrophobicA = ['H', 'H', 'H', 'H', 'H', 'H', 'H']
+    hydrophilicB = ['P', 'P', 'P', 'P', 'P', 'P', 'P','P', 'P', 'P', 'P', 'P', 'P']
     totalAminoAcids = hydrophobicA + hydrophilicB
     chain = ""
     counter = 0
@@ -16,7 +19,7 @@ def repeatAAGen(n):    # generate AAs
     return chain
 
 class AminoAcid:
-##    polarity #will be either A or B (A = hydrophobic, B = hydrophilic
+##    polarity #will be either H or P (H = hydrophobic, P = hydrophilic/polar
 ##    num #tells the order of the amino acid change
 ##    locationx
 ##    locationy #the coordinates of the AminoAcid on the coordinate plane
