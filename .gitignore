@@ -1,3 +1,4 @@
 /tmp
 /log/*.log
 *.pyc
+.DS_Store
