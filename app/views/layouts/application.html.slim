@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title PGSS 2014 Computational Chemistry
+    title CATNIP
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -9,7 +9,9 @@ html
     nav.navbar.navbar-fixed-top.navbar-inverse#no-border-radius role="navigation"
       .container-fluid
         .navbar-header
-          .navbar-brand PGSS Computation Chemistry 2014
+          .navbar-brand 
+            = image_tag "logo.png",style: "margin-top:-10px; margin-right:10px;"
+            |CATNIP
         ul.nav.navbar-nav
           li
             a href="tsp" TSP
