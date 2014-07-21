@@ -34,7 +34,7 @@ class ProteinChain:
     if (new_coord not in self.coords):
       self.coords.append(new_coord)
     if self.trapped():
-      print "trapped!"
+      self.trappedCount += 1
       self.coords.pop(-1)
       self.coords.pop(-1)
       self.coords.pop(-1)
@@ -50,8 +50,12 @@ class ProteinChain:
 
   def generateChainCoordinates(self):
     self.coords = [[0,0]]
+    self.trappedCount = 0
     while (len(self.coords) < self.number_of_acids):
       self.add_or_subtract_one_from_x_or_y()
+      if (self.trappedCount > 10):
+        self.coords = [[0,0]]
+        self.trappedCount = 0
 
   def getCoords(self):
     return self.coords
