@@ -30,13 +30,11 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
   bestDistance=float("inf")
   Temperature = 1.0
   bestscore = 0
-  def __init__(self):
-    pass
-  def solve(self):
-    self.bestDistance=float("inf")
-    self.compute(0, 0, -1, []);
-    self.getAnswer()
-    return self.answer;
+#  def solve(self):
+    #self.bestDistance=float("inf")
+    #self.compute(0, 0, -1, []);
+    #self.getAnswer()
+    #return self.answer;
 
   def getcenterofmass(self): ###debugged
         xsum = 0.0;
@@ -138,7 +136,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
         else:
             return [currentpath, score]
 
-  def main(self):
+  def solve(self):
     self.addpolarcord()
     bestpath=""
     path = "a"
@@ -155,17 +153,18 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     #self.setSolution(path)
     finalsolution = ""
     for element in path:
-        finalsolution += element
+        finalsolution += element.i
         finalsolution += ","
     return finalsolution
 
-if __name__ == '__main__':
-    A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(-2,0,0))
-    A.cords.append(CC.Coordinate(-1,1,5))
-    A.cords.append(CC.Coordinate(0,2,2))
-    A.cords.append(CC.Coordinate(1,1,4))
-    A.cords.append(CC.Coordinate(2,0,3))
-    A.cords.append(CC.Coordinate(0,-2,1))
-    print(A.main(), "sol")
+#
+#if __name__ == '__main__':
+    #A=SimulatedAnnealingSalesmanSolver()
+    #A.cords.append(CC.Coordinate(-2,0,0))
+    #A.cords.append(CC.Coordinate(-1,1,5))
+    #A.cords.append(CC.Coordinate(0,2,2))
+    #A.cords.append(CC.Coordinate(1,1,4))
+    #A.cords.append(CC.Coordinate(2,0,3))
+    #A.cords.append(CC.Coordinate(0,-2,1))
+    #print(A.main(), "sol")
     #print(A.distance("3,0,1,2"))
