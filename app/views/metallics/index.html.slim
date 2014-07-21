@@ -1,0 +1,115 @@
+br
+br
+br
+.row
+	.col-md-2.col-offset-2
+	.col-md-8
+		/ .dropdown
+		/   button#dropdownMenu1.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" 
+		/     | Atom #1
+		/     span.caret
+		/   ul.dropdown-menu aria-labelledby="dropdownMenu1" role="menu" 
+		/     li role="presentation" 
+		/       a href="#" role="menuitem" tabindex="-1"  Metal1
+		/     li role="presentation" 
+		/       a href="#" role="menuitem" tabindex="-1"  Metal1
+		/     li role="presentation" 
+		/       a href="#" role="menuitem" tabindex="-1"  Metal3
+		.text-center
+			h1 Multimetallic Optimization
+			/ br
+			/ .text-left
+			/ 	h3 Atom #1: 
+			/ 	.dropdown
+			/ 	  button#dropdownMenu1.btn.btn-default.btn-lg.dropdown-toggle data-toggle="dropdown" type="button" 
+			/ 	    | None
+			/ 	    span.caret
+			/ 	  ul.dropdown-menu aria-labelledby="dropdownMenu1" role="menu" 
+			/ 	    li role="presentation" 
+			/ 	      a href="#" role="menuitem" tabindex="-1"  Metal1
+			/ 	    li role="presentation" 
+			/ 	      a href="#" role="menuitem" tabindex="-1"  Metal1
+			/ 	    li role="presentation" 
+			/ 	      a href="#" role="menuitem" tabindex="-1"  Metal3
+	
+			/ 	h3 Atom #2: 
+			/ 	.dropdown
+			/ 	  button#dropdownMenu1.btn.btn-default.btn-lg.dropdown-toggle data-toggle="dropdown" type="button" 
+			/ 	    | None
+			/ 	    span.caret
+			/ 	  ul.dropdown-menu aria-labelledby="dropdownMenu1" role="menu" 
+			/ 	    li role="presentation" 
+			/ 	      a href="#" role="menuitem" tabindex="-1"  Metal1
+			/ 	    li role="presentation" 
+			/ 	      a href="#" role="menuitem" tabindex="-1"  Metal1
+			/ 	    li role="presentation" 
+			/ 	      a href="#" role="menuitem" tabindex="-1"  Metal3
+			/ .btn.btn-primary Submit
+			/ .btn.btn-secondary Cancel
+.row
+	.col-md-3.col-md-offset-3
+		.form-group
+			label Element 1
+			select.form-control
+				option None
+				option Metal1
+				option Metal2
+				option Metal3
+	.col-md-3
+		.form-group
+			label Percentage (%)
+			br
+			input.form-control placeholder = ("--%")
+.row
+	.col-md-3.col-md-offset-3
+		.form-group
+			label Element 2
+			select.form-control
+				option None
+				option Metal1
+				option Metal2
+				option Metal3
+	.col-md-3
+		.form-group
+			label Percentage (%)
+			br
+			input.form-control placeholder = ("--%")
+.row 
+	.col-md-3.col-md-offset-3
+		.form-group
+			label Element 3
+			select.form-control
+				option None
+				option Metal1
+				option Metal2
+				option Metal3
+	.col-md-3
+		.form-group
+			label Percentage (%)
+			br
+			input.form-control placeholder = ("--%")
+.row
+	.col-md-3.col-md-offset-3
+		.form-group
+			label Algorithm: 
+			select.form-control
+				option Method1
+				option Method2
+				option Method3
+	.col-md-3
+		.form-group
+			label # of Atoms: 
+			br
+			input.form-control placeholder = ("")
+.row
+	.col-md-6.text-right 
+		button.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
+	.col-md-6.text-left
+		button.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel
+
+br
+br
+
+.row
+	.col-md-8.col-md-offset-2 align="center"
+		canvas#metallics-canvas width="720" height="360"
