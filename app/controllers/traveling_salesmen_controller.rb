@@ -43,7 +43,7 @@ class TravelingSalesmenController < ApplicationController
     t.done=false
     t.save!
     
-    SolverJob.new.async.perform(t.id)
+    TSPSolverJob.new.async.perform(t.id)
 
     returnData = {statusMessage: "Processed",databaseId: t.id}
 

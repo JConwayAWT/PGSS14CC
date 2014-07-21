@@ -1,0 +1,75 @@
+br
+br
+br
+.row
+  .col-md-2.col-offset-2
+  .col-md-8
+    .text-center
+      h1 Multimetallic Optimization
+.row
+  .col-md-3.col-md-offset-3
+    .form-group
+      label Element 1
+      select.form-control
+        option None
+        option Metal1
+        option Metal2
+        option Metal3
+  .col-md-3
+    .form-group
+      label Percentage (%)
+      br
+      input.form-control placeholder = ("--%")
+.row
+  .col-md-3.col-md-offset-3
+    .form-group
+      label Element 2
+      select.form-control
+        option None
+        option Metal1
+        option Metal2
+        option Metal3
+  .col-md-3
+    .form-group
+      label Percentage (%)
+      br
+      input.form-control placeholder = ("--%")
+.row 
+  .col-md-3.col-md-offset-3
+    .form-group
+      label Element 3
+      select.form-control
+        option None
+        option Metal1
+        option Metal2
+        option Metal3
+  .col-md-3
+    .form-group
+      label Percentage (%)
+      br
+      input.form-control placeholder = ("--%")
+.row
+  .col-md-3.col-md-offset-3
+    .form-group
+      label Algorithm: 
+      select.form-control
+        option Method1
+        option Method2
+        option Method3
+  .col-md-3
+    .form-group
+      label # of Atoms: 
+      br
+      input.form-control placeholder = ("")
+.row
+  .col-md-6.text-right 
+    button.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
+  .col-md-6.text-left
+    button.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel
+
+br
+br
+
+.row
+  .col-md-8.col-md-offset-2 align="center"
+    canvas#metallics-canvas width="720" height="360"

@@ -12,6 +12,7 @@
 import os, sys;
 import random;
 import math as m
+import copy
 lib_path = os.path.abspath('..');
 sys.path.append(lib_path);
 
@@ -81,13 +82,19 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     distance = 0
     countruns =0
     finalnode = 0
-    pathclone = path
+    pathclone = copy.deepcopy(path)
+    #pathclone = pathclone.split(",")
     for node in pathclone:
+        node = int(node)
         if countruns == 0:
             finalnode = node
-        nextnode= int(node)+1
+        nextnodecount = countruns + 1
+        if (countruns + 1) == len(pathclone):
+            countruns = -1
+        nextnode= int(pathclone[countruns+1])
         if nextnode == (len(pathclone)):
             nextnode = int(finalnode)
+        print(self.cords[int(node)].dist(self.cords[nextnode]),node,nextnode)
         distance += self.cords[int(node)].dist(self.cords[nextnode])
         countruns += 1
 
@@ -146,12 +153,19 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
             bestscore = solution[1]
     print(path, bestscore, "path")
     #self.setSolution(path)
-    return path
+    finalsolution = ""
+    for element in path:
+        finalsolution += element
+        finalsolution += ","
+    return finalsolution
 
 if __name__ == '__main__':
     A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(-1,-1,0))
-    A.cords.append(CC.Coordinate(-1,1,1))
-    A.cords.append(CC.Coordinate(1,1,2))
-    A.cords.append(CC.Coordinate(1,-1,3))
+    A.cords.append(CC.Coordinate(-2,0,0))
+    A.cords.append(CC.Coordinate(-1,1,5))
+    A.cords.append(CC.Coordinate(0,2,2))
+    A.cords.append(CC.Coordinate(1,1,4))
+    A.cords.append(CC.Coordinate(2,0,3))
+    A.cords.append(CC.Coordinate(0,-2,1))
     print(A.main(), "sol")
+    #print(A.distance("3,0,1,2"))

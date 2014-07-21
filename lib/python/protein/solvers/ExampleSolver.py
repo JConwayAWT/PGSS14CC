@@ -14,11 +14,12 @@ sys.path.append(lib_path)
 lib_path = os.path.abspath('../')
 sys.path.append(lib_path)
 import ProteinChainClass
-import Coordinate
 import math
+import ProteinFoldingSolver
 import random
 import copy
 
-class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
+class ExampleSolver(ProteinFoldingSolver.ProteinFoldingSolver):
 
   def solve(self):
+  	return "Lol im a protein"
