@@ -4,6 +4,7 @@ import AminoAcid
 import os, sys
 lib_path = os.path.abspath('../helpers')
 sys.path.append(lib_path)
+random.seed()
 
 class ProteinChain:
 
@@ -13,6 +14,10 @@ class ProteinChain:
     self.cords = [] # this is the list of coordinates with identities
     self.number_of_acids = len(self.amino_acid_chain)
     self.chainAminoAcids = []
+    self.Energy = float('inf')
+    self.generateChainCoordinates()
+    self.generateChainAminoAcids()
+    self.getEnergy()
 
   def add_or_subtract_one_from_x_or_y(self,coordinates):
     R = random.random() #range of [0,1]
@@ -58,11 +63,12 @@ class ProteinChain:
     for i in range(self.number_of_acids):
       acid = self.amino_acid_chain[i]
       coord = self.coords[i]
-      cord = self.coords[i].append(acid)
+      cord = deepcopy(self.coords[i])
+      cord.append(acid)
+      self.cords.append(cord)
       self.chainAminoAcids.append(AminoAcid.AminoAcid())
       self.chainAminoAcids[i].setCoord(coord)
       self.chainAminoAcids[i].set_Polarity_and_Index(acid,i)
-      self.cords.append(cord)
       if (i > 0):
         self.chainAminoAcids[i].setPreviousNeighbor(self.coords[i - 1])
       if (i < (len(self.coords) - 1)):
@@ -86,11 +92,43 @@ class ProteinChain:
       if (i < (len(self.coords) - 1)):
         self.chainAminoAcids[i].setNextNeighbor(newCoords[i + 1])
     self.coords = newCoords
+    for i in range(len(self.coords)):
+      self.cords[i][0] = self.coords[i][0]
+      self.cords[i][1] = self.coords[i][1]
+    self.getEnergy()
 
   def getChain(self):
     return self.chainAminoAcids
 
-  def
+  def getEnergy(self):
+    self.Energy = 0.
+    for acid in self.chainAminoAcids:
+      if acid.pole == 'H':
+        coord = deepcopy(acid.coord)
+        test_coord = deepcopy(coord)
+        test_coord[0] += 1
+        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
+          index = self.coords.index(test_coord)
+          if (self.cords[index][2] == 'H'):
+            self.Energy -= 0.5
+        test_coord = deepcopy(coord)
+        test_coord[0] -= 1
+        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
+          index = self.coords.index(test_coord)
+          if (self.cords[index][2] == 'H'):
+            self.Energy -= 0.5
+        test_coord = deepcopy(coord)
+        test_coord[1] -= 1
+        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
+          index = self.coords.index(test_coord)
+          if (self.cords[index][2] == 'H'):
+            self.Energy -= 0.5
+        test_coord = deepcopy(coord)
+        test_coord[1] -= 1
+        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
+          index = self.coords.index(test_coord)
+          if (self.cords[index][2] == 'H'):
+            self.Energy -= 0.5
 
 def list_of_as_in_a_row(chain):
   list_of_a_indexes = []
