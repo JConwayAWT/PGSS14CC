@@ -83,21 +83,21 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     countruns =0
     finalnode = 0
     pathclone = copy.deepcopy(path)
+    #pathclone = pathclone.split(",")
     for node in pathclone:
-        for element in pathclone:
-            node = int(node)
-            element = int(element)
-            distance += self.cords[node].dist(self.cords[element])
-    """
-    for node in pathclone:
+        node = int(node)
         if countruns == 0:
             finalnode = node
-        nextnode= int(node)+1
+        nextnodecount = countruns + 1
+        if (countruns + 1) == len(pathclone):
+            countruns = -1
+        nextnode= int(pathclone[countruns+1])
         if nextnode == (len(pathclone)):
             nextnode = int(finalnode)
+        print(self.cords[int(node)].dist(self.cords[nextnode]),node,nextnode)
         distance += self.cords[int(node)].dist(self.cords[nextnode])
         countruns += 1
-    """
+
     return distance
 
   def Scoringfunction(self,path):
@@ -153,14 +153,19 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
             bestscore = solution[1]
     print(path, bestscore, "path")
     #self.setSolution(path)
-    return path
+    finalsolution = ""
+    for element in path:
+        finalsolution += element
+        finalsolution += ","
+    return finalsolution
 
 if __name__ == '__main__':
     A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(1,-1,0))
-    A.cords.append(CC.Coordinate(-1,1,1))
-    A.cords.append(CC.Coordinate(1,1,2))
-    A.cords.append(CC.Coordinate(-1,-1,3))
-    #print(A.main(), "sol")
-    print(A.distance("0,1,2,3"))
-    print(A.distance("2,1,3,0"))
+    A.cords.append(CC.Coordinate(-2,0,0))
+    A.cords.append(CC.Coordinate(-1,1,5))
+    A.cords.append(CC.Coordinate(0,2,2))
+    A.cords.append(CC.Coordinate(1,1,4))
+    A.cords.append(CC.Coordinate(2,0,3))
+    A.cords.append(CC.Coordinate(0,-2,1))
+    print(A.main(), "sol")
+    #print(A.distance("3,0,1,2"))
