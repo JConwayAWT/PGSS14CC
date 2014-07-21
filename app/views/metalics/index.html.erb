@@ -1,0 +1,23 @@
+<h1>Listing metalics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metalics.each do |metalic| %>
+      <tr>
+        <td><%= link_to 'Show', metalic %></td>
+        <td><%= link_to 'Edit', edit_metalic_path(metalic) %></td>
+        <td><%= link_to 'Destroy', metalic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Metalic', new_metalic_path %>
