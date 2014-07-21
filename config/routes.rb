@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :proteins
+
   match "/users/change_first_name", to: "users#change_first_name", via: :get
   resources :traveling_salesmen
   resources :users
@@ -10,6 +12,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'traveling_salesmen#index'
 
+  match '/tsp', to: 'traveling_salesmen#index', via: :get
+  match '/protein', to: 'proteins#index', via: :get
   match '/pose_traveling_salesman_problem', to: 'traveling_salesmen#pose_problem', via: :post
   match '/retreive_traveling_salesman_problem', to: 'traveling_salesmen#retreive_problem', via: :post
   match '/cancel_traveling_salesman_problem', to: 'traveling_salesmen#cancel', via: :post

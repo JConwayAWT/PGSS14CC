@@ -202,7 +202,7 @@ function docReady(){
 					DB_ID=0;
 					doneProcessing();
 					$("#job"+jobs).append("<br>Points: "+cords.length);
-					$("#job"+jobs).append("<br>Time (s): "+Math.floor(((new Date().getTime())-startTime)/1000));
+					$("#job"+jobs).append("<br>Time (s): "+Math.floor((((new Date().getTime())-startTime)/1000)*10)/10);
 					calculateTotalDist();
 					$("#job"+jobs).append("<br>Total Distance (px): "+Math.floor(totalDist));
 				}
