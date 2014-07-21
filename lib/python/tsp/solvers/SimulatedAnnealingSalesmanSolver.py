@@ -12,6 +12,7 @@
 import os, sys;
 import random;
 import math as m
+import copy
 lib_path = os.path.abspath('..');
 sys.path.append(lib_path);
 
@@ -81,7 +82,13 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     distance = 0
     countruns =0
     finalnode = 0
-    pathclone = path
+    pathclone = copy.deepcopy(path)
+    for node in pathclone:
+        for element in pathclone:
+            node = int(node)
+            element = int(element)
+            distance += self.cords[node].dist(self.cords[element])
+    """
     for node in pathclone:
         if countruns == 0:
             finalnode = node
@@ -90,7 +97,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
             nextnode = int(finalnode)
         distance += self.cords[int(node)].dist(self.cords[nextnode])
         countruns += 1
-
+    """
     return distance
 
   def Scoringfunction(self,path):
@@ -150,8 +157,10 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
 
 if __name__ == '__main__':
     A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(-1,-1,0))
+    A.cords.append(CC.Coordinate(1,-1,0))
     A.cords.append(CC.Coordinate(-1,1,1))
     A.cords.append(CC.Coordinate(1,1,2))
-    A.cords.append(CC.Coordinate(1,-1,3))
-    print(A.main(), "sol")
+    A.cords.append(CC.Coordinate(-1,-1,3))
+    #print(A.main(), "sol")
+    print(A.distance("0,1,2,3"))
+    print(A.distance("2,1,3,0"))

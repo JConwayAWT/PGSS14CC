@@ -7,6 +7,10 @@ var processing=false;
 // Draw a circle
 $(document).ready(docReady);
 
+$(window).bind('page:load', function(){
+	docReady();
+});
+
 function addJob(){
 	
 	jobs++;
@@ -24,7 +28,6 @@ function doneProcessing(){
 }
 
 function docReady(){
-
 	var canvas=document.getElementById("canvas");
 	//console.log(canvas);
 	var context= canvas.getContext('2d');
@@ -326,35 +329,35 @@ function docReady(){
 		return c;
 	}
 
-function Coordinate(x,y,i){
-	this.x=x;
-	this.y=y;
-	this.i=i;
-	this.moving=false;
-	this.setX = function (x){
+	function Coordinate(x,y,i){
 		this.x=x;
-		//console.log(x);
-	}
-	this.setY = function (y){
 		this.y=y;
+		this.i=i;
+		this.moving=false;
+		this.setX = function (x){
+			this.x=x;
+			//console.log(x);
+		}
+		this.setY = function (y){
+			this.y=y;
+		}
+		this.getDist= function(px,py){
+			return Math.sqrt(Math.pow(px-this.x,2)+Math.pow(py-this.y,2));
+		}
+		this.getDistCord = function(c){
+			return this.getDist(c.x,c.y);
+		}
+		this.draw = function(){
+			var radius=5;
+			context.beginPath();
+			context.arc(this.x, this.y, radius, 0, 2 * Math.PI, false);
+			context.fillStyle = this.moving?'red':'green';
+			context.fill();
+			context.stroke();
+			context.fillStyle='black';
+			context.fillText(this.i,this.x+radius,this.y+radius/2); 
+		}
 	}
-	this.getDist= function(px,py){
-		return Math.sqrt(Math.pow(px-this.x,2)+Math.pow(py-this.y,2));
-	}
-	this.getDistCord = function(c){
-		return this.getDist(c.x,c.y);
-	}
-	this.draw = function(){
-		var radius=5;
-		context.beginPath();
-		context.arc(this.x, this.y, radius, 0, 2 * Math.PI, false);
-		context.fillStyle = this.moving?'red':'green';
-		context.fill();
-		context.stroke();
-		context.fillStyle='black';
-		context.fillText(this.i,this.x+radius,this.y+radius/2); 
-	}
-}
 
 
 

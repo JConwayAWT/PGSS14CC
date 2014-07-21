@@ -1,6 +1,7 @@
 br
 br
 br
+
 .row
 	.col-md-12
 		.text-center
@@ -10,23 +11,25 @@ br
 	.col-md-1.col-md-offset-3
 		| Amino Acid Chain:
 	.col-md-5
-		input.form-control type="text" placeholder="P for polar; H for hydrophobic"
+		input.form-control#data type="text" placeholder="P for polar; H for hydrophobic"
 br
 .row
 	.col-md-1.col-md-offset-3
 		| Algorithm:
 	.col-md-5
-		select.form-control
+		select.form-control#algorithm
+			option Alg A
 			option Slithering Snake
 			option Neural Network
+		div#output
 br
 .row
 	.col-md-1.col-md-offset-5
 		.text-center
-			button.btn.btn-success.btn-block type="button" height="default" width="125" Run
+			button.btn.btn-success.btn-block#submit_data type="button" height="default" width="125" Run
 	.col-md-1
 		.text-center
-			button.btn.btn-danger.btn-block type="button" height="default" width="125" Cancel
+			button.btn.btn-danger.btn-block#cancel_solution type="button" height="default" width="125" Cancel
 br
 br
 .row
