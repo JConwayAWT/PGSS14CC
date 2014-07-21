@@ -1,15 +1,44 @@
 br
 br
 br
+
+.row
+	.col-md-12
+		.text-center
+			h1 Protein Folding
+
+.row
+	.col-md-1.col-md-offset-3
+		| Amino Acid Chain:
+	.col-md-5
+		input.form-control#data type="text" placeholder="P for polar; H for hydrophobic"
 br
-/= javascript_include_tag 'protein', 'data-turbolinks-track' => true
-input#data type="text" value="Data here"
-select#algorithm name="algorithm"
-	option Alg A
-	option Alg B
-input#submit_data type="button" value="Run Test" class="btn btn-success"
-input#cancel_solution type="button" value="Cancel" class="btn btn-danger"
+.row
+	.col-md-1.col-md-offset-3
+		| Algorithm:
+	.col-md-5
+		select.form-control#algorithm
+			option Alg A
+			option Slithering Snake
+			option Neural Network
+		div#output
+br
+.row
+	.col-md-1.col-md-offset-5
+		.text-center
+			button.btn.btn-success.btn-block#submit_data type="button" height="default" width="125" Run
+	.col-md-1
+		.text-center
+			button.btn.btn-danger.btn-block#cancel_solution type="button" height="default" width="125" Cancel
 br
 br
-b
-	div#output
+.row
+	.col-md-8.col-md-offset-2 align="center"
+		canvas#protein-canvas height="360" width="720"
+br
+br
+.row
+	.col-md-1.col-md-offset-3
+		| Potential Energy:
+	.col-md-5#current-potential-energy
+		| Not yet calculated
