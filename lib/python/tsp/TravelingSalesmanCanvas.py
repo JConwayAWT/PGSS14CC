@@ -14,6 +14,12 @@ import os, sys
 lib_path = os.path.abspath('../helpers')
 sys.path.append(lib_path)
 
+lib_path = os.path.abspath('../')
+sys.path.append(lib_path)
+
+lib_path = os.path.abspath('../database')
+sys.path.append(lib_path)
+
 import psycopg2
 import os
 import urlparse
@@ -26,7 +32,6 @@ from solvers import GravitationalTravelingSalesmanSolver as gts
 from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
 from database import database_connect as dbf
-
 
 def main():
   rails_environment = sys.argv[1]

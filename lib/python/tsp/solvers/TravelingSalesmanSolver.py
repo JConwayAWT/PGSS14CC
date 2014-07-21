@@ -43,26 +43,31 @@ class TravelingSalesmanSolver:
 		return "No solution implemented!"
 
 	def setMessage(self,message):
-		self.cur.execute ("UPDATE traveling_salesmen SET message=\'"+message+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+		if self.cur != None:
+			self.cur.execute ("UPDATE traveling_salesmen SET message=\'"+message+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
 	def setStatusDone(self,statusDone):
-		self.cur.execute ("UPDATE traveling_salesmen SET statusdone=\'"+statusDone+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+		if self.cur != None:
+			self.cur.execute ("UPDATE traveling_salesmen SET statusdone=\'"+statusDone+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
 	def setSolution(self,answer):
-		self.cur.execute ("UPDATE traveling_salesmen SET answer=\'"+answer+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+		if self.cur != None:
+			self.cur.execute ("UPDATE traveling_salesmen SET answer=\'"+answer+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
 	def setDone(self,done):
-		self.cur.execute ("UPDATE traveling_salesmen SET done=\'"+done+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+		if self.cur != None:
+			self.cur.execute ("UPDATE traveling_salesmen SET done=\'"+done+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
 	def checkTimeout(self,done):
-		self.cur.execute ("SELECT last_tick FROM traveling_salesmen WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
-		database_row = self.cur.fetchone()
-  		last_tick = database_row[0]
-  	
-  		#self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
-  		if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
-  			self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
-			sys.exit(0)
+		if self.cur != None:
+			self.cur.execute ("SELECT last_tick FROM traveling_salesmen WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
+			database_row = self.cur.fetchone()
+  			last_tick = database_row[0]
+	  	
+  			#self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
+  			if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
+	  			self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
+				sys.exit(0)
 
 	def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
 		assert len(xPoints) == len(yPoints)

@@ -14,9 +14,14 @@ Rails.application.routes.draw do
 
   match '/tsp', to: 'traveling_salesmen#index', via: :get
   match '/protein', to: 'proteins#index', via: :get
+
   match '/pose_traveling_salesman_problem', to: 'traveling_salesmen#pose_problem', via: :post
   match '/retreive_traveling_salesman_problem', to: 'traveling_salesmen#retreive_problem', via: :post
   match '/cancel_traveling_salesman_problem', to: 'traveling_salesmen#cancel', via: :post
+
+  match '/pose_protein_problem', to: 'proteins#pose_problem', via: :post
+  match '/retreive_protein_problem', to: 'proteins#retreive_problem', via: :post
+  match '/cancel_protein_problem', to: 'proteins#cancel', via: :post
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
