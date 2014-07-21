@@ -1,12 +1,16 @@
 import random
 from copy import deepcopy
 import AminoAcid
+import os, sys
+lib_path = os.path.abspath('../helpers')
+sys.path.append(lib_path)
 
 class ProteinChain:
 
   def __init__(self,amino_acid_chain_string):
     self.amino_acid_chain = list(amino_acid_chain_string)
-    self.coords = [[0,0]]
+    self.coords = [[0,0]] # this is just a list of coordinates
+    self.cords = [] # this is the list of coordinates with identities
     self.number_of_acids = len(self.amino_acid_chain)
     self.chainAminoAcids = []
 
@@ -43,6 +47,9 @@ class ProteinChain:
   def getCoords(self):
     return self.coords
 
+  def getCords(self):
+    return self.cords
+
   def generateChainAminoAcids(self):
     try:
       assert len(self.coords) == self.number_of_acids
@@ -51,9 +58,11 @@ class ProteinChain:
     for i in range(self.number_of_acids):
       acid = self.amino_acid_chain[i]
       coord = self.coords[i]
+      cord = self.coords[i].append(acid)
       self.chainAminoAcids.append(AminoAcid.AminoAcid())
       self.chainAminoAcids[i].setCoord(coord)
       self.chainAminoAcids[i].set_Polarity_and_Index(acid,i)
+      self.cords.append(cord)
       if (i > 0):
         self.chainAminoAcids[i].setPreviousNeighbor(self.coords[i - 1])
       if (i < (len(self.coords) - 1)):
@@ -80,6 +89,8 @@ class ProteinChain:
 
   def getChain(self):
     return self.chainAminoAcids
+
+  def
 
 def list_of_as_in_a_row(chain):
   list_of_a_indexes = []
