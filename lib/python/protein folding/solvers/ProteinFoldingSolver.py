@@ -20,4 +20,3 @@ class ProteinFolderSolver:
 		print "don't edit me"
 	def solve(self):
 		print "don't edit me"
-

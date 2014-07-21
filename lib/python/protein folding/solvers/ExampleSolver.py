@@ -11,14 +11,14 @@
 import os, sys
 lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
+lib_path = os.path.abspath('../')
+sys.path.append(lib_path)
+import ProteinChainClass
 import Coordinate
 import math
 import random
 import copy
 
-class ExampleSolver (ProteinFoldingSolver.ProteinFoldingSolver):
-  def solve:
-    #YOUR CODE HERE
-    for c in range(len(self.cords)):
-      print self.cords[c].x
-      print self.cords[c].y
+class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
+
+  def solve(self):
