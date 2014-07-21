@@ -1,55 +1,53 @@
 #-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
+# Name:        slithering snake protein folding solver
+# Purpose:     solves the HP protein folding model with slithering snake
 #
-# Author:      Guirong
+# Author:      Zachary Pozun
 #
-# Created:     17/07/2014
-# Copyright:   (c) Guirong 2014
-# Licence:     <your licence>
+# Created:     07/21/2014
+# Copyright:   (c) ZDP 2014
+# Licence:     Creative Commons (CC)
 #-------------------------------------------------------------------------------
+import os, sys
+lib_path = os.path.abspath('../../helpers')
+sys.path.append(lib_path)
+lib_path = os.path.abspath('../')
+sys.path.append(lib_path)
+import ProteinChainClass
+import Coordinate
+import math
 import random
-R = random.random() #range of [0,1]
+import copy
+from copy import deepcopy
 
-coords = [[0, 0], [0, -1], [1, -1], [1, -2], [1, -3], [1, -4], [0, -4]]
+class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
 
+  def solve(self,moves):
+    self.bestEnergy = deepcopy(self.Energy)
+    self.bestCords = deepcopy(self.cords)
+    for i in range(moves):
+      print i
+      self.singleMove()
+      if (self.Energy < self.bestEnergy):
+        self.bestEnergy = deepcopy(self.Energy)
+        self.bestCords = deepcopy(self.cords)
 
-def newCoordinates():
-    newCoord = []
-    while (newCoord == []):
-        R = random.random()
-        last_coord = deepcopy(coords[-1])
-        if (R >= 0) and (R <= 0.25) and ([last_coord[0]+1, last_coord[1]] not in coordinates):
-            newCoord = [last_coord[0]+1, last_coord[1]]
-
-        elif (R <= .5) and ([last_coord[0]-1, last_coord[1]] not in coordinates):
-            newCoord = [last_coord[0]+1, last_coord[1]]
-
-        elif (R <= .75) and ([last_coord[0], last_coord[1]+1] not in coordinates):
-            newCoord = [last_coord[0], last_coord[1]+1]
-
-        elif (R <= 1) and ([last_coord[0], last_coord[1]-1] not in coordinates):
-            newCoord = [last_coord[0], last_coord[1]-1]
-
-        return newCoord
-
-    print newCoord
-
-    if last_coord not in coordinates:
-        if trapped(last_coord, coordinates):
-            coordinates.pop(-1)
-            coordinates.pop(-1)
-            coordinates.pop(-1)
-            coordinates.pop(-1)
-            coordinates.pop(-1)
-            #removing the acid, starting from the right hand of the list, denoted by the minus
-        else:
-            coordinates.append(last_coord)
-
-    return coordinates
-
-def trapped(last_coord, coordinates):
-    if([last_coord[0]+1, last_coord[1]] in coordinates)and([last_coord[0]-1, last_coord[1]] in coordinates)and([last_coord[0], last_coord[1]+1] in coordinates)and([last_coord[0], last_coord[1]-1] in coordinates):
-        return True
+  def singleMove(self):
+    end_coord = self.coords[-1]
+    test_coords = [[end_coord[0] + 1, end_coord[1]],[end_coord[0] - 1, end_coord[1]],[end_coord[0], end_coord[1] + 1],[end_coord[0], end_coord[1] - 1]]
+    trapped = True
+    while (len(test_coords) > 0):
+      R = random.randint(0,len(test_coords) - 1)
+      trial_move = test_coords.pop(R)
+      if (trial_move not in self.coords):
+        trapped = False
+        break
+    if (trapped == False):
+      new_coords = deepcopy(self.coords)
+      new_coords.pop(0)
+      new_coords.append(trial_move)
+      self.setCoords(new_coords)
     else:
-        return False
+      self.generateChainCoordinates()
+      self.generateChainAminoAcids()
+      self.getEnergy()

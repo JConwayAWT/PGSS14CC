@@ -19,10 +19,10 @@ class ProteinChain:
     self.generateChainAminoAcids()
     self.getEnergy()
 
-  def add_or_subtract_one_from_x_or_y(self,coordinates):
+  def add_or_subtract_one_from_x_or_y(self):
     R = random.random() #range of [0,1]
-    last_coord = coordinates[-1]
-    new_coord = deepcopy(coordinates[-1])
+    last_coord = deepcopy(self.coords[-1])
+    new_coord = deepcopy(self.coords[-1])
     if (R >= 0) and (R <= 0.25):
       new_coord[0]+=1
     elif (R <= .5):
@@ -31,23 +31,27 @@ class ProteinChain:
       new_coord[1]+=1
     else:
       new_coord[1]-=1
-    if (new_coord not in coordinates):
-      if self.trapped(new_coord, coordinates):
-        coordinates.pop(-1)
-        #removing the acid, starting from the right hand of the list, denoted by the minus
-      else:
-        coordinates.append(new_coord)
-    return coordinates
+    if (new_coord not in self.coords):
+      self.coords.append(new_coord)
+    if self.trapped():
+      print "trapped!"
+      self.coords.pop(-1)
+      self.coords.pop(-1)
+      self.coords.pop(-1)
+      self.coords.pop(-1)
+      self.coords.pop(-1)
 
-  def trapped(self,last_coord, coordinates):
-    if (([last_coord[0]+1, last_coord[1]] in coordinates) and ([last_coord[0]-1, last_coord[1]] in coordinates)and([last_coord[0], last_coord[1]+1] in coordinates)and([last_coord[0], last_coord[1]-1] in coordinates)):
+  def trapped(self):
+    last_coord = deepcopy(self.coords[-1])
+    if (([last_coord[0]+1, last_coord[1]] in self.coords) and ([last_coord[0]-1, last_coord[1]] in self.coords)and([last_coord[0], last_coord[1]+1] in self.coords)and([last_coord[0], last_coord[1]-1] in self.coords)):
       return True
     else:
       return False
 
   def generateChainCoordinates(self):
+    self.coords = [[0,0]]
     while (len(self.coords) < self.number_of_acids):
-      self.coords = self.add_or_subtract_one_from_x_or_y(self.coords)
+      self.add_or_subtract_one_from_x_or_y()
 
   def getCoords(self):
     return self.coords
@@ -56,6 +60,8 @@ class ProteinChain:
     return self.cords
 
   def generateChainAminoAcids(self):
+    self.cords = []
+    self.chainAminoAcids = []
     try:
       assert len(self.coords) == self.number_of_acids
     except:
