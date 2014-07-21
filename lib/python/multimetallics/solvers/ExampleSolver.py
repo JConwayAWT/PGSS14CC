@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
-# Name:        Proteing folding solver
-# Purpose:     Proteing folding solver
+# Name:        Example solver
+# Purpose:     Example solver
 #
 # Author:      Martin Schneider
 #
@@ -8,15 +8,17 @@
 # Copyright:   (c) Martin 2014
 # Licence:     Creative Commons (CC)
 #-------------------------------------------------------------------------------
-
-#DON'T EDIT THIS PLEASE!
-
 import os, sys
 lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
+lib_path = os.path.abspath('../')
+sys.path.append(lib_path)
+import math
+import MetalicsSolver
+import random
+import copy
 
-class ProteinFolderSolver:
-	def __init__(self):
-		print "don't edit me"
-	def solve(self):
-		print "don't edit me"
+class ExampleSolver(ProteinFoldingSolver.ProteinFoldingSolver):
+
+  def solve(self):
+  	return "Lol im a protein"
