@@ -51,7 +51,6 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
         restart=False
         restarts+=1
         #self.answer+="Start<br>"
-        self.setStatusDone(str(restarts))
         if restarts==len(self.cords):
           break
         for iindex in range(1,len(self.bestOrder)):

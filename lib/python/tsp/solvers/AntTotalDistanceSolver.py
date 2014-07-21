@@ -74,7 +74,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
           #continue
         #totalEdgeDist+=self.cords[i].dist(self.cords[j])
     #self.avgEdgeWeight=totalEdgeDist/pow(len(self.cords),2)
-    edgeDistScale=self.PHERNOME_SCALE#totalEdgeDist/len(self.cords)
+    edgeDistScale=self.PHERNOME_SCALE/10#totalEdgeDist/len(self.cords)
     for i in range(0,len(self.cords)):
       for j in range(0,len(self.cords)):
         if i==j:
