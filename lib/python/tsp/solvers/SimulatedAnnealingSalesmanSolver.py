@@ -159,12 +159,13 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
 
 #
 #if __name__ == '__main__':
-    #A=SimulatedAnnealingSalesmanSolver()
-    #A.cords.append(CC.Coordinate(-2,0,0))
-    #A.cords.append(CC.Coordinate(-1,1,5))
-    #A.cords.append(CC.Coordinate(0,2,2))
-    #A.cords.append(CC.Coordinate(1,1,4))
-    #A.cords.append(CC.Coordinate(2,0,3))
-    #A.cords.append(CC.Coordinate(0,-2,1))
+##    A=SimulatedAnnealingSalesmanSolver()
+##    A.cords.append(CC.Coordinate(-2,0))
+##    A.cords.append(CC.Coordinate(-1,1))
+##    A.cords.append(CC.Coordinate(0,2))
+##    A.cords.append(CC.Coordinate(1,1))
+##    A.cords.append(CC.Coordinate(2,0))
+##    A.cords.append(CC.Coordinate(0,-2))
+##    A.solve()
     #print(A.main(), "sol")
     #print(A.distance("3,0,1,2"))

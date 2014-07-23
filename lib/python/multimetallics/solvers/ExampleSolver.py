@@ -26,6 +26,6 @@ class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
       print "Atom " + str(k) + " has symbol " + self.atoms[k]["symbol"]
     return "I'm a metal lol"
 
-##e = ExampleSolver('{"atoms": [{"x": 1, "y": 2, "z": 3, "symbol": "Pt"},{"x": 5, "y": 1, "z": 3, "symbol": "Pt"},{"x": 3, "y": 10, "z": 1, "symbol": "Au"}], "algorithm": "Basin Hopping"}')
-##e.solve()
+# e = ExampleSolver('{"atoms": [{"x": 1, "y": 2, "z": 3, "symbol": "Pt"},{"x": 5, "y": 1, "z": 3, "symbol": "Pt"},{"x": 3, "y": 10, "z": 1, "symbol": "Au"}], "algorithm": "Basin Hopping"}')
+# e.solve()
 
