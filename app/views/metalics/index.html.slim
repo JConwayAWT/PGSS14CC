@@ -11,10 +11,13 @@ br
     .form-group
       label Element 1
       select.form-control
-        option None
-        option Metal1
-        option Metal2
-        option Metal3
+        option Al
+        option Ni
+        option Cu
+        option Pd
+        option Ag
+        option Pt
+        option Au
   .col-md-3
     .form-group
       label Percentage (%)
@@ -26,23 +29,13 @@ br
       label Element 2
       select.form-control
         option None
-        option Metal1
-        option Metal2
-        option Metal3
-  .col-md-3
-    .form-group
-      label Percentage (%)
-      br
-      input.form-control placeholder = ("--%")
-.row 
-  .col-md-3.col-md-offset-3
-    .form-group
-      label Element 3
-      select.form-control
-        option None
-        option Metal1
-        option Metal2
-        option Metal3
+        option Al
+        option Ni
+        option Cu
+        option Pd
+        option Ag
+        option Pt
+        option Au
   .col-md-3
     .form-group
       label Percentage (%)
@@ -51,18 +44,36 @@ br
 .row
   .col-md-3.col-md-offset-3
     .form-group
-      label Algorithm: 
+      label Element 3
+      select.form-control
+        option None
+        option Al
+        option Ni
+        option Cu
+        option Pd
+        option Ag
+        option Pt
+        option Au
+  .col-md-3
+    .form-group
+      label Percentage (%)
+      br
+      input.form-control placeholder = ("--%")
+.row
+  .col-md-3.col-md-offset-3
+    .form-group
+      label Algorithm:
       select.form-control
         option Method1
         option Method2
         option Method3
   .col-md-3
     .form-group
-      label # of Atoms: 
+      label # of Atoms:
       br
       input.form-control placeholder = ("")
 .row
-  .col-md-6.text-right 
+  .col-md-6.text-right
     button#submit_data.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
   .col-md-6.text-left
     button.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel

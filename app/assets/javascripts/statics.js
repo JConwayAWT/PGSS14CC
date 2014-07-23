@@ -11,11 +11,17 @@ function docReady(){
 					"We'll get you the best pawsible solution",
 					"We're feline pretty good about our solvers",
 					"Do cats have tails? <br> Lets paws and think about it.<br>Do cats make trails?<br>Yeah, they follow the mouse.",
-					"Use our solvers - don't wait nine lives waiting for brute force to run"];
+					"Use our solvers - don't wait nine lives waiting for brute force to run",
+					"Our paths don't stray from the best",
+					"Such cat, very algorithm",
+					"Click on one of the tabbies to learn more",
+					"Our results are guaranteed to never be catastrophic"];
 
-	$("#statement").html(sayings[Math.floor(Math.random()*sayings.length)]);
-	animate();
-	function animate(){
-		setTimeout(animate,50);
+	function newSaying(){
+		$("#statement").html(sayings[Math.floor(Math.random()*sayings.length)]);
 	}
+
+	newSaying();
+
+	$("#statement").click(newSaying);
 }
