@@ -22,6 +22,7 @@ import os
 import urlparse
 import sys
 from solvers import ExampleSolver as e
+from solvers import SlitheringSnakeSolver as ss
 from database import database_connect as dbf
 
 
@@ -39,8 +40,8 @@ def main():
   params = database_row[3]
   algorithm = database_row[4] 
 
-  if algorithm =="Alg A":
-    solver = e.ExampleSolver(params)
+  if algorithm =="Slithering Snake":
+    solver = ss.SlitheringSnakeSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"
@@ -48,7 +49,7 @@ def main():
     solver.cur = cur
     solver.database_row_id=database_row_id
     solver.setStatusDone("Calculating solution...")
-    solution =solver.solve()
+    solution =solver.solve(100)
     solver.setSolution(solution)
     solver.setDone('y')
     print solution
