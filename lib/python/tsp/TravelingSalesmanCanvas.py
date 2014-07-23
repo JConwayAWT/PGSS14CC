@@ -64,6 +64,7 @@ def main():
   if algorithm =="Gravity":
     solver = gts.GravitationalTravelingSalesmanSolver(params)
 
+  #Change this to Wheel Dijkstra and the other one to just Dijkstra
   if algorithm =="Dijkstra":
     solver =dts.DijkstraSolver(params)
 

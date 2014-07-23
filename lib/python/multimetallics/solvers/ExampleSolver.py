@@ -18,7 +18,14 @@ import MetalicsSolver
 import random
 import copy
 
-class ExampleSolver(ProteinFoldingSolver.ProteinFoldingSolver):
+class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
-  	return "Lol im a metal"
+    print "I have " + str(len(self.atoms)) + " atoms."
+    for k in range(len(self.atoms)):
+      print "Atom " + str(k) + " has symbol " + self.atoms[k]["symbol"]
+    return "I'm a metal lol"
+
+# e = ExampleSolver('{"atoms": [{"x": 1, "y": 2, "z": 3, "symbol": "Pt"},{"x": 5, "y": 1, "z": 3, "symbol": "Pt"},{"x": 3, "y": 10, "z": 1, "symbol": "Au"}], "algorithm": "Basin Hopping"}')
+# e.solve()
+
