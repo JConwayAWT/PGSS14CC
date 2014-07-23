@@ -21,4 +21,4 @@ import copy
 class ExampleSolver(ProteinFoldingSolver.ProteinFoldingSolver):
 
   def solve(self):
-  	return "Lol im a protein"
+  	return "Lol im a metal"
