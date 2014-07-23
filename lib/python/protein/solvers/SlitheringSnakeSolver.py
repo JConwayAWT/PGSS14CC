@@ -36,7 +36,7 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
       #  print self.bestEnergy, self.bestCords
     answer = str(self.bestEnergy)+";"
     for cord in self.bestCords:
-      answer+=str(cord[0])+","+str(cord[1])+":"
+      answer+=str(cord[0])+","+str(cord[1])stati+":"
     return answer
 
   def singleMove(self):
