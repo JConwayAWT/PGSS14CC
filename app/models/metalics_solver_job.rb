@@ -3,8 +3,8 @@ class MetalicsSolverJob
 
   def perform(id)
     ActiveRecord::Base.connection_pool.with_connection do
-      u = Metalics.find(id)
-      u.pose_problem
+      m = Metalics.find(id)
+      m.pose_problem
     end
   end
 end

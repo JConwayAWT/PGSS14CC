@@ -18,13 +18,17 @@ import time
 import json
 import math
 
-class MetalicFoldingSolver:	
+class MetalicFoldingSolver:
 	answer=";"
 	cur=None
 	database_row_id=0
 	TIMEOUT_TIME=10
 
 	def __init__(self, params=None):
+		if params == None:
+			return
+		data = json.loads(params)
+		self.atoms = data["atoms"]
 
 		self.startTime = self.millis()
 
@@ -52,7 +56,7 @@ class MetalicFoldingSolver:
 			self.cur.execute ("SELECT last_tick FROM metalics WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
 			database_row = self.cur.fetchone()
   			last_tick = database_row[0]
-	  	
+
   			#self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
   			if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
   				self.cur.execute ("UPDATE metalics SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
@@ -60,9 +64,12 @@ class MetalicFoldingSolver:
 
 	def millis(self):
 		return int(round(time.time() * 1000))
+
 	def remainingTime(self,pDone):
 		if pDone==0:
 			pDone=1
 		elapsedSec=int((self.millis()-self.startTime)/1000)
 		totalSec =int(elapsedSec/pDone)
 		return str(totalSec-elapsedSec)+"s remaining /"+str(totalSec)+"s total"
+
+ms = MetalicFoldingSolver('{"atoms": [{"x": 1, "y": 2, "z": 3, "symbol": "Pt"},{"x": 5, "y": 1, "z": 3, "symbol": "Pt"},{"x": 3, "y": 10, "z": 1, "symbol": "Au"}], "algorithm": "Basin Hopping"}')

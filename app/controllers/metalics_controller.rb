@@ -21,6 +21,22 @@ class MetalicsController < ApplicationController
   def edit
   end
 
+  def pose_problem
+    m = Metalic.new
+    m.problem_parameters = params[:data].to_json
+    m.algorithm = params[:algorithm]
+    m.statusdone = "Waiting in queue..."
+    m.last_tick = Time.now
+    m.done = false
+    m.save!
+
+    MetalicsSolverJob.new.async.perform(m.id)
+
+    returnData = {statusMessage: "Processed", databaseId: m.id}
+
+    render json: returnData and return
+  end
+
   # POST /metalics
   # POST /metalics.json
   def create
