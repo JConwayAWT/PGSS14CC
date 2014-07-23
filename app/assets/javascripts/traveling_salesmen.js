@@ -108,6 +108,14 @@ function docReady(){
 		//canvas.width=window.innerWidth-200;
 		$("#submit_data").prop('disabled', processing);
 		$("#cancel_solution").prop('disabled', !processing);
+
+		if(processing){
+			$("#submit_data").hide();
+			$("#cancel_solution").show();
+		}else{
+			$("#submit_data").show();
+			$("#cancel_solution").hide();
+		}
 	}
 
 	$("#submit_data").click(function(){

@@ -145,7 +145,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
         solution = self.AnnealingMC()
         print (solution[1])
         if path == "a":
-                path = solution[0]
+            path = solution[0]
         if solution[1]<self.bestscore:
             path = solution[0]
             bestscore = solution[1]
