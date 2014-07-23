@@ -6,10 +6,10 @@ $(document).ready(function(){
       data: {data: {"atoms": [{"x": 1, "y": 2, "z": 3, "symbol": "Pt"}], algorithm: "Alg A"}},
     })
     .done(function(data) {
-      alert(data.statusMessage);
+      console.log(data.statusMessage);
     })
     .fail(function() {
-      alert("Failed =(");
+      console.log("Failed =(");
     })
     .always(function() {
       console.log("complete");
