@@ -13,14 +13,25 @@ div.floating.floatingTools
 				option Brute Force (n!)
 				option Random Remove Line Crosses (n^2)
 				option Ant Probability (n^2)
-				option value="Dijkstra" Wheel Dijkstra (n^3)
-				option value="Dijkstra 2" Fast Dijkstra (n^2)
+				option Wheel Dijkstra (n^3)
+				option Fast Dijkstra (n^2)
 				option Gravity
 			br
 			br
 			center
+				
 				input#submit_data type="button" value="Run Test" class="btn btn-success"
 				input#cancel_solution type="button" value="Cancel" class="btn btn-danger"
+				br
+				br
+				input#remove_all_datapoints type="button" value="Clear Points" class="btn btn-warning"
+				br
+				br
+				input#add_random_points type="button" value="Add Random Points" class="btn btn-warning"
+				
+
+			
+
 		div#jobs
 
 div#floatingProgressBar
