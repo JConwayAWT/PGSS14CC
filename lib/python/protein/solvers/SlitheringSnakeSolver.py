@@ -18,6 +18,7 @@ import ProteinChainClass
 import math
 import random
 import copy
+import json
 from copy import deepcopy
 
 class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
@@ -34,10 +35,12 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
         self.bestEnergy = deepcopy(self.Energy)
         self.bestCords = deepcopy(self.cords)
       #  print self.bestEnergy, self.bestCords
-    answer = str(self.bestEnergy)+";"
-    for cord in self.bestCords:
-      answer+=str(cord[0])+","+str(cord[1])+":"
-    return answer
+    acids = []
+    for i in self.bestCords:
+      acids.append({"type": i[2], "x": i[0], "y": i[1]})
+    dictionary_to_be_turned_into_json = {"potentialEnergy": self.bestEnergy, "acids": acids}
+    actually_json = json.dumps(dictionary_to_be_turned_into_json)
+    return actually_json
 
   def singleMove(self):
     end_coord = deepcopy(self.coords[-1])
