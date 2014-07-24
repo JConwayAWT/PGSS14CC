@@ -31,8 +31,6 @@ class MetalicsController < ApplicationController
       m.save!
     end
 
-    debugger
-
     render json: returnData and return
   end
 
