@@ -45,7 +45,7 @@ def main():
 
   if algorithm == "Alg A":
     solver = e.ExampleSolver(params)
-  elif algorithm == "MD Solver"
+  elif algorithm == "MD Solver":
     solver = md.MDSolver(params)
 
   if solver is None:
@@ -61,5 +61,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-

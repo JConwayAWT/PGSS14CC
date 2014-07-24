@@ -18,7 +18,7 @@ import MetalicsSolver
 import random
 import copy
 import json
-from NanoClass import genParticle
+import NanoClass
 from ase.md.nvtberendsen import NVTBerendsen
 from ase import units
 from ase.optimize import FIRE
@@ -28,7 +28,7 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
-    self.particle = genParticle(self.definingString,int(self.numberOfAtoms))
+    self.particle = NanoClass.genParticle(self.definingString,int(self.numberOfAtoms))
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
     berendsen = NVTBerendsen(self.particle, 0.1 * units.fs, 5000, taut=0.5*1000*units.fs)
