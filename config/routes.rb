@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'statics#index'
 
+  match '/hoffman', to: 'statics#hoffman', via: :get
+
   match '/tsp', to: 'traveling_salesmen#index', via: :get
   match '/protein', to: 'proteins#index', via: :get
   match '/metalics', to: 'metalics#index', via: :get
