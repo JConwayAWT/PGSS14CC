@@ -18,17 +18,17 @@ import MetalicsSolver
 import random
 import copy
 import json
-from NanoClass import genParticle
+import NanoClass
 from ase.md.nvtberendsen import NVTBerendsen
 from ase import units
 from ase.optimize import FIRE
 from copy import deepcopy
 
-class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
+class MDSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
-    self.particle = genParticle(self.definingString,int(self.numberOfAtoms))
+    self.particle = NanoClass.genParticle(self.definingString,int(self.numberOfAtoms))
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
     berendsen = NVTBerendsen(self.particle, 0.1 * units.fs, 5000, taut=0.5*1000*units.fs)
@@ -43,6 +43,7 @@ class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
     listOfAtoms = []
     for atom in self.bestParticle:
       dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
+      listOfAtoms.append(dictElement)
     potentialEnergy = self.bestEnergy
     dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": potentialEnergy}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
