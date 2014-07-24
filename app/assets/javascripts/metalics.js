@@ -65,33 +65,28 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
       startCheckingForUpdates(data.databaseId);
     })
     .fail(function() {
-      console.log("Failed =(");
-    })
-    .always(function() {
-      console.log("complete");
+      alert("The AJAX request to pose the problem has raised an error.");
     });
 }
 
 function startCheckingForUpdates(databaseId){
-  retreiveProblemInterval = setInterval(retreiveProteinProblem(databaseId), 3000);
-}
-
-function retreiveProteinProblem(id){
-  $.ajax({
-    url: '/retreive_metalic_problem',
-    type: 'POST',
-    data: {id: id},
-  })
-  .done(function(data) {
-    provideDataToPage(data);
-  })
-  .fail(function() {
-    alert("Something went wrong...");
-  });
+  retreiveProblemInterval = setInterval(function(){
+    $.ajax({
+      url: '/retreive_metalic_problem',
+      type: 'POST',
+      data: {id: databaseId},
+    })
+    .done(function(data) {
+      provideDataToPage(data);
+    })
+    .fail(function() {
+      alert("The AJAX request to retreive the problem has raised an error");
+    });
+  }, 3000);
 }
 
 function provideDataToPage(data){
   answer = data.answer;
   $("#display-answer").show();
-  $("#display-answer").text(answer);
+  $("#answer-goes-here").text(answer);
 }
