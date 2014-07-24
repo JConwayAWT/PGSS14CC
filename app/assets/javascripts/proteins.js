@@ -10,6 +10,8 @@ function doneProcessing(){
 
 function docReady(){
 
+	drawSampleProtein();
+
 	var DB_ID=0;
 
 	var startTime=0;
@@ -107,4 +109,17 @@ function docReady(){
 			});		
 		}
 	}
+}
+
+function drawSampleProtein(){
+	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 10, "y": 20}, {"type":"P", "x": 15, "y": 25}, {"type:":"H", "x": 17, "y": 18}]}
+
+	var canvas = document.getElementById('protein-canvas');
+    var context = canvas.getContext('2d');
+	
+	context.beginPath();
+   	context.moveTo(chain.acids[0]("x"), chain.acids[0]("y"));   
+    for acid in chain;
+    	context.lineTo(chain.acids[acid]("x"), chain.acids[acid]("y"));
+    	context.stroke();
 }
