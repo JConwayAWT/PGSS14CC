@@ -23,9 +23,9 @@ import copy
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 #  probability =[[]]
   phermones =[[]]
-  CALCULATIONS=1000
-  CALCULATION_UPDATES=100
-  BEST_UPDATES=100
+  CALCULATIONS=10000
+  CALCULATION_UPDATES=1000
+  BEST_UPDATES=1000
   debugData=""
   traversed=[]
   numTraversed=0
@@ -79,8 +79,8 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
       for j in range(0,len(self.cords)):
         if i==j:
           continue
-        self.phermones[i][j]+=edgeDistScale/pow(self.cords[i].dist(self.cords[j]),3)#self.PHERNOME_EXP)
-        self.phermones[j][i]+=edgeDistScale/pow(self.cords[i].dist(self.cords[j]),3)#self.PHERNOME_EXP)
+        self.phermones[i][j]+=edgeDistScale/pow(self.cdists[i][j],3)#self.PHERNOME_EXP)
+        self.phermones[j][i]+=edgeDistScale/pow(self.cdists[i][j],3)#self.PHERNOME_EXP)
     self.resetArrays()
   def resetArrays(self):
     self.traversed = [False for i in range(0,len(self.cords))]
@@ -131,7 +131,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
         continue
       cur+=self.phermones[c][j]
       if cur>r:
-        self.totalDistance+=self.cords[c].dist(self.cords[j])
+        self.totalDistance+=self.cdists[c][j]
         works = self.oneStep(j)
         break
 
@@ -160,7 +160,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     self.bestOrder.append(c)
     self.numTraversed+=1
     if self.numTraversed>=len(self.cords):
-      self.totalDistance+=self.cords[c].dist(self.cords[0])
+      self.totalDistance+=self.cdists[c][0]
       return
 
     self.traversed[c]=True
@@ -180,7 +180,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     if bc==0:
       self.totalDistance=float("inf")
     else:
-      self.totalDistance+=self.cords[c].dist(self.cords[bc])
+      self.totalDistance+=self.cdists[c][bc]
       self.bestStep(bc)
 
 

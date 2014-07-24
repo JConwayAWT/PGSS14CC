@@ -10,4 +10,5 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( proteins.js )
 Rails.application.config.assets.precompile += %w( traveling_salesmen.js )
 Rails.application.config.assets.precompile += %w( metalics.js )
+Rails.application.config.assets.precompile += %w( metallicscanvas.js )
 Rails.application.config.assets.precompile += %w( statics.js )
