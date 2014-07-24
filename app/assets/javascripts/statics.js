@@ -1,6 +1,7 @@
 $(document).ready(docReady);
 
 function docReady(){
+	var sayingOn=0;
 	var sayings = [
 					"Creating Algorithms for Traveling, Nanoparticles, and Interactive Proteins",
 					"Purrfect TSP, protein folding, and multimetallic optimization solvers",
@@ -18,10 +19,18 @@ function docReady(){
 					"Our results are guaranteed to never be catastrophic"];
 
 	function newSaying(){
-		$("#statement").html(sayings[Math.floor(Math.random()*sayings.length)]);
+		sayingOn++;
+		if(sayingOn>=sayings.length){
+			sayingOn=0;
+		}
+		$("#statement").html(sayings[sayingOn]);
 	}
 
-	newSaying();
-
+	if(document.cookie=="loadedPage"){
+		sayingOn=Math.floor(Math.random()*sayings.length);
+		newSaying();
+	}
+	document.cookie="loadedPage";
+	
 	$("#statement").click(newSaying);
 }
