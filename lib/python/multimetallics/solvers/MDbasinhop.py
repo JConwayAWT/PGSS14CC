@@ -20,29 +20,30 @@ import copy
 import json
 from NanoClass import genParticle
 from ase.md.nvtberendsen import NVTBerendsen
-from ase import units 
+from ase import units
+from ase.optimize import FIRE
+from copy import deepcopy
 
 class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
     self.particle = genParticle(self.definingString,int(self.numberOfAtoms))
-
-    # self.definingString looks like: "Pt50Au30"
-    #print "my defining string is " + self.definingString
-
-    # self.numberOfAtoms looks like: "80" (you'll need to call int(self.numberOfAtoms))
-    #print "my number of atoms is " + self.numberOfAtoms
-
-    #do all of your solving stuff you want...
-
-    #FINAL_SOLUTION = IMPLEMENT_FINAL_SOLUTION()
-
-    a = {"symbol": "Pt", "x": 1, "y": 2, "z": 3}
-    b = {"symbol": "Au", "x": 2, "y": 1, "z": -2}
-    c = {"symbol": "Pt", "x": 1, "y": 1, "z": -2}
-    listOfAtoms = [a, b, c]
-    potentialEnergy = -325.43
+    self.bestEnergy = self.particle.get_potential_energy()
+    self.bestParticle = deepcopy(self.particle)
+    berendsen = NVTBerendsen(self.particle, 0.1 * units.fs, 5000, taut=0.5*1000*units.fs)
+    dyn = FIRE(atoms=newAtom)
+    for i in range(100):
+      berendsen.run(5000)
+      dyn.run()
+      testEnergy = self.particle.get_potential_energy()
+      if (testEnergy < self.bestEnergy):
+        self.bestEnergy = testEnergy
+        self.bestParticle = deepcopy(self.particle)
+    listOfAtoms = []
+    for atom in self.bestParticle:
+      dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
+    potentialEnergy = self.bestEnergy
     dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": potentialEnergy}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
 

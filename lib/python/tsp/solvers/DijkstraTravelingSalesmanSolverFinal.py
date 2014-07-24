@@ -10,12 +10,25 @@ from copy import deepcopy
 class DijkstraSolver(TravelingSalesmanSolver.TravelingSalesmanSolver):
 
   def solve(self):
-    self.initialize_necessary_variables()
-    self.distances_array = self.initialize_distances_array()
-    while None in self.itinerary:
-      print self.itinerary
-      self.add_nearest_city_to_head_or_tail()
-    return ",".join([str(element) for element in self.itinerary])
+    for i in range(len(self.cords)):
+      self.initialize_necessary_variables(i)
+      self.distances_array = self.initialize_distances_array()
+      while None in self.itinerary:
+        self.add_nearest_city_to_head_or_tail()
+      testDist = self.totalDistance()
+      if (i == 0):
+        self.bestitinerary = deepcopy(self.itinerary)
+        self.bestSolution = self.totalDistance()
+      elif (self.bestSolution > testDist):
+        self.bestitinerary = deepcopy(self.itinerary)
+        self.bestSolution = self.totalDistance()
+    return ",".join([str(element) for element in self.bestitinerary])
+
+  def totalDistance(self):
+    itineraryDistance = 0.
+    for i in range(len(self.itinerary) - 1):
+      itineraryDistance += self.cords[self.itinerary[i]].dist(self.cords[self.itinerary[i + 1]])
+    return itineraryDistance
 
   def add_nearest_city_to_head_or_tail(self):
     if self.itinerary.count(None) == 1:
@@ -105,12 +118,12 @@ class DijkstraSolver(TravelingSalesmanSolver.TravelingSalesmanSolver):
       if k not in self.itinerary:
         self.itinerary[index_for_insertion] = k
 
-  def initialize_necessary_variables(self):
+  def initialize_necessary_variables(self,i):
     self.path_length = len(self.cords)
-    self.itinerary = [0] + [None]*(self.path_length - 1)
+    self.itinerary = [i] + [None]*(self.path_length - 1)
     self.degree_per_city = [0]*self.path_length
-    self.outgoing_tip_index = 0
-    self.incoming_tip_index = 0
+    self.outgoing_tip_index = i
+    self.incoming_tip_index = i
 
   def initialize_distances_array(self):
     distances_per_city = []
@@ -124,7 +137,7 @@ class DijkstraSolver(TravelingSalesmanSolver.TravelingSalesmanSolver):
 #dijkstra = DijkstraSolver()
 
 #dijkstra.cords.append(Coordinate.Coordinate(90,20))
-#dijkstra.cords.append(Coordinate.Coordinate(21,34))
+#dijkstra.cords.append(Coordinate.Coordinate(21,34))#
 #dijkstra.cords.append(Coordinate.Coordinate(34,56))
 #dijkstra.cords.append(Coordinate.Coordinate(28,50))
 #dijkstra.cords.append(Coordinate.Coordinate(51,80))

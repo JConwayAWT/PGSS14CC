@@ -63,7 +63,7 @@ class TravelingSalesmanSolver:
 			self.cur.execute ("SELECT last_tick FROM traveling_salesmen WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
 			database_row = self.cur.fetchone()
   			last_tick = database_row[0]
-	  	
+
   			#self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
   			if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
 	  			self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
@@ -82,3 +82,6 @@ class TravelingSalesmanSolver:
 		elapsedSec=int((self.millis()-self.startTime)/1000)
 		totalSec =int(elapsedSec/pDone)
 		return str(totalSec-elapsedSec)+"s remaining /"+str(totalSec)+"s total"
+
+##tsp = TravelingSalesmanSolver('{"x": 1, "y": 2}')
+

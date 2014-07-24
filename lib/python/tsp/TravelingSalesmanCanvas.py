@@ -31,6 +31,7 @@ from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from solvers import GravitationalTravelingSalesmanSolver as gts
 from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
+from solvers import SimulatedAnnealingSalesmanSolver as sas
 from database import database_connect as dbf
 
 def main():
@@ -63,11 +64,15 @@ def main():
   if algorithm =="Gravity":
     solver = gts.GravitationalTravelingSalesmanSolver(params)
 
+  #Change this to Wheel Dijkstra and the other one to just Dijkstra
   if algorithm =="Dijkstra":
     solver =dts.DijkstraSolver(params)
 
   if algorithm =="Dijkstra 2":
     solver = dts2.DijkstraTravelingSalesmanSolver(params)
+
+  if algorithm =="Simulated Annealing":
+    solver = sas.SimulatedAnnealingSalesmanSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"

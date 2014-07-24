@@ -14,7 +14,7 @@ sys.path.append(lib_path)
 lib_path = os.path.abspath('../')
 sys.path.append(lib_path)
 import ProteinChainClass
-import Coordinate
+#import Coordinate
 import math
 import random
 import copy
@@ -34,6 +34,10 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
         self.bestEnergy = deepcopy(self.Energy)
         self.bestCords = deepcopy(self.cords)
       #  print self.bestEnergy, self.bestCords
+    answer = str(self.bestEnergy)+";"
+    for cord in self.bestCords:
+      answer+=str(cord[0])+","+str(cord[1])+":"
+    return answer
 
   def singleMove(self):
     end_coord = deepcopy(self.coords[-1])
