@@ -24,7 +24,7 @@ from ase import units
 from ase.optimize import FIRE
 from copy import deepcopy
 
-class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
+class MDMinSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
