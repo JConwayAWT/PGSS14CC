@@ -25,7 +25,7 @@ import os
 import urlparse
 import sys
 from solvers import TravelingSalesmanSolver
-from solvers import BruteForceTravelingSalesmanSolver as bft
+from solvers import BFTS2 as bft
 from solvers import AntTotalDistanceSolver as atd
 from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from solvers import GravitationalTravelingSalesmanSolver as gts
@@ -49,7 +49,7 @@ def main():
   algorithm = database_row[4] 
 
   if algorithm =="Brute Force (n!)":
-    solver = bft.BruteForceTravelingSalesmanSolver(params)
+    solver = bft.BFTS2(params)
 
   if algorithm =="Ant Total Distance (n^2)":
     solver = atd.AntTotalDistanceSolver(params)
@@ -65,10 +65,10 @@ def main():
     solver = gts.GravitationalTravelingSalesmanSolver(params)
 
   #Change this to Wheel Dijkstra and the other one to just Dijkstra
-  if algorithm =="Dijkstra":
+  if algorithm =="Wheel Dijkstra (n^3)":
     solver =dts.DijkstraSolver(params)
-
-  if algorithm =="Dijkstra 2":
+    
+  if algorithm =="Fast Dijkstra (n^2)":
     solver = dts2.DijkstraTravelingSalesmanSolver(params)
 
   if algorithm =="Simulated Annealing":

@@ -16,7 +16,8 @@ function docReady(){
 					"Our paths don't stray from the best",
 					"Such cat, very algorithm",
 					"Click on one of the tabbies to learn more",
-					"Our results are guaranteed to never be catastrophic"];
+					"Our results are guaranteed to never be catastrophic",
+					"A tale of two cities<br>A tale of two kitties<br>A tail of two kitties"];
 
 	function newSaying(){
 		sayingOn++;
