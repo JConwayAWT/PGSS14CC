@@ -111,15 +111,62 @@ function docReady(){
 	}
 }
 
+// chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 10, "y": 20}, {"type":"P", "x": 15, "y": 25}, {"type:":"H", "x": 17, "y": 18}]}
+
 function drawSampleProtein(){
-	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 10, "y": 20}, {"type":"P", "x": 15, "y": 25}, {"type:":"H", "x": 17, "y": 18}]}
+	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 100, "y": 200}, {"type":"P", "x": 150, "y": 250}, {"type":"H", "x": 170, "y": 180}, {"type": "H", "x": 100, "y": 123}]}
 
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 	
 	context.beginPath();
-   	context.moveTo(chain.acids[0]("x"), chain.acids[0]("y"));   
-    for acid in chain;
-    	context.lineTo(chain.acids[acid]("x"), chain.acids[acid]("y"));
-    	context.stroke();
+   	context.moveTo(chain.acids[0]["x"], chain.acids[0]["y"]);   
+    for (i = 0; i < chain.acids.length; i++)
+    {
+    	buildAminoAcid(chain.acids[i]["type"], chain.acids[i]["x"], chain.acids[i]["y"]);
+    	if (i > 0) {
+    		var previousPoint = i - 1
+    		var p = previousPoint
+    	   	drawPeptideBonds(chain.acids[p]["x"], chain.acids[p]["y"], chain.acids[i]["x"], chain.acids[i]["y"])
+	    }
+    	// context.lineTo(chain.acids[i]["x"], chain.acids[i]["y"]);
+    	// context.lineWidth = 3
+    	// context.strokeStyle = 'blue'
+    	// context.stroke();
+    }
+}
+
+function buildAminoAcid(type, x, y) {
+	var canvas = document.getElementById('protein-canvas');
+    var context = canvas.getContext('2d');
+	var centerX = x;
+    var centerY = y;
+    var radius = 10;
+
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    if (type == "H") {
+    	context.fillStyle = '#ff0000';
+    	context.fill();
+    }
+    else if (type == "P") {
+    	context.fillStyle = '#00ff00';
+    	context.fill();
+    }
+    // context.fillStyle = 'green';
+    // context.fill();
+    // context.lineWidth = 1;
+    // context.strokeStyle = '#003300';
+    context.stroke();
+    }
+
+function drawPeptideBonds(x1,y1,x2,y2) {
+	var canvas = document.getElementById('protein-canvas');
+    var context = canvas.getContext('2d');
+
+    context.moveTo(x1,y1);
+	context.lineTo(x2, y2);
+    // context.lineWidth = 3
+    // context.strokeStyle = 'blue'
+    context.stroke();
 }
