@@ -62,7 +62,7 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
       data: pass_info,
     })
     .done(function(data) {
-      console.log(data.statusMessage);
+      startCheckingForUpdates(data.databaseId);
     })
     .fail(function() {
       console.log("Failed =(");
@@ -70,4 +70,28 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
     .always(function() {
       console.log("complete");
     });
+}
+
+function startCheckingForUpdates(databaseId){
+  retreiveProblemInterval = setInterval(retreiveProteinProblem(databaseId), 3000);
+}
+
+function retreiveProteinProblem(id){
+  $.ajax({
+    url: '/retreive_metalic_problem',
+    type: 'POST',
+    data: {id: id},
+  })
+  .done(function(data) {
+    provideDataToPage(data);
+  })
+  .fail(function() {
+    alert("Something went wrong...");
+  });
+}
+
+function provideDataToPage(data){
+  answer = data.answer;
+  $("#display-answer").show();
+  $("#display-answer").text(answer);
 }

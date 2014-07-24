@@ -21,6 +21,21 @@ class MetalicsController < ApplicationController
   def edit
   end
 
+  def retreive_problem
+    m = Metalic.find(params[:id])
+
+    returnData = {message: m.message, answer: m.answer, statusDone: m.statusdone, done: m.done}
+
+    unless m.done
+      m.last_tick = Time.now
+      m.save!
+    end
+
+    debugger
+
+    render json: returnData and return
+  end
+
   def pose_problem
     m = Metalic.new
     m.problem_parameters = params[:data].to_json
