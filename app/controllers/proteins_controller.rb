@@ -36,7 +36,7 @@ class ProteinsController < ApplicationController
 
   def pose_problem
     t = Protein.new
-    t.problem_parameters = params[:points].to_json
+    t.problem_parameters = params[:data].to_json
     t.algorithm = params[:algorithm]
     t.statusdone = "Waiting in queue..."
     t.last_tick=Time.now

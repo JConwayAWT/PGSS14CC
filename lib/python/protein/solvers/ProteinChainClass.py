@@ -1,14 +1,18 @@
 import random
 from copy import deepcopy
+import ProteinFoldingSolver
 import AminoAcid
 import os, sys
-lib_path = os.path.abspath('../helpers')
+lib_path = os.path.abspath('../../helpers')
+sys.path.append(lib_path)
+lib_path = os.path.abspath('../')
 sys.path.append(lib_path)
 random.seed()
 
-class ProteinChain:
+class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
 
   def __init__(self,amino_acid_chain_string):
+    self.startTime = self.millis()
     self.amino_acid_chain = list(amino_acid_chain_string)
     self.coords = [[0,0]] # this is just a list of coordinates
     self.cords = [] # this is the list of coordinates with identities

@@ -22,7 +22,7 @@ import os
 import urlparse
 import sys
 from solvers import ExampleSolver as e
-from solvers import SlitheringSnakeSolver as ss
+from solvers import MetalicsSolver as ms
 from database import database_connect as dbf
 
 
@@ -34,15 +34,16 @@ def main():
   database_row_id=sys.argv[2]
 
   cur = connection.cursor()
-  cur.execute ("SELECT * FROM proteins WHERE id=\'"+database_row_id+"\' LIMIT 1;")
+  cur.execute ("SELECT * FROM metalics WHERE id=\'"+database_row_id+"\' LIMIT 1;")
   database_row = cur.fetchone()
   database_row_id = database_row[0]
-  params = database_row[3]
-  algorithm = database_row[4]
+  params = database_row[1]
+  algorithm = database_row[2]
   solver = None
 
-  if algorithm =="Slithering Snake":
-    solver = ss.SlitheringSnakeSolver(params)
+
+  if algorithm == "Alg A":
+    solver = e.ExampleSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"
@@ -50,7 +51,7 @@ def main():
     solver.cur = cur
     solver.database_row_id=database_row_id
     solver.setStatusDone("Calculating solution...")
-    solution =solver.solve(100)
+    solution = solver.solve()
     solver.setSolution(solution)
     solver.setDone('y')
     print solution
