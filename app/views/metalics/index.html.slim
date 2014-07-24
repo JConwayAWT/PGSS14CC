@@ -10,7 +10,7 @@ br
   .col-md-3.col-md-offset-3
     .form-group
       label Element 1
-      select.form-control
+      select.form-control#element-1
         option Al
         option Ni
         option Cu
@@ -22,12 +22,12 @@ br
     .form-group
       label Percentage (%)
       br
-      input.form-control placeholder = ("--%")
+      input.form-control#percentage-1 placeholder = ("--%")
 .row
   .col-md-3.col-md-offset-3
     .form-group
       label Element 2
-      select.form-control
+      select.form-control#element-2
         option None
         option Al
         option Ni
@@ -40,12 +40,12 @@ br
     .form-group
       label Percentage (%)
       br
-      input.form-control placeholder = ("--%")
+      input.form-control#percentage-2 placeholder = ("--%")
 .row
   .col-md-3.col-md-offset-3
     .form-group
       label Element 3
-      select.form-control
+      select.form-control#element-3
         option None
         option Al
         option Ni
@@ -58,20 +58,20 @@ br
     .form-group
       label Percentage (%)
       br
-      input.form-control placeholder = ("--%")
+      input.form-control#percentage-3 placeholder = ("--%")
 .row
   .col-md-3.col-md-offset-3
     .form-group
       label Algorithm:
-      select.form-control
-        option Method1
+      select.form-control#algorithm
+        option value="Alg A" Algorithm A (Sample)
         option Method2
         option Method3
   .col-md-3
     .form-group
       label # of Atoms:
       br
-      input.form-control placeholder = ("")
+      input.form-control#number-of-atoms
 .row
   .col-md-6.text-right
     button#submit_data.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run

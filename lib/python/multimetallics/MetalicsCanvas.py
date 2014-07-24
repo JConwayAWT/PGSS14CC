@@ -41,12 +41,11 @@ def main():
   algorithm = database_row[4]
   solver = None
 
-  if algorithm =="Alg A":
+  if algorithm == "Alg A":
     solver = e.ExampleSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"
-
   else:
     solver.cur = cur
     solver.database_row_id=database_row_id

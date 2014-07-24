@@ -28,7 +28,8 @@ class MetalicFoldingSolver:
 		if params == None:
 			return
 		data = json.loads(params)
-		self.atoms = data["atoms"]
+		self.definingString = data["definingString"]
+		self.numberOfAtoms = data["numberOfAtoms"]
 
 		self.startTime = self.millis()
 
@@ -71,5 +72,3 @@ class MetalicFoldingSolver:
 		elapsedSec=int((self.millis()-self.startTime)/1000)
 		totalSec =int(elapsedSec/pDone)
 		return str(totalSec-elapsedSec)+"s remaining /"+str(totalSec)+"s total"
-
-ms = MetalicFoldingSolver('{"atoms": [{"x": 1, "y": 2, "z": 3, "symbol": "Pt"},{"x": 5, "y": 1, "z": 3, "symbol": "Pt"},{"x": 3, "y": 10, "z": 1, "symbol": "Au"}], "algorithm": "Basin Hopping"}')
