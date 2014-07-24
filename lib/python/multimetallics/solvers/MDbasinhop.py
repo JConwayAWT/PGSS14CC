@@ -19,7 +19,10 @@ import random
 import copy
 import json
 import NanoClass
+import ase
+import os
 from ase.md.nvtberendsen import NVTBerendsen
+from ase.md.verlet import VelocityVerlet
 from ase import units
 from ase.optimize import FIRE
 from copy import deepcopy
@@ -31,9 +34,14 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     self.particle = NanoClass.genParticle(self.definingString,int(self.numberOfAtoms))
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
+    self.particle.rattle(stdev=0.25)
+    dynVer = VelocityVerlet(self.particle, dt=2*ase.units.fs)
+    dynVer.run(10)
     berendsen = NVTBerendsen(self.particle, 0.1 * units.fs, 5000, taut=0.5*1000*units.fs)
-    dyn = FIRE(atoms=newAtom)
-    for i in range(100):
+    dyn = FIRE(atoms=self.particle)
+    for i in range(1):
+      self.particle.rattle(stdev=0.5)
+      dynVer.run(10)
       berendsen.run(5000)
       dyn.run()
       testEnergy = self.particle.get_potential_energy()
