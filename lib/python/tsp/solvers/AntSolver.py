@@ -65,6 +65,7 @@ class AntSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
                      if self.prob[i][j] <= 0:
                         self.prob[i][j] = 0.000001
             distsum /= self.REFERENCE_POINTS
+            print distsum
             self.prob[path[i-1]][path[i]] += distsum
             self.prob[path[i]][path[i-1]] += distsum
             #print path
@@ -96,7 +97,8 @@ class AntSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
     total = sum(prob[coordinate])
     normalizedProb = [float(i)/total for i in prob[coordinate]]
     if coordinate == 0:
-        print normalizedProb
+        pass
+        #print normalizedProb
     rand = random.random()
     location = 0
     while rand > 0:
