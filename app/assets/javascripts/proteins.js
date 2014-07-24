@@ -10,7 +10,7 @@ function doneProcessing(){
 
 function docReady(){
 
-	drawSampleProtein();
+	//drawSampleProtein();
 
 	var DB_ID=0;
 
@@ -95,6 +95,7 @@ function docReady(){
 				if(data.answer!=null&&data.answer!=""){
 					//answer
 					$("#output").html(data.answer);
+					drawSampleProtein(JSON.parse(data.answer));
 				}
 				if(data.done){
 					DB_ID=0;
@@ -113,8 +114,26 @@ function docReady(){
 
 // chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 10, "y": 20}, {"type":"P", "x": 15, "y": 25}, {"type:":"H", "x": 17, "y": 18}]}
 
-function drawSampleProtein(){
-	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 100, "y": 200}, {"type":"P", "x": 150, "y": 250}, {"type":"H", "x": 170, "y": 180}, {"type": "H", "x": 100, "y": 123}]}
+function drawSampleProtein(chain){
+//	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 100, "y": 200}, {"type":"P", "x": 150, "y": 250}, {"type":"H", "x": 170, "y": 180}, {"type": "H", "x": 100, "y": 123}]}
+	maximumX = 0;
+	maximumY = 0;
+
+	for (i = 0; i < chain.acids.length; i++)
+    {
+    	if (chain.acids[i]["x"] > maximumX) {
+    		maximumX = chain.acids[i]["x"];
+    	}
+    }
+
+    for (i = 0; i < chain.acids.length; i++)
+    {
+    	if (chain.acids[i]["y"] > maximumY) {
+    		maximumX = chain.acids[i]["y"];
+    	}
+    }
+
+    console.log(maximumX+" "+maximumY);
 
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
@@ -127,7 +146,7 @@ function drawSampleProtein(){
     	if (i > 0) {
     		var previousPoint = i - 1
     		var p = previousPoint
-    	   	drawPeptideBonds(chain.acids[p]["x"], chain.acids[p]["y"], chain.acids[i]["x"], chain.acids[i]["y"])
+    	   	drawPeptideBonds(chain.acids[p]["x"] * 720/maximumX, chain.acids[p]["y"] * 360/maximumY, chain.acids[i]["x"]* 720/maximumX, chain.acids[i]["y"] * 360/maximumY)
 	    }
     	// context.lineTo(chain.acids[i]["x"], chain.acids[i]["y"]);
     	// context.lineWidth = 3
