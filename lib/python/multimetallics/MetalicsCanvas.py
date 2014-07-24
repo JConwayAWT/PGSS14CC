@@ -23,6 +23,7 @@ import urlparse
 import sys
 from solvers import ExampleSolver as e
 from solvers import MetalicsSolver as ms
+from solvers import MDbasinhop as md
 from database import database_connect as dbf
 
 
@@ -44,6 +45,8 @@ def main():
 
   if algorithm == "Alg A":
     solver = e.ExampleSolver(params)
+  elif algorithm == "MD Solver"
+    solver = md.MDSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"

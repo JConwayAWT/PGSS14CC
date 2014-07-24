@@ -24,7 +24,7 @@ from ase import units
 from ase.optimize import FIRE
 from copy import deepcopy
 
-class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
+class MDSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
@@ -43,6 +43,7 @@ class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
     listOfAtoms = []
     for atom in self.bestParticle:
       dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
+      listOfAtoms.append(dictElement)
     potentialEnergy = self.bestEnergy
     dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": potentialEnergy}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
