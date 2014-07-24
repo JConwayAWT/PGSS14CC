@@ -18,10 +18,16 @@ import MetalicsSolver
 import random
 import copy
 import json
+from NanoClass import genParticle
+from ase.md.nvtberendsen import NVTBerendsen
+from ase import units 
 
 class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
+    #Create the initial particle from the defining string/number atoms
+    self.particle = genParticle(self.definingString,int(self.numberOfAtoms))
+
     # self.definingString looks like: "Pt50Au30"
     #print "my defining string is " + self.definingString
 
