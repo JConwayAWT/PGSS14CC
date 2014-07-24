@@ -1,11 +1,11 @@
 #-------------------------------------------------------------------------------
-# Name:        Traveling Salesman Canvas
-# Purpose:     Takes data from the JQuery canvas, processes it, and returns it to the user
+# Name:        Scaling Measuring
+# Purpose:     Measures how fast certain solutions scale
 #
-# Author:      Martin Schneider
+# Author:      Ishan Levy
 #
-# Created:     07/09/2014
-# Copyright:   (c) Martin 2014
+# Created:     07/21/2014
+# Copyright:   (c) Ishan levy 2014
 # Licence:     Creative Commons (CC)
 #-------------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
 
 def main():
-  algorithm = "Dijkstra 2"
+  algorithm = "Ant Total Distance Remove Line Crosses (n^2)"
 
   if algorithm =="Brute Force (n!)":
     solver = bft.BruteForceTravelingSalesmanSolver()
@@ -52,10 +52,11 @@ def main():
     solver = dts2.DijkstraTravelingSalesmanSolver()
 
   times = []
-  for k in xrange(1,2000):
+  for k in xrange(5,2000,5):
       print k
       timer = 0
-      for j in xrange(10):
+      times_to_run = 1
+      for j in xrange(times_to_run):
         if solver is None:
           print "ERROR: Invalid solver!"
         else:
@@ -63,13 +64,21 @@ def main():
           xvalues = []
           yvalues = []
           for i in xrange(k):
-              xvalues.append(random.randrange(1,500,1))
-              yvalues.append(random.randrange(1,500,1))
+            works = False
+            while(works == False):
+              a = random.randrange(1,500)
+              b = random.randrange(1,500)
+              works = True
+              for c in range(len(solver.cords)):
+                if ((solver.cords.x - a)**2+ (solver.cords.y - b)**2 < 16):
+                    works = false
+            xvalues.append(random.randrange(1,500,1))
+            yvalues.append(random.randrange(1,500,1))
           solver.loadCoordinatesFromXYArrays(xvalues,yvalues)
           timenow = time.time()
           solution =solver.solve()
           timer -= timenow - time.time()
-      times.append(timer/10)
+      times.append(timer/times_to_run)
       print times[-1]
   print times
 
