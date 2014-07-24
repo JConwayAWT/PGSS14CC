@@ -37,9 +37,10 @@ def main():
   cur.execute ("SELECT * FROM metalics WHERE id=\'"+database_row_id+"\' LIMIT 1;")
   database_row = cur.fetchone()
   database_row_id = database_row[0]
-  params = database_row[3]
-  algorithm = database_row[4]
+  params = database_row[1]
+  algorithm = database_row[2]
   solver = None
+
 
   if algorithm == "Alg A":
     solver = e.ExampleSolver(params)

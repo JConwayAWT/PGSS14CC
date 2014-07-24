@@ -22,12 +22,11 @@ import json
 class ExampleSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
-    return "WHATEVAAAAA"
     # self.definingString looks like: "Pt50Au30"
-    print "my defining string is " + self.definingString
+    #print "my defining string is " + self.definingString
 
     # self.numberOfAtoms looks like: "80" (you'll need to call int(self.numberOfAtoms))
-    print "my number of atoms is " + self.numberOfAtoms
+    #print "my number of atoms is " + self.numberOfAtoms
 
     #do all of your solving stuff you want...
 
