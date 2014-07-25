@@ -26,10 +26,8 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
   CALCULATION_UPDATES=100000
 
   def solve(self):
-    # I dont understand what the actual running time is... for some reason it isn't N!
-    # This isn't perfect:
     self.CALCULATIONS=math.sqrt(len(self.cords))*math.factorial(len(self.cords))
-
+    self.endState= (pow(2, len(self.cords))-1)
     self.bestDistance=float("inf")
     self.compute(0, 0, -1, []);
     self.getAnswer()
@@ -48,7 +46,7 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
       pDone=float(self.CALCS_DONE)/self.CALCULATIONS
       self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
 
-    if traversed==(pow(2, len(self.cords))-1):
+    if traversed==self.endState:
       totalDistance+=order[len(order)-1].dist(order[0])
       if (totalDistance<self.bestDistance):
         self.bestDistance=totalDistance
@@ -60,16 +58,16 @@ class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesm
     src=None
     if (srcNum>=0):
       src=self.cords[srcNum]
-    
+
     farthest=0
     f=-1
-    
+
     for i in range(0,len(self.cords)):
       if (not checkTraversed(traversed, i)):
         dist = 0  if (srcNum == -1) else src.dist(self.cords[i])
         farthest = max(farthest,dist)
         f=i
-    
+
     for i in range(0,len(self.cords)):
       if (not checkTraversed(traversed, i)):
         dist = 0  if (srcNum == -1) else src.dist(self.cords[i])

@@ -1,4 +1,3 @@
-var isDown=false;
 var x1=0;
 var y1=0;
 var jobs=0;
@@ -47,7 +46,6 @@ function docReady(){
 
 	animate();
 	getSolutionProgress();
-	addRandomCoordinates(100);
 	doneProcessing();
 
 	var dragging=null;
@@ -118,13 +116,35 @@ function docReady(){
 		}
 	}
 
-	$("#submit_data").click(function(){
-		getSolution();
-	});
+	$("#submit_data").click(getSolution);
+	$("#cancel_solution").click(cancelSolution);
+	$("#remove_all_datapoints").click(removeData);
+	$("#add_random_points").click(addRandPoints);
 
-	$("#cancel_solution").click(function(){
-		cancelSolution();
-	});
+	function removeData(){
+		if(processing)return;
+		if(confirm("Erase all points?")){
+			cords=[];
+		}
+	}
+
+	function addRandPoints(){
+		if(processing)return;
+		var n=0;
+		var notNum=false;
+		while(true){
+			s=prompt("How many points do you want to be added? \n\n"+(notNum?"You must enter a number!":""));
+			if(s==null||s==""){
+				break;
+			}
+			n=parseInt(s);
+			if(s==n+""){
+				addRandomCoordinates(n);
+				break;
+			}
+			notNum=true;
+		}
+	}
 
 	function cancelSolution(){
 		if(DB_ID>0){			
@@ -150,6 +170,10 @@ function docReady(){
 	}
 	function getSolution(){
 		if(processing)return;
+		if(cords.length==0){
+			alert("You must add some points!");
+			return;
+		}
 		var xvalues =[];
 		var yvalues=[];
 
