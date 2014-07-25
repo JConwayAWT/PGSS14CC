@@ -20,7 +20,6 @@ import copy
 import json
 import NanoClass
 import ase
-import os
 from ase.md.nvtberendsen import NVTBerendsen
 from ase.md.velocitydistribution import MaxwellBoltzmannDistribution
 from ase import units
@@ -31,15 +30,14 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
-
-    #self.particle = NanoClass.genParticle(self.definingString,int(self.numberOfAtoms))
     self.particle = NanoClass.genParticle(self.definingString, int(self.numberOfAtoms))
+    self.reCenter()
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
     berendsen = NVTBerendsen(self.particle, 2.5 * units.fs, 5000, taut=0.5*1000*units.fs)
     dyn = FIRE(atoms=self.particle)
     MaxwellBoltzmannDistribution(self.particle,5000)
-    for i in range(1):
+    for i in range(100):
       self.particle.rattle(stdev=0.1)
       berendsen.run(500)
       dyn.run()
