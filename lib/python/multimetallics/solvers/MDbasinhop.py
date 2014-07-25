@@ -22,7 +22,7 @@ import NanoClass
 import ase
 import os
 from ase.md.nvtberendsen import NVTBerendsen
-from ase.md.verlet import VelocityVerlet
+from ase.md.velocitydistribution import MaxwellBoltzmannDistribution
 from ase import units
 from ase.optimize import FIRE
 from copy import deepcopy
@@ -36,16 +36,14 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     self.particle = NanoClass.genParticle(self.definingString, int(self.numberOfAtoms))
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
-    self.particle.rattle(stdev=0.25)
-    dynVer = VelocityVerlet(self.particle, dt=2*ase.units.fs)
-    dynVer.run(10)
-    berendsen = NVTBerendsen(self.particle, 0.1 * units.fs, 5000, taut=0.5*1000*units.fs)
+    berendsen = NVTBerendsen(self.particle, 2.5 * units.fs, 5000, taut=0.5*1000*units.fs)
     dyn = FIRE(atoms=self.particle)
+    MaxwellBoltzmannDistribution(self.particle,5000)
     for i in range(1):
-      self.particle.rattle(stdev=0.5)
-      dynVer.run(10)
-      berendsen.run(5000)
+      self.particle.rattle(stdev=0.1)
+      berendsen.run(500)
       dyn.run()
+      self.reCenter()
       testEnergy = self.particle.get_potential_energy()
       if (testEnergy < self.bestEnergy):
         self.bestEnergy = testEnergy
@@ -62,5 +60,6 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     # parsed as JSON on the page and displayed/drawn for the user
     return actually_json
 
-# md = MDSolver('{"definingString":"Pt30Au30","numberOfAtoms":50}')
-# md.solve()
+  def reCenter(self):
+    self.particle.center()
+    self.particle.set_positions(self.particle.get_positions() - 200.)
