@@ -31,7 +31,9 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
-    self.particle = NanoClass.genParticle(self.definingString,int(self.numberOfAtoms))
+
+    #self.particle = NanoClass.genParticle(self.definingString,int(self.numberOfAtoms))
+    self.particle = NanoClass.genParticle(self.definingString, int(self.numberOfAtoms))
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
     self.particle.rattle(stdev=0.25)
@@ -60,5 +62,5 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     # parsed as JSON on the page and displayed/drawn for the user
     return actually_json
 
-md = MDSolver('{"definingString":"Pt30Au30","numberOfAtoms":50}')
-md.solve()
+# md = MDSolver('{"definingString":"Pt30Au30","numberOfAtoms":50}')
+# md.solve()

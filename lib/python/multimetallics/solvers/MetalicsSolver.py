@@ -28,8 +28,8 @@ class MetalicFoldingSolver:
 		if params == None:
 			return
 		data = json.loads(params)
-		self.definingString = data["definingString"]
-		self.numberOfAtoms = data["numberOfAtoms"]
+		self.definingString = str(data["definingString"])
+		self.numberOfAtoms = int(data["numberOfAtoms"])
 
 		self.startTime = self.millis()
 
