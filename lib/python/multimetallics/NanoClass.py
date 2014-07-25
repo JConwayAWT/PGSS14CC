@@ -23,10 +23,11 @@ def genParticle(definingString,number):
   newAtom = Atoms(definingString,coords)
   calc = EMT()
   newAtom.set_calculator(calc)
+  newAtom.set_cell(dummyAtom.get_cell() * 10.)
   dyn = LBFGSLineSearch(atoms=newAtom)
-  dyn.run(steps=200000)
+  dyn.run(steps=20000)
   dyn = FIRE(atoms=newAtom)
-  dyn.run(fmax=0.01)
+  dyn.run(fmax=0.05)
   return newAtom
 
 def create_sample_atom(inNumberOfAtoms,inAtomType):
