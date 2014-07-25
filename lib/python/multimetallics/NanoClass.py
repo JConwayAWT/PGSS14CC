@@ -57,20 +57,6 @@ def nearlySphericalAtom(definingString,inRadius,number):
   dyn.run(fmax=0.01)
   return newAtom
 
-def genParticle(definingString,number):
-  dummyAtom = ase.io.read('InputGeom.vasp',format='vasp')
-  while (len(dummyAtom) > number):
-    dummyAtom.pop(-1)
-  coords = dummyAtom.get_positions()
-  newAtom = Atoms(definingString,coords)
-  calc = EMT()
-  newAtom.set_calculator(calc)
-  dyn = LBFGSLineSearch(atoms=newAtom)
-  dyn.run(steps=200000)
-  dyn = FIRE(atoms=newAtom)
-  dyn.run(fmax=0.01)
-  return newAtom
-
 def distanceCenter(atoms):
 	distanceArray = numpy.zeros(len(atoms))
 	cx = atoms.get_center_of_mass()[0]

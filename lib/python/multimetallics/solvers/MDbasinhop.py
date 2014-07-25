@@ -51,3 +51,6 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     # this gets returned to the parent class and shoved into the database as a string, then
     # parsed as JSON on the page and displayed/drawn for the user
     return actually_json
+
+md = MDSolver('{"definingString":"Pt30Au30","numberOfAtoms":50}')
+md.solve()
