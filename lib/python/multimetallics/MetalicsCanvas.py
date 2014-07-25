@@ -40,8 +40,8 @@ def main():
   database_row_id = database_row[0]
   params = database_row[1]
   algorithm = database_row[2]
+  cur.execute ("UPDATE metalics SET answer=\'"+'yay'+"\' WHERE id=\'"+str(database_row_id)+"\';")
   solver = None
-
 
   if algorithm == "Alg A":
     solver = e.ExampleSolver(params)
