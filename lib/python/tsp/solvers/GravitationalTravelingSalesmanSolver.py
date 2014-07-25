@@ -12,8 +12,9 @@ sys.path.append(lib_path)
 import Coordinate;
 import math;
 import TravelingSalesmanSolver;
+import LineOverlapEliminatorTravelingSalesmanSolver
 
-class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
+class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
       bestOrder=[];
       CM = Coordinate.Coordinate(0, 0, 0);
       bestDistance=float("inf");
@@ -42,6 +43,15 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
             self.pointsLeft[len(self.cords) - 1] = temp;
         self.current = self.cords[0];
         self.compute();
+
+        bo = []
+        for c in self.bestOrder:
+          bo.append(c.i)
+        self.bestOrder=bo
+
+        if self.REMOVE_LINE_CROSSES:            
+            self.removeLineCrosses()
+
         self.getAnswer();
         #for i in range(0, len(self.bestOrder)):
             #print("X: " + str(self.bestOrder[i].x) + " Y: " + str(self.bestOrder[i].y));
@@ -49,7 +59,7 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
 
       def getAnswer(self):
         for c in self.bestOrder:
-          self.answer+=str(c.i)+","
+          self.answer+=str(c)+","
 
       def getCM(self):
         xsum = 0.0;

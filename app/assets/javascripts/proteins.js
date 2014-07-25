@@ -116,8 +116,9 @@ function docReady(){
 
 function drawSampleProtein(chain){
 //	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 100, "y": 200}, {"type":"P", "x": 150, "y": 250}, {"type":"H", "x": 170, "y": 180}, {"type": "H", "x": 100, "y": 123}]}
-	maximumX = 0;
-	maximumY = 0;
+	var maximumX = 0;
+	var maximumY = 0;
+	var padding = 50;
 
 	for (i = 0; i < chain.acids.length; i++)
     {
@@ -129,24 +130,26 @@ function drawSampleProtein(chain){
     for (i = 0; i < chain.acids.length; i++)
     {
     	if (chain.acids[i]["y"] > maximumY) {
-    		maximumX = chain.acids[i]["y"];
+    		maximumY = chain.acids[i]["y"];
     	}
     }
-
-    console.log(maximumX+" "+maximumY);
 
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 	
+	console.log(maximumX+" "+maximumY);
+    console.log( (canvas.width-padding*2)+" "+ (canvas.height-padding*2));
+
 	context.beginPath();
    	context.moveTo(chain.acids[0]["x"], chain.acids[0]["y"]);   
     for (i = 0; i < chain.acids.length; i++)
     {
-    	buildAminoAcid(chain.acids[i]["type"], chain.acids[i]["x"], chain.acids[i]["y"]);
+    	buildAminoAcid(chain.acids[i]["type"], padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"]* (canvas.width-padding*2)/maximumY);
     	if (i > 0) {
-    		var previousPoint = i - 1
-    		var p = previousPoint
-    	   	drawPeptideBonds(chain.acids[p]["x"] * 720/maximumX, chain.acids[p]["y"] * 360/maximumY, chain.acids[i]["x"]* 720/maximumX, chain.acids[i]["y"] * 360/maximumY)
+    		var previousPoint = i - 1;
+    		var p = previousPoint;
+
+    	   	drawPeptideBonds(padding+chain.acids[p]["x"] * (canvas.width-padding*2)/maximumX, padding+chain.acids[p]["y"] * (canvas.height-padding*2)/maximumY, padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"] * (canvas.height-padding*2)/maximumY);
 	    }
     	// context.lineTo(chain.acids[i]["x"], chain.acids[i]["y"]);
     	// context.lineWidth = 3
@@ -180,6 +183,7 @@ function buildAminoAcid(type, x, y) {
     }
 
 function drawPeptideBonds(x1,y1,x2,y2) {
+	console.log(x1,y1,x2,y2);
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 

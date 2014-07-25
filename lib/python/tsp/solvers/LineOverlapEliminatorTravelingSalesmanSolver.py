@@ -41,6 +41,7 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
       self.answer+=str(self.bestOrder[c])+","
 
   def removeLineCrosses(self):
+    self.setStatusDone("Removing line crosses...")
     restarts=0
     if self.REMOVE_LINE_CROSSES:
       #self.bestOrder.append(0)

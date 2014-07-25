@@ -47,18 +47,15 @@ def main():
   database_row_id = database_row[0]
   params = database_row[3]
   algorithm = database_row[4] 
+  remove_overlaps=database_row[10]
 
   if algorithm =="Brute Force (n!)":
     solver = bft.BFTS2(params)
 
   if algorithm =="Ant Total Distance (n^2)":
     solver = atd.AntTotalDistanceSolver(params)
-    solver.REMOVE_LINE_CROSSES=False
 
-  if algorithm =="Ant Total Distance Remove Line Crosses (n^2)":
-    solver = atd.AntTotalDistanceSolver(params) 
-
-  if algorithm =="Random Remove Line Crosses (n^2)":
+  if algorithm =="Random":
     solver = loe.LineOverlapEliminatorTravelingSalesmanSolver(params)
 
   if algorithm =="Gravity":
@@ -73,6 +70,8 @@ def main():
 
   if algorithm =="Simulated Annealing":
     solver = sas.SimulatedAnnealingSalesmanSolver(params)
+
+  solver.REMOVE_LINE_CROSSES=remove_overlaps
 
   if solver is None:
     print "ERROR: Invalid solver!"
