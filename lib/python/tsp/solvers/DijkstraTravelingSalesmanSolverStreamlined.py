@@ -5,8 +5,9 @@ sys.path.append(lib_path)
 import Coordinate
 import math
 import TravelingSalesmanSolver
+import LineOverlapEliminatorTravelingSalesmanSolver
 
-class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
+class DijkstraTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 
   itinerary = []
 
@@ -16,8 +17,14 @@ class DijkstraTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesman
     self.outward_bound_current_city_index = 0
     self.inward_bound_current_city_index = 0
     self.degree_for_city_as_index = [0]*len(self.cords)
+
     for i in range(len(self.cords)):
       self.pick_the_next_best_available_path(i)
+
+    if self.REMOVE_LINE_CROSSES:
+      self.bestOrder=self.itinerary
+      self.removeLineCrosses()
+
     return ",".join(str(self.itinerary[i]) for i in range(len(self.itinerary)))
 
 
