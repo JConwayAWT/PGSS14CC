@@ -1,6 +1,14 @@
+import os, sys
+lib_path = os.path.abspath('../../helpers')
+sys.path.append(lib_path)
+#lib_path = os.path.abspath('')
+#sys.path.append(lib_path)
+import math
+from solvers import MetalicsSolver
+import random
+import copy
+import json
 import ase
-from numpy import *
-import numpy
 from ase import Atoms,io
 from ase.calculators.emt import EMT
 from ase.optimize import FIRE, LBFGSLineSearch
@@ -15,10 +23,11 @@ def genParticle(definingString,number):
   newAtom = Atoms(definingString,coords)
   calc = EMT()
   newAtom.set_calculator(calc)
+  newAtom.set_cell(dummyAtom.get_cell() * 10.)
   dyn = LBFGSLineSearch(atoms=newAtom)
-  dyn.run(steps=200000)
+  dyn.run(steps=20000)
   dyn = FIRE(atoms=newAtom)
-  dyn.run(fmax=0.01)
+  dyn.run(fmax=0.05)
   return newAtom
 
 def create_sample_atom(inNumberOfAtoms,inAtomType):
@@ -49,20 +58,6 @@ def nearlySphericalAtom(definingString,inRadius,number):
     coordinates = (xDistance,yDistance,zDistance)
     positionList.append(coordinates)
   newAtom = Atoms(definingString,positionList)
-  calc = EMT()
-  newAtom.set_calculator(calc)
-  dyn = LBFGSLineSearch(atoms=newAtom)
-  dyn.run(steps=200000)
-  dyn = FIRE(atoms=newAtom)
-  dyn.run(fmax=0.01)
-  return newAtom
-
-def genParticle(definingString,number):
-  dummyAtom = ase.io.read('InputGeom.vasp',format='vasp')
-  while (len(dummyAtom) > number):
-    dummyAtom.pop(-1)
-  coords = dummyAtom.get_positions()
-  newAtom = Atoms(definingString,coords)
   calc = EMT()
   newAtom.set_calculator(calc)
   dyn = LBFGSLineSearch(atoms=newAtom)
