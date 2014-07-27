@@ -78,7 +78,11 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     for i in range(0,len(self.cords)):
       for j in range(0,len(self.cords)):
         if i==j:
+
           continue
+        if self.cdists[i][j] == 0:
+            self.cdists[i][j] = 0.000000000000001
+            self.cdists[j][i] = 0.000000000000001
         self.phermones[i][j]+=edgeDistScale/pow(self.cdists[i][j],3)#self.PHERNOME_EXP)
         self.phermones[j][i]+=edgeDistScale/pow(self.cdists[i][j],3)#self.PHERNOME_EXP)
     self.resetArrays()
@@ -148,7 +152,8 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
 
 
     self.bestStep(0)
-    self.removeLineCrosses()
+    if self.REMOVE_LINE_CROSSES:
+        self.removeLineCrosses()
     self.answer=self.debugData
     for c in range(0,len(self.bestOrder)):
       self.answer+=str(self.bestOrder[c])+","

@@ -29,10 +29,10 @@ def main():
   solver = []
 #  solver.append(bft.BruteForceTravelingSalesmanSolver())
   solver.append(atd.AntTotalDistanceSolver())
-#  solver[-1].REMOVE_LINE_CROSSES=False
-  solver.append(atd.AntTotalDistanceSolver())
+  solver[-1].REMOVE_LINE_CROSSES=False
+#  solver.append(atd.AntTotalDistanceSolver())
   solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
-#  solver.append(gts.GravitationalTravelingSalesmanSolver())
+  solver.append(gts.GravitationalTravelingSalesmanSolver())
   solver.append(dts.DijkstraSolver())
 
   minPoints = 25
