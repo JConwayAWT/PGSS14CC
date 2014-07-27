@@ -21,8 +21,6 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
       pointsLeft = [];
 
       def solve(self):
-        if len(self.cords) < 3:
-            BruteForceTravelingSalesmanSolver.solve();
         for index in range(0, len(self.cords)):
             self.pointsLeft.append(self.cords[index]);
         self.bestDistance= float("inf");

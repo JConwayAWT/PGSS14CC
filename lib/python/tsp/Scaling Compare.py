@@ -26,34 +26,40 @@ from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
 
 def main():
-#  solver.append = bft.BruteForceTravelingSalesmanSolver()
-  solver.append = atd.AntTotalDistanceSolver()
-  solver[-1].REMOVE_LINE_CROSSES=False
-  solver.append = atd.AntTotalDistanceSolver()
-  solver.append = loe.LineOverlapEliminatorTravelingSalesmanSolver()
-  solver.append = gts.GravitationalTravelingSalesmanSolver()
-  solver.append = gts.GravitationalTravelingSalesmanSolver()
-  solver.append = dts.DijkstraSolver()
+  solver = []
+#  solver.append(bft.BruteForceTravelingSalesmanSolver())
+  solver.append(atd.AntTotalDistanceSolver())
+#  solver[-1].REMOVE_LINE_CROSSES=False
+  solver.append(atd.AntTotalDistanceSolver())
+  solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
+#  solver.append(gts.GravitationalTravelingSalesmanSolver())
+  solver.append(dts.DijkstraSolver())
 
-minPoints = 15
-maxPoints = 200
-pointInterval = 5
-cords = []
-
-for points in xrange(minPoints,maxPoints,pointInterval):
-    for point in xrange(points):
-        works = False
-        while(works == False):
-            xvalue = random.randrange(1,500)
-            yvalue = random.randrange(1,500)
-            works = True
-            for checkpoint in range(len(cords)):
-                if (cords.x - a)**2+ (cords.y - b)**2 <= 16):
-                    works = false
-        xvalues.append(random.randrange(1,500,1))
-        yvalues.append(random.randrange(1,500,1))
-        solver.loadCoordinatesFromXYArrays(xvalues,yvalues)
-if __name__ == '__main__':
-    main()
-
-
+  minPoints = 25
+  maxPoints = 200
+  pointInterval = 5
+  cords = []
+  xvalues = []
+  yvalues = []
+  for points in xrange(minPoints,maxPoints,pointInterval):
+      print points
+      for point in xrange(points):
+          works = False
+          while(works == False):
+              xvalue = random.randrange(1,500)
+              yvalue = random.randrange(1,500)
+              works = True
+              for checkpoint in range(len(cords)):
+                  if ((cords[checkpoint].x - xvalue)**2 + (cords[checkpoint].y - yvalue)**2 <= 16):
+                      works = False
+          xvalues.append(xvalue)
+          yvalues.append(yvalue)
+      print xvalues
+      print yvalues
+      for solves in solver:
+          solves.loadCoordinatesFromXYArrays(xvalues,yvalues)
+          timer = time.time()
+          solves.solve()
+          timer = time.time()-timer
+          print timer
+main()

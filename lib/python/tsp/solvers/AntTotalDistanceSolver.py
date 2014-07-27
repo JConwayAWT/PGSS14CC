@@ -39,7 +39,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
   def solve(self):
     if self.REMOVE_LINE_CROSSES:
       self.calculateIntersects()
-    self.startTime = self.millis()
+#    self.startTime = self.millis()
     self.initArrays()
     self.compute()
     self.printBestPath()
@@ -49,7 +49,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     for i in range(0,self.CALCULATIONS):
       if i%self.CALCULATION_UPDATES==0:
         pDone=float(i)/self.CALCULATIONS
-        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+#        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
         self.checkTimeout(self)
       if i%self.BEST_UPDATES==0:
         self.printBestPath()
@@ -101,7 +101,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     if self.numTraversed>=len(self.cords):
       #x=self.order[0]
       #for i in range(1,len(self.order)):
-        #x=self.order[i-1]
+        #x=self.order[i-1]m
         #if(not works):break
         #xi = (min(x,i),max(x,i))
         #for a in range(1,len(self.order)):
