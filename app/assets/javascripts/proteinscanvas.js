@@ -29,35 +29,64 @@ $(document).ready(function(){
 		renderer.render(scene, camera);	  
     	//camera.rotateOnAxis((new THREE.Vector3(0, 1, 0)).normalize(), degInRad(100));
     	if (content!=null){
-    		content.rotation.x+=.1;	
-    		content.rotation.y+=.1;	
+//    		content.rotation.x+=.01;	
+    		//content.rotation.y+=.01
+    		//content.rotation.y+=.1;	
     	}
 	}
 	render();
 
+
+	var dragging=null;
+	var dragY=0;
+	var dragX=0;
+
+	$("#canvas3d").mousedown(function(e) {
+		dragging=$(this);
+		dragY=e.pageY-parseInt(dragging.parent().css('top'));
+		dragX=e.pageX-parseInt(dragging.parent().css('left'));
+	});
+
+
+	$(window).mouseup(function(e) {
+		dragging=null;
+	});
+
+	$(window).mousemove(function(e) {
+		if(dragging!=null){
+			var dispY=e.pageY-dragY;
+			var dispX=e.pageX-dragX;
+			dragY=e.pageY;
+			dragX=e.pageX;
+			if(!isNaN(dispY)){		
+				content.rotation.x+=parseFloat(dispY)*.01;
+				content.rotation.y+=parseFloat(dispX)*.01;
+			}
+		}
+	});
+
 });
 
-function loadSpheres(acids){
+function loadSpheres(acids,maximumX,maximumY){
 	scene.remove(content);
 	content =  new THREE.Object3D();
-	sphere_array=[];
 	var geometry = new THREE.SphereGeometry(.25, 50, 50);
-	var material = new THREE.MeshPhongMaterial( { color: 0xBFA6A6} );
+	var red = new THREE.MeshPhongMaterial( { color: 0xff0000} );
+	var green = new THREE.MeshPhongMaterial( { color: 0x00ff00} );
 
 	var points = new THREE.Geometry();
 
-
   	for(var i=0;i<acids.length;i++){
-	    console.log(acids[i]);
-		var sphere = new THREE.Mesh(geometry, material) ;
-		sphere.position.x=acids[i].x;
-	    sphere.position.y=acids[i].y;
+	    console.log(acids[i]+" "+maximumX/2);
+	    if(acids[i].type=="H"||acids[i].type=="h"){color=red;}
+	    if(acids[i].type=="P"|acids[i].type=="p"){color=green;}
+		var sphere = new THREE.Mesh(geometry, color) ;
+		sphere.position.x=acids[i].x-maximumX/2;
+	    sphere.position.y=acids[i].y-maximumY/2;
 	    sphere.position.z=acids[i].z;
+
 	    points.vertices.push( sphere.position );
-	    
-	    sphere_array.push(sphere);
-	    content.add(sphere);
-	    console.log("add sphere "+i+" "+acids[i].x+" "+acids[i].y+" "+acids[i].z);
+	    content.add(sphere);	    
   	}
 
   	var line = new THREE.Line( points, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 0.5 } ) );
@@ -65,12 +94,3 @@ function loadSpheres(acids){
 
 	scene.add(content);
 }
-
-/*
-$('camera').slider({
-	formater: function(value){
-		camera.position.x = value * 5;
-		return 'Current Camera Position: ' + value;
-	}
-});
-*/
