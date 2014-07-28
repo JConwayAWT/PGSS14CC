@@ -13,6 +13,25 @@ $(document).ready(function(){
 		camera.position.z = 50 - $("input#slider-goes-here").slider('getValue');
 	});
 
+
+	var geometry_Al = new THREE.SphereGeometry(1.25, 50, 50);
+	var geometry_Ni = new THREE.SphereGeometry(1.35, 50, 50);
+	var geometry_Cu = new THREE.SphereGeometry(1.35, 50, 50);
+	var geometry_Pd = new THREE.SphereGeometry(1.4, 50, 50);
+	var geometry_Ag = new THREE.SphereGeometry(1.6, 50, 50);
+	var geometry_Pt = new THREE.SphereGeometry(1.35, 50, 50);
+	var geometry_Au = new THREE.SphereGeometry(1.35, 50, 50);
+
+	var material_Al = new THREE.MeshPhongMaterial( { color: 0xBFA6A6} );
+	var material_Ni = new THREE.MeshPhongMaterial( { color: 0x50D050} );
+	var material_Cu = new THREE.MeshPhongMaterial( { color: 0xC88033} );
+	var material_Pd = new THREE.MeshPhongMaterial( { color: 0x006985} );
+	var material_Ag = new THREE.MeshPhongMaterial( { color: 0xC0C0C0} );
+	var material_Pt = new THREE.MeshPhongMaterial( { color: 0xD0D0E0} );
+	var material_Au = new THREE.MeshPhongMaterial( { color: 0xDAA520} );
+
+	var atom_array = []
+
 	scene.add(camera);
 	var pointLight = new THREE.PointLight( 0xFFFFFF );
 

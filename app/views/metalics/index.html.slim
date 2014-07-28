@@ -2,7 +2,7 @@
 br
 br
 br
-.content
+.content.container
   .row
     .col-md-2.col-offset-2
     .col-md-8
@@ -67,23 +67,16 @@ br
         label Algorithm:
         select.form-control#algorithm
           option value="MD Solver" MD Solver
-          option value="Alg A" Algorithm A (Sample)
     .col-md-3
       .form-group
         label # of Atoms:
         br
         input.form-control#number-of-atoms value="8"
   .row
-    .col-md-6.text-right
-      button#submit_data.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
-    .col-md-6.text-left
-      button.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel
-
-  .row#display-answer style="display: none;"
-    .col-md-8.col-md-offset-2
-      .text-center
-      br
-        #answer-goes-here Waiting...
+    .col-md-12
+      center
+        button#submit_data.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
+        button#cancel_solution.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel
 
   br
 
@@ -97,5 +90,14 @@ br
       #metallic-slider
         label Zoom
         br
-        input#slider-goes-here data-slider-min= "0" data-slider-max= "50" data-slider-step= ".1" data-slider-value= "25" 
+        input#slider-goes-here data-slider-min= "0" data-slider-max= "50" data-slider-step= ".1" data-slider-value= "25"
 
+  br
+  br
+  br
+  br
+  br
+footer.navbar.navbar-fixed-bottom
+  .progress#progbar style="overflow:hidden;"
+      .progress-bar.progress-bar-striped.active#progress role="progressbar"aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"  
+        span#statusDone Loading Page...

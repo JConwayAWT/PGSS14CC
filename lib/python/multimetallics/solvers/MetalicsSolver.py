@@ -52,7 +52,7 @@ class MetalicFoldingSolver:
 		if self.cur != None:
 			self.cur.execute ("UPDATE metalics SET done=\'"+done+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
-	def checkTimeout(self,done):
+	def checkTimeout(self):
 		if self.cur != None:
 			self.cur.execute ("SELECT last_tick FROM metalics WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
 			database_row = self.cur.fetchone()
