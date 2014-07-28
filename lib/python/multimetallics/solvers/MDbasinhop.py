@@ -38,7 +38,13 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     berendsen = NVTBerendsen(self.particle, 2.5 * units.fs, 5000, taut=0.5*1000*units.fs)
     dyn = FIRE(atoms=self.particle)
     MaxwellBoltzmannDistribution(self.particle,5000)
-    for i in range(100):
+    CALCULATIONS=100
+    for i in range(CALCULATIONS):
+      if i%1==0:
+        pDone=float(i)/CALCULATIONS
+        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+        self.checkTimeout()
+        self.setSolution(self.getAnswer())
       self.particle.rattle(stdev=0.1)
       berendsen.run(500)
       dyn.run()
@@ -47,6 +53,9 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
       if (testEnergy < self.bestEnergy):
         self.bestEnergy = testEnergy
         self.bestParticle = deepcopy(self.particle)
+    return self.getAnswer()
+
+  def getAnswer(self):
     listOfAtoms = []
     for atom in self.bestParticle:
       dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
@@ -54,9 +63,6 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     potentialEnergy = self.bestEnergy
     dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": potentialEnergy}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
-
-    # this gets returned to the parent class and shoved into the database as a string, then
-    # parsed as JSON on the page and displayed/drawn for the user
     return actually_json
 
   def reCenter(self):

@@ -21,6 +21,14 @@ class MetalicsController < ApplicationController
   def edit
   end
 
+  def cancel
+    t = Metalic.find(params[:id])
+    t.last_tick=0
+    t.done=true
+    t.save!
+    render json: {} and return
+  end
+
   def retreive_problem
     m = Metalic.find(params[:id])
 
