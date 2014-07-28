@@ -12,7 +12,7 @@ import json
 from copy import deepcopy
 
 class alpha_beta(ProteinChainClass.ProteinChain):
-    print "This code has started"
+
     def solve(self):
       self.chosen_coords = []
 
@@ -48,10 +48,12 @@ class alpha_beta(ProteinChainClass.ProteinChain):
       return actually_json
 
 
+
+
     def get_score_of_single_coordinate(self, coordinate, adjacent_value, diagonal_value, twice_removed_value):
       total_score = 0
       h_value = 4
-      p_value = 1
+      p_value = 0
       neighbor_locations = [[coordinate[0] + 1, coordinate[1]],[coordinate[0] - 1, coordinate[1]],[coordinate[0], coordinate[1] + 1],[coordinate[0], coordinate[1] - 1]]
       diagonal_locations = [[coordinate[0] + 1, coordinate[1] + 1],[coordinate[0] - 1, coordinate[1] - 1],[coordinate[0] - 1, coordinate[1] + 1],[coordinate[0] + 1, coordinate[1] - 1]]
       twice_removed_neighbors = self.get_twice_removed_neighbors(coordinate)
@@ -106,7 +108,6 @@ class alpha_beta(ProteinChainClass.ProteinChain):
       return non_duplicated_neighbors
 
 
-
     def remove_filled_positions(self, test_coordinates):
       legal_coords = []
       for coordinate in test_coordinates:
@@ -114,8 +115,17 @@ class alpha_beta(ProteinChainClass.ProteinChain):
           legal_coords.append(coordinate)
       return legal_coords
 
+    def find_corner(self, chosen_coords):
+        corners = []
+        current_amino_acid = self.amino_acid_chain[current_chain_index] #gives us "H" or "P"
+        location_of_previous_acid = self.chosen_coords[current_chain_index-1]
+        location_of_next_acid = self.chosen_coords[current_chain_index+1]
+        if location_of_previous_acid[0] != location_of_next_acid[0] and location_of_previous_acid[1]!= location_of_next_acid[1]:
+            corners.append(current_amino_acid)
 
-##s = Alpha_Beta("HHHHHHHHHHHHHHHH")
-##s.solve()
-##
-##print s.chosen_coords
+
+
+s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
+s.solve()
+
+print s.chosen_coords
