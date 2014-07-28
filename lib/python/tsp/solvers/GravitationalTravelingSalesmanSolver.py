@@ -16,8 +16,8 @@ import LineOverlapEliminatorTravelingSalesmanSolver
 
 class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 
-      def __init__(self):
-        self.initSolver()
+      def __init__(self,params=None):
+        self.initSolver(params)
         self.initOverlapSolver()
 
         self.bestOrder=[];

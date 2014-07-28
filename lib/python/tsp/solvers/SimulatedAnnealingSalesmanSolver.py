@@ -27,13 +27,13 @@ from TravelingSalesmanSolver import *
 
 class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
 
-  def __init__(self):
-        self.initSolver()
-        self.bestOrder=[]
-        self.bestDistance=float("inf")
-        self.Temperature = 1.0
-        self.bestscore = 0
-        self.bestPath = []
+  def __init__(self,params):
+    self.initSolver(params)
+    self.bestOrder=[]
+    self.bestDistance=float("inf")
+    self.Temperature = 1.0
+    self.bestscore = 0
+    self.bestPath = []
 #  def solve(self):
     #self.bestDistance=float("inf")
     #self.compute(0, 0, -1, []);
