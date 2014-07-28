@@ -113,7 +113,8 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     return distance
 
   def Scoringfunction(self,path):
-    scorefn=self.distance(path)#math.e*((-self.distance(path))/self.Temperature)
+    #scorefn=self.distance(path)
+    scorefn=(math.e)**((self.distance(path))/self.Temperature)
     return scorefn
   def generatenewpath (self, path):#######bug########
     answerpath = copy.deepcopy(path)
@@ -150,7 +151,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     currentscore = self.Scoringfunction(currentpath)
 
     score = newscore
-    #print (currentpath, currentscore, newpath, score)
+    print (currentpath, currentscore, newpath, score)
 
     if currentscore >= newscore:
         #print ("YAYAYAY", newpath)
@@ -164,6 +165,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
             return [currentpath, currentscore,newpath]
 
   def solve(self):
+
     #self.addpolarcord()
     bestpath=[]
     path = []
@@ -171,13 +173,14 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     currentpath = self.generatepath()
     CALCULATIONS=10000
     for timestried in range(CALCULATIONS):
+        self.Temperature = 1-(timestried/CALCULATIONS)
         if timestried%1000==0:
             pDone=float(timestried)/CALCULATIONS
             self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
             self.checkTimeout(self)
 
         solution = self.AnnealingMC(currentpath)
-        currentpath = solution[2]
+        currentpath = solution[0]
         if self.bestscore == None:
             self.bestscore = solution[1]
             self.bestPath = solution[0]
@@ -193,7 +196,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     for element in self.bestPath:
         if index != 0:
             finalsolution += ","
-        print (element)
+        #print (element)
         element = str(element)
         finalsolution += element
         index += 1
@@ -206,8 +209,9 @@ if __name__ == '__main__':
     A.cords.append(CC.Coordinate(-1,2,1))
     A.cords.append(CC.Coordinate(0,2,2))
     A.cords.append(CC.Coordinate(1,1,3))
-    A.cords.append(CC.Coordinate(2,0,4))
+
     A.cords.append(CC.Coordinate(0,-2,5))
+    A.cords.append(CC.Coordinate(2,0,4))
     print(A.solve(), "sol")
     #print(A.distance([0,1,2,3]))
     #print(A.distance([0,2,1,3]))
