@@ -12,18 +12,24 @@ sys.path.append(lib_path)
 import Coordinate;
 import math;
 import TravelingSalesmanSolver;
+import LineOverlapEliminatorTravelingSalesmanSolver
 
-class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
-      bestOrder=[];
-      CM = Coordinate.Coordinate(0, 0, 0);
-      bestDistance=float("inf");
-      current = Coordinate.Coordinate(0, 0, 0);
-      pointsLeft = [];
+class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
+
+      def __init__(self,params=None):
+        self.initSolver(params)
+        self.initOverlapSolver()
+
+        self.bestOrder=[];
+        self.CM = Coordinate.Coordinate(0, 0, 0);
+        self.bestDistance=float("inf");
+        self.current = Coordinate.Coordinate(0, 0, 0);
+        self.pointsLeft = [];
 
       def solve(self):
-        if len(self.cords) < 3:
-            BruteForceTravelingSalesmanSolver.solve();
-        for index in range(0, len(self.cords)):
+        for index in range(len(self.cords)):
+            #print self.cords[index].x
+            #print self.cords[index].y
             self.pointsLeft.append(self.cords[index]);
         self.bestDistance= float("inf");
         self.CM = self.getCM();
@@ -42,6 +48,15 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
             self.pointsLeft[len(self.cords) - 1] = temp;
         self.current = self.cords[0];
         self.compute();
+
+        bo = []
+        for c in self.bestOrder:
+          bo.append(c.i)
+        self.bestOrder=bo
+
+        if self.REMOVE_LINE_CROSSES:
+            self.removeLineCrosses()
+
         self.getAnswer();
         #for i in range(0, len(self.bestOrder)):
             #print("X: " + str(self.bestOrder[i].x) + " Y: " + str(self.bestOrder[i].y));
@@ -49,7 +64,7 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
 
       def getAnswer(self):
         for c in self.bestOrder:
-          self.answer+=str(c.i)+","
+          self.answer+=str(c)+","
 
       def getCM(self):
         xsum = 0.0;
@@ -81,6 +96,10 @@ class GravitationalTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSal
                 if(self.lineDistance(self.current, self.pointsLeft[i], self.CM) == 0):
                     energy = float("inf");
                 else:
+                    if (self.lineDistance(self.current, self.pointsLeft[i], self.CM) == 0):
+                        print "hi"
+                    if (self.current.dist(self.pointsLeft[i]) == 0):
+                        print "yay"
                     energy = -1.0/self.current.dist(self.pointsLeft[i]) + 1.0/self.lineDistance(self.current, self.pointsLeft[i], self.CM);
                 if energy < minEnergy:
                     minEnergy = energy;

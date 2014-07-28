@@ -21,25 +21,27 @@ import random
 import copy
 
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
-#  probability =[[]]
-  phermones =[[]]
-  CALCULATIONS=1000
-  CALCULATION_UPDATES=100
-  BEST_UPDATES=100
-  debugData=""
-  traversed=[]
-  numTraversed=0
-  start=0
-  totalDistance=0
-  bestDistance=float("inf")
-  avgEdgeWeight=0
-  PHERNOME_SCALE=1000000
-  PHERNOME_EXP  =3#must be odd
-  order = []
+  def __init__(self,params):
+     self.initSolver(params)
+     self.initOverlapSolver()
+     self.phermones =[[]]
+     self.CALCULATIONS=10000
+     self.CALCULATION_UPDATES=1000
+     self.BEST_UPDATES=1000
+     self.debugData=""
+     self.traversed=[]
+     self.numTraversed=0
+     self.start=0
+     self.totalDistance=0
+     self.bestDistance=float("inf")
+     self.avgEdgeWeight=0
+     self.PHERNOME_SCALE=1000000
+     self.PHERNOME_EXP  =3#must be odd
+     self.order = []
   def solve(self):
     if self.REMOVE_LINE_CROSSES:
       self.calculateIntersects()
-    self.startTime = self.millis()
+#    self.startTime = self.millis()
     self.initArrays()
     self.compute()
     self.printBestPath()
@@ -49,7 +51,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     for i in range(0,self.CALCULATIONS):
       if i%self.CALCULATION_UPDATES==0:
         pDone=float(i)/self.CALCULATIONS
-        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+#        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
         self.checkTimeout(self)
       if i%self.BEST_UPDATES==0:
         self.printBestPath()
@@ -78,9 +80,13 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     for i in range(0,len(self.cords)):
       for j in range(0,len(self.cords)):
         if i==j:
+
           continue
-        self.phermones[i][j]+=edgeDistScale/pow(self.cords[i].dist(self.cords[j]),3)#self.PHERNOME_EXP)
-        self.phermones[j][i]+=edgeDistScale/pow(self.cords[i].dist(self.cords[j]),3)#self.PHERNOME_EXP)
+        if self.cdists[i][j] == 0:
+            self.cdists[i][j] = 0.000000000000001
+            self.cdists[j][i] = 0.000000000000001
+        self.phermones[i][j]+=edgeDistScale/pow(self.cdists[i][j],3)#self.PHERNOME_EXP)
+        self.phermones[j][i]+=edgeDistScale/pow(self.cdists[i][j],3)#self.PHERNOME_EXP)
     self.resetArrays()
   def resetArrays(self):
     self.traversed = [False for i in range(0,len(self.cords))]
@@ -101,7 +107,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     if self.numTraversed>=len(self.cords):
       #x=self.order[0]
       #for i in range(1,len(self.order)):
-        #x=self.order[i-1]
+        #x=self.order[i-1]m
         #if(not works):break
         #xi = (min(x,i),max(x,i))
         #for a in range(1,len(self.order)):
@@ -131,7 +137,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
         continue
       cur+=self.phermones[c][j]
       if cur>r:
-        self.totalDistance+=self.cords[c].dist(self.cords[j])
+        self.totalDistance+=self.cdists[c][j]
         works = self.oneStep(j)
         break
 
@@ -148,7 +154,8 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
 
 
     self.bestStep(0)
-    self.removeLineCrosses()
+    if self.REMOVE_LINE_CROSSES:
+        self.removeLineCrosses()
     self.answer=self.debugData
     for c in range(0,len(self.bestOrder)):
       self.answer+=str(self.bestOrder[c])+","
@@ -160,7 +167,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     self.bestOrder.append(c)
     self.numTraversed+=1
     if self.numTraversed>=len(self.cords):
-      self.totalDistance+=self.cords[c].dist(self.cords[0])
+      self.totalDistance+=self.cdists[c][0]
       return
 
     self.traversed[c]=True
@@ -180,7 +187,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     if bc==0:
       self.totalDistance=float("inf")
     else:
-      self.totalDistance+=self.cords[c].dist(self.cords[bc])
+      self.totalDistance+=self.cdists[c][bc]
       self.bestStep(bc)
 
 

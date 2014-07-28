@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721204917) do
+ActiveRecord::Schema.define(version: 20140725051802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20140721204917) do
     t.text     "statusdone"
     t.boolean  "done"
     t.integer  "last_tick"
+    t.boolean  "remove_overlaps"
   end
 
   create_table "users", force: true do |t|

@@ -21,21 +21,26 @@ import Coordinate as CC
 lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
 
-import math
-import TravelingSalesmanSolver
+from math import *
+from TravelingSalesmanSolver import *
 
-class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
 
-  bestOrder=[]
-  bestDistance=float("inf")
-  Temperature = 1.0
-  bestscore = 0
+class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
+
+  def __init__(self,params):
+    self.initSolver(params)
+    self.bestOrder=[]
+    self.bestDistance=float("inf")
+    self.Temperature = 1.0
+    self.bestscore = 0
+    self.bestPath = []
 #  def solve(self):
     #self.bestDistance=float("inf")
     #self.compute(0, 0, -1, []);
     #self.getAnswer()
     #return self.answer;
-
+  def setbestPath(self, changepath):
+        self.bestPath = changepath
   def getcenterofmass(self): ###debugged
         xsum = 0.0;
         ysum = 0.0;
@@ -69,10 +74,12 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
         self.cords[index].append(self.getangle(point))
         """
   def generatepath(self):
-    answerpath = ""
+    answerpath = []
     for index in range(0,len(self.cords)):
-            answerpath += str(self.cords[index].i)
-    print (answerpath)
+        #print(len(self.cords), index)
+        #print (self.cords[index].i)
+        answerpath.append( self.cords[index].i)
+    #print (answerpath, "generatepathdebug")
     return answerpath #organize based on angle value
 
 
@@ -81,41 +88,56 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
     countruns =0
     finalnode = 0
     pathclone = copy.deepcopy(path)
+    #print path
     #pathclone = pathclone.split(",")
     for node in pathclone:
         node = int(node)
+        #print node
         if countruns == 0:
             finalnode = node
-        nextnodecount = countruns + 1
+        #nextnodecount = countruns + 1
         if (countruns + 1) == len(pathclone):
             countruns = -1
-        nextnode= int(pathclone[countruns+1])
+        nextnode= pathclone[countruns+1]
         if nextnode == (len(pathclone)):
-            nextnode = int(finalnode)
-        print(self.cords[int(node)].dist(self.cords[nextnode]),node,nextnode)
-        distance += self.cords[int(node)].dist(self.cords[nextnode])
+            nextnode = finalnode
+        #print (node,nextnode)
+        #print(self.cords[int(node)].dist(self.cords[nextnode]))
+        #print (finalnode)
+        distance += self.cords[node].dist(self.cords[nextnode])
+        #print (self.cords[node].dist(self.cords[nextnode]))
         countruns += 1
-
+        #print ("d",distance)
     return distance
 
   def Scoringfunction(self,path):
     scorefn=-self.distance(path)#math.e*((-self.distance(path))/self.Temperature)
     return scorefn
   def generatenewpath (self, path):#######bug########
-    print((path,"aa"))
-    answerpath = ""
-    randint1 = random.randint(0,(len(path)-2))
-    switchedentry = ""
-    index = 0
+    #print((path,"aa"))
+    answerpath = path
+    randint1 = random.randint(0,(len(path)-1))
+    switchedentry = None
+    first = answerpath[randint1]
+    indextwo = randint1 + 1
+    #print (indextwo)
+    if randint1 +1 >= len(path):
+        indextwo = 0
+    second = answerpath[indextwo]
+    #print (first,second,randint1,indextwo, "answerpath")
+    answerpath[randint1] = second
+    answerpath[indextwo] = first
+    """
     for entry in path:
-        entry = str(entry)
+        entry = int(entry)
         if index == randint1:
             switchedentry = entry
         elif index == (randint1 + 1):
             answerpath += (entry + str(switchedentry) )
         else:
-            answerpath += entry
+            answerpath+=(entry)
         index += 1
+        """
     return answerpath
   def AnnealingMC(self):
     currentpath = self.generatepath()
@@ -138,34 +160,38 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesma
 
   def solve(self):
     self.addpolarcord()
-    bestpath=""
-    path = "a"
+    bestpath=[]
+    path = []
     #path=self.generatepath()
     for timestried in range(1000):
         solution = self.AnnealingMC()
-        print (solution[1])
-        if path == "a":
-            path = solution[0]
-        if solution[1]<self.bestscore:
-            path = solution[0]
-            bestscore = solution[1]
-    print(path, bestscore, "path")
+        path = solution[0]
+        if solution[1] > self.bestscore:
+            self.bestscore = solution[1]
+            self.bestPath = solution[0]
+        print(solution[0],self.bestPath, "path")
     #self.setSolution(path)
     finalsolution = ""
-    for element in path:
-        finalsolution += element.i
-        finalsolution += ","
+    index = 0
+    print (self.bestPath, "sdf")
+    for element in self.bestPath:
+        if index != 0:
+            finalsolution += ","
+        print (element)
+        element = str(element)
+        finalsolution += element
+        index += 1
     return finalsolution
 
 #
-#if __name__ == '__main__':
-##    A=SimulatedAnnealingSalesmanSolver()
-##    A.cords.append(CC.Coordinate(-2,0))
-##    A.cords.append(CC.Coordinate(-1,1))
-##    A.cords.append(CC.Coordinate(0,2))
-##    A.cords.append(CC.Coordinate(1,1))
-##    A.cords.append(CC.Coordinate(2,0))
-##    A.cords.append(CC.Coordinate(0,-2))
-##    A.solve()
-    #print(A.main(), "sol")
-    #print(A.distance("3,0,1,2"))
+if __name__ == '__main__':
+    A=SimulatedAnnealingSalesmanSolver()
+    A.cords.append(CC.Coordinate(-2,0,0))
+    A.cords.append(CC.Coordinate(-1,2,1))
+    A.cords.append(CC.Coordinate(0,2,2))
+    A.cords.append(CC.Coordinate(1,1,3))
+    #A.cords.append(CC.Coordinate(2,0,4))
+    #A.cords.append(CC.Coordinate(0,-2,5))
+    print(A.solve(), "sol")
+    #print(A.distance([0,1,2,3]))
+    #print(A.distance([0,2,1,3]))

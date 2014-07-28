@@ -1,4 +1,3 @@
-var isDown=false;
 var x1=0;
 var y1=0;
 var jobs=0;
@@ -14,9 +13,12 @@ $(window).bind('page:load', function(){
 function addJob(){
 	
 	jobs++;
-	$("#jobs").append("<div id=\"job"+jobs+"\" class=\"job\">");
+	$("#jobs").prepend("<div id=\"job"+jobs+"\" class=\"job\"></div>");
 	$("#job"+jobs).append("<h1>Job "+(jobs)+"</h1>");
 	$("#job"+jobs).append("<br>"+$("#algorithm").val());
+	if($("#remove_overlaps").is(':checked')){
+		$("#job"+jobs).append("<br>Remove Overlaps");
+	}
 	//$("#job"+jobs).append(" <div class=\"progress\"> <div id=\"progress"+jobs+"\" class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Waiting in queue...</span></div></div>");
 	$("#floatingProgressBar").fadeIn(500);
 }
@@ -47,13 +49,14 @@ function docReady(){
 
 	animate();
 	getSolutionProgress();
-	addRandomCoordinates(100);
 	doneProcessing();
 
 	var dragging=null;
 	var dragY=0;
 	var dragX=0;
 	
+	addRandomCoordinates(10);
+
 	$(".handle").mousedown(function(e) {
 		dragging=$(this);
 		dragY=e.pageY-parseInt(dragging.parent().css('top'));
@@ -85,6 +88,7 @@ function docReady(){
 	
 
 	function addRandomCoordinates(numCords){
+		solution="";
 		for(var i=0;i<numCords;i++){
 			var c = new Coordinate(500+Math.random()*500,60+Math.random()*500,cords.length);
 			cords[cords.length]=c;
@@ -108,6 +112,9 @@ function docReady(){
 		//canvas.width=window.innerWidth-200;
 		$("#submit_data").prop('disabled', processing);
 		$("#cancel_solution").prop('disabled', !processing);
+		$("#remove_all_datapoints").prop('disabled', processing);
+		$("#add_random_points").prop('disabled', processing);
+
 
 		if(processing){
 			$("#submit_data").hide();
@@ -118,13 +125,35 @@ function docReady(){
 		}
 	}
 
-	$("#submit_data").click(function(){
-		getSolution();
-	});
+	$("#submit_data").click(getSolution);
+	$("#cancel_solution").click(cancelSolution);
+	$("#remove_all_datapoints").click(removeData);
+	$("#add_random_points").click(addRandPoints);
 
-	$("#cancel_solution").click(function(){
-		cancelSolution();
-	});
+	function removeData(){
+		if(processing)return;
+		if(confirm("Erase all points?")){
+			cords=[];
+		}
+	}
+
+	function addRandPoints(){
+		if(processing)return;
+		var n=0;
+		var notNum=false;
+		while(true){
+			s=prompt("How many points do you want to be added? \n\n"+(notNum?"You must enter a number!":""));
+			if(s==null||s==""){
+				break;
+			}
+			n=parseInt(s);
+			if(s==n+""){
+				addRandomCoordinates(n);
+				break;
+			}
+			notNum=true;
+		}
+	}
 
 	function cancelSolution(){
 		if(DB_ID>0){			
@@ -150,6 +179,10 @@ function docReady(){
 	}
 	function getSolution(){
 		if(processing)return;
+		if(cords.length==0){
+			alert("You must add some points!");
+			return;
+		}
 		var xvalues =[];
 		var yvalues=[];
 
@@ -165,11 +198,13 @@ function docReady(){
 		}
 		var points = {x: xvalues, y: yvalues};
 		var algorithm=$("#algorithm").val();
+		var remove_overlaps=$("#remove_overlaps").is(':checked')?"y":"n";
+
 		startTime= (new Date().getTime());
 		$.ajax({
 			url: '/pose_traveling_salesman_problem',
 			type: 'POST',
-			data: {points: points, algorithm: algorithm},
+			data: {points: points, algorithm: algorithm,remove_overlaps: remove_overlaps},
 		})
 		.done(function(data) {
 			//console.log("success");
@@ -201,8 +236,9 @@ function docReady(){
 				console.log(data.done)
 				$("#statusDone").html(data.statusDone);
 				$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#floatingProgressBar").width());
+				console.log(data.answer);
 				if(data.answer!=null&&data.answer!=""){
-					$("#output").html(data.answer);
+					//$("#output").html(data.answer);
 					if(data.answer.indexOf("ERROR:")==-1){//No error
 						var ansStart=data.answer.lastIndexOf(';')+1;
 						var ans=data.answer.substring(ansStart)
@@ -247,17 +283,21 @@ function docReady(){
 		}
 	}
 	function drawSolution(){
-		totalDist=0;
-		if(solution!=null){
-			p= solution[cords.length-1];
-			for(var i=0;i<cords.length;i++){
-				context.beginPath();
-		    	context.moveTo(cords[p].x, cords[p].y);
-		    	context.lineTo(cords[solution[i]].x, cords[solution[i]].y);
-		    	context.stroke();
-		    	p=solution[i];
-		    	totalDist+=cords[p].getDistCord(cords[solution[i]]);
+		try{
+			totalDist=0;
+			if(solution!=null){
+				p= solution[cords.length-1];
+				for(var i=0;i<cords.length;i++){
+					context.beginPath();
+			    	context.moveTo(cords[p].x, cords[p].y);
+			    	context.lineTo(cords[solution[i]].x, cords[solution[i]].y);
+			    	context.stroke();
+			    	p=solution[i];
+			    	totalDist+=cords[p].getDistCord(cords[solution[i]]);
+				}
 			}
+		}catch(err){
+			console.log("Draw error "+err);
 		}
 	}
 

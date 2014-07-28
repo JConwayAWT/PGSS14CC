@@ -7,20 +7,32 @@ div.floating.floatingTools
 		div#output
 		br
 		form
-			select#algorithm name="algorithm"
-				option Ant Total Distance (n^2)
-				option Ant Total Distance Remove Line Crosses (n^2)
-				option Brute Force (n!)
-				option Random Remove Line Crosses (n^2)
-				option Ant Probability (n^2)
-				option value="Dijkstra" Wheel Dijkstra (n^3)
-				option value="Dijkstra 2" Fast Dijkstra (n^2)
-				option Gravity
-			br
+			center
+				select#algorithm name="algorithm"
+					option Ant Total Distance (n^2)
+					option Brute Force (n!)
+					option Random
+					option Ant Probability (n^2)
+					option Wheel Dijkstra (n^3)
+					option Fast Dijkstra (n^2)
+					option Gravity
+				br
+				input#remove_overlaps type="checkbox" checked="true" Remove Overlaps
 			br
 			center
-				input#submit_data type="button" value="Run Test" class="btn btn-success"
-				input#cancel_solution type="button" value="Cancel" class="btn btn-danger"
+				table
+					tr
+						td style="padding:5px;"
+							input#submit_data type="button" value="Run" class="btn btn-success" 
+							input#cancel_solution type="button" value="Cancel" class="btn btn-danger"
+						td style="padding:5px;"
+							input#remove_all_datapoints type="button" value="Clear" class="btn btn-warning"				
+						td style="padding:5px;"
+							input#add_random_points type="button" value="Random Points" class="btn btn-warning"
+				
+
+			
+
 		div#jobs
 
 div#floatingProgressBar

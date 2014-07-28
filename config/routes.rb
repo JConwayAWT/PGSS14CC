@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   root 'statics#index'
 
   match '/hoffman', to: 'statics#hoffman', via: :get
+  match '/about', to: 'statics#about', via: :get
 
   match '/tsp', to: 'traveling_salesmen#index', via: :get
   match '/protein', to: 'proteins#index', via: :get

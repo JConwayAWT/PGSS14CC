@@ -88,5 +88,6 @@ function startCheckingForUpdates(databaseId){
 function provideDataToPage(data){
   answer = data.answer;
   $("#display-answer").show();
+
   $("#answer-goes-here").text(answer);
 }
