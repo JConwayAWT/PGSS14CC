@@ -63,7 +63,7 @@ class Alpha_Beta(ProteinChainClass.ProteinChain):
             self.chosen_coords.append(maximum_coordinate)
 
 
-s = Alpha_Beta("PPHHHPPHHPHPHPHH")
-s.solve("PPPHHHPPHHPHPHP")
+#s = Alpha_Beta("PPHHHPPHHPHPHPHH")
+#s.solve("PPPHHHPPHHPHPHP")
 
-print s.chosen_coords
+#print s.chosen_coords
