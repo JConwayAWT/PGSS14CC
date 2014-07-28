@@ -30,7 +30,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
   bestOrder=[]
   bestDistance=float("inf")
   Temperature = 1.0
-  bestscore = 0
+  bestscore = None
   bestPath = []
 #  def solve(self):
     #self.bestDistance=float("inf")
@@ -109,7 +109,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     return distance
 
   def Scoringfunction(self,path):
-    scorefn=-self.distance(path)#math.e*((-self.distance(path))/self.Temperature)
+    scorefn=self.distance(path)#math.e*((-self.distance(path))/self.Temperature)
     return scorefn
   def generatenewpath (self, path):#######bug########
     #print((path,"aa"))
@@ -157,17 +157,19 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
             return [currentpath, score]
 
   def solve(self):
-    self.addpolarcord()
+    #self.addpolarcord()
     bestpath=[]
     path = []
     #path=self.generatepath()
     for timestried in range(1000):
         solution = self.AnnealingMC()
         path = solution[0]
-        if solution[1] > self.bestscore:
+        if self.bestscore == None:
+            self.bestscore = solution[1]
+        if solution[1] <= self.bestscore:
             self.bestscore = solution[1]
             self.bestPath = solution[0]
-        print(solution[0],self.bestPath, "path")
+            print(solution[0],self.bestPath, solution[1], "path")
     #self.setSolution(path)
     finalsolution = ""
     index = 0
@@ -190,6 +192,7 @@ if __name__ == '__main__':
     A.cords.append(CC.Coordinate(1,1,3))
     #A.cords.append(CC.Coordinate(2,0,4))
     #A.cords.append(CC.Coordinate(0,-2,5))
-    print(A.solve(), "sol")
-    #print(A.distance([0,1,2,3]))
-    #print(A.distance([0,2,1,3]))
+    #print(A.solve(), "sol")
+    print(A.distance([0,1,2,3]))
+    print(A.distance([0,2,1,3]))
+    print(A.distance([1,0,2,3]))
