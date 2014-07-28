@@ -21,8 +21,8 @@ import random
 import copy
 
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
-  def __init__(self):
-     self.initSolver()
+  def __init__(self,params):
+     self.initSolver(params)
      self.initOverlapSolver()
      self.phermones =[[]]
      self.CALCULATIONS=10000
