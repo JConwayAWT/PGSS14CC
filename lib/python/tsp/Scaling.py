@@ -1,25 +1,13 @@
 #-------------------------------------------------------------------------------
-<<<<<<< HEAD
-# Name:        Scaling Measuring
-# Purpose:     Measures how fast certain solutions scale
+# Name:        Scaling Measuring Comparison
+# Purpose:     Measures how fast certain solutions scale and compares them
 #
 # Author:      Ishan Levy
 #
 # Created:     07/21/2014
 # Copyright:   (c) Ishan levy 2014
 # Licence:     Creative Commons (CC)
-=======
-# Name:                Traveling Salesman Canvas
-# Purpose:         Takes data from the JQuery canvas, processes it, and returns it to the user
-#
-# Author:            Martin Schneider
-#
-# Created:         07/09/2014
-# Copyright:     (c) Martin 2014
-# Licence:         Creative Commons (CC)
->>>>>>> d593b2de076d473bf6ed306c6f79758caff26183
 #-------------------------------------------------------------------------------
-
 
 import os, sys
 lib_path = os.path.abspath('../helpers')
@@ -30,99 +18,55 @@ import urlparse
 import sys
 import random
 from solvers import TravelingSalesmanSolver
-from solvers import BFTS2 as bft
+from solvers import BruteForceTravelingSalesmanSolver as bft
 from solvers import AntTotalDistanceSolver as atd
 from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from solvers import GravitationalTravelingSalesmanSolver as gts
 from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
+from solvers import AntSolver as ats
 
 def main():
-<<<<<<< HEAD
-  algorithm = "Ant Total Distance Remove Line Crosses (n^2)"
-=======
-    algorithm = "Brute Force (n!)"
->>>>>>> d593b2de076d473bf6ed306c6f79758caff26183
 
-    if algorithm =="Brute Force (n!)":
-        solver = bft.BFTS2()
-
-    if algorithm =="Ant Total Distance (n^2)":
-        solver = atd.AntTotalDistanceSolver()
-        solver.REMOVE_LINE_CROSSES=False
-
-    if algorithm =="Ant Total Distance Remove Line Crosses (n^2)":
-        solver = atd.AntTotalDistanceSolver()
-
-    if algorithm =="Random Remove Line Crosses (n^2)":
-        solver = loe.LineOverlapEliminatorTravelingSalesmanSolver()
-
-    if algorithm =="Gravity":
-        solver = gts.GravitationalTravelingSalesmanSolver()
-
-    if algorithm =="Dijkstra":
-        solver =dts.DijkstraSolver()
-
-    if algorithm =="Dijkstra 2":
-        solver = dts2.DijkstraTravelingSalesmanSolver()
-
-<<<<<<< HEAD
-  times = []
-  for k in xrange(5,2000,5):
-      print k
-      timer = 0
-      times_to_run = 1
-      for j in xrange(times_to_run):
-        if solver is None:
-          print "ERROR: Invalid solver!"
-        else:
-          solver.cords = []
-          xvalues = []
-          yvalues = []
-          for i in xrange(k):
-            works = False
-            while(works == False):
-              a = random.randrange(1,500)
-              b = random.randrange(1,500)
-              works = True
-              for c in range(len(solver.cords)):
-                if ((solver.cords.x - a)**2+ (solver.cords.y - b)**2 < 16):
-                    works = false
-            xvalues.append(random.randrange(1,500,1))
-            yvalues.append(random.randrange(1,500,1))
-          solver.loadCoordinatesFromXYArrays(xvalues,yvalues)
-          timenow = time.time()
-          solution =solver.solve()
-          timer -= timenow - time.time()
-      times.append(timer/times_to_run)
-      print times[-1]
-  print times
-=======
-    times = []
-    for k in xrange(15,16):
-            print k
-            timer = 0
-            for j in xrange(1):
-                if solver is None:
-                    print "ERROR: Invalid solver!"
-                else:
-                    solver.cords = []
-                    xvalues = []
-                    yvalues = []
-                    for i in xrange(k):
-                            xvalues.append(random.randrange(1,500,1))
-                            yvalues.append(random.randrange(1,500,1))
-                    solver.loadCoordinatesFromXYArrays(xvalues,yvalues)
-                    timenow = time.time()
-                    solution =solver.solve()
-                    print solution
-                    timer -= timenow - time.time()
-            times.append(timer)
-            print times[-1]
-    print times
->>>>>>> d593b2de076d473bf6ed306c6f79758caff26183
-
-if __name__ == '__main__':
-        main()
+  minPoints = 15
+  maxPoints = 200
+  pointInterval = 5
+  iteration = 2
+  for points in xrange(minPoints,maxPoints,pointInterval):
+      print "X",points
+      distances = [0,0,0,0,0,0,0,0,0,0,0]
+      for iterations in xrange(iteration):
+        xvalues = []
+        yvalues = []
+        for point in xrange(points):
+          works = False
+          while(works == False):
+               xvalue = random.randrange(1,500)
+               yvalue = random.randrange(1,500)
+               works = True
+               for checkpoint in range(len(xvalues)):
+                   if ((xvalues[checkpoint] - xvalue)**2 + (yvalues[checkpoint] - yvalue)**2 <= 16):
+                        works = False
+          xvalues.append(xvalue)
+          yvalues.append(yvalue)
+          #print xvalues
+          #print yvalues
 
 
+        solver = []
+        #solver.append(bft.BruteForceTravelingSalesmanSolver())
+        #solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
+        #solver.append(gts.GravitationalTravelingSalesmanSolver())
+        #solver.append(atd.AntTotalDistanceSolver())
+        #solver.append(atd.AntTotalDistanceSolver())
+        #solver[-1].REMOVE_LINE_CROSSES=False
+        #solver.append(dts.DijkstraSolver())
+        #solver.append(dts2.DijkstraTravelingSalesmanSolver())
+        solver.append(ats.AntSolver())
+        for solves in xrange(len(solver)):
+           solver[solves].loadCoordinatesFromXYArrays(xvalues,yvalues)
+           solver[solves].solve()
+           distances[solves] += solver[solves].tourDistance()
+      for solves in xrange(len(solver)):
+        print distances[solves]/iteration
+main()

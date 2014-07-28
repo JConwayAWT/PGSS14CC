@@ -48,17 +48,12 @@ def generateRandomString(length, percent_h):
 
 percent_h = .5
 length = 50
-
-string = generateRandomString(40,.45)
+string = generateRandomString(length,percent_h)
 print string
-#solver = ss.SlitheringSnakeSolver(string)
-#solution = solver.solve()
-#solver.setSolution(solution)
-#solver.setDone('y')
-#print getPotentialEnergy(solution)
+solver = ss.SlitheringSnakeSolver(string)
+solution = solver.solve()
+print getPotentialEnergy(solution)
 
 solver = ab.alpha_beta(string)
 solution = solver.solve()
-solver.setSolution(solution)
-solver.setDone('y')
 print getPotentialEnergy(solution)
