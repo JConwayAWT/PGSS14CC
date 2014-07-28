@@ -169,7 +169,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     path = []
     #path=self.generatepath()
     currentpath = self.generatepath()
-    CALCULATIONS=100000
+    CALCULATIONS=10000
     for timestried in range(CALCULATIONS):
         if timestried%1000==0:
             pDone=float(timestried)/CALCULATIONS
