@@ -73,7 +73,7 @@ function docReady(){
 			var dispY=e.pageY-dragY;
 			var dispX=e.pageX-dragX;
 
-			if(dispY<60)dispY=60;
+			if(dispY<70)dispY=70;
 			var bottomY=$(window).height()-dragging.parent().height();
 			if(dispY>bottomY)dispY=bottomY;
 

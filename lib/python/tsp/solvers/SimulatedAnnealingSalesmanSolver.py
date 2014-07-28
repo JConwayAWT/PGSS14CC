@@ -27,7 +27,7 @@ from TravelingSalesmanSolver import *
 
 class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
 
-  def __init__(self,params):
+  def __init__(self,params=None):
     self.initSolver(params)
     self.bestOrder=[]
     self.bestDistance=float("inf")
