@@ -39,6 +39,8 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 
         current_chain_index += 1
 
+      self.setCoords(self.chosen_coords)
+
       acids = []
       self.getEnergy()
       for i in range(len(self.chosen_coords)):
@@ -149,7 +151,7 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 
 
 
-s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
-s.solve()
+# s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
+# s.solve()
 
-print s.chosen_coords
+# print s.chosen_coords
