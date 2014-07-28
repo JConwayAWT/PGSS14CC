@@ -22,7 +22,7 @@ import os
 import sys
 from solvers import ExampleSolver as e
 from solvers import SlitheringSnakeSolver as ss
-
+from solvers import alpha_beta_solver as ab
 def getPotentialEnergy(solution):
     continuing = True
     i = len(solution) - 1
@@ -46,11 +46,19 @@ def generateRandomString(length, percent_h):
             string += "P"
     return string
 
-print generateRandomString(8,.45)
-solver = ss.SlitheringSnakeSolver("HHHHHHHPPPGPPGPPG")
+percent_h = .5
+length = 50
 
-solution =solver.solve(100)
+string = generateRandomString(40,.45)
+print string
+#solver = ss.SlitheringSnakeSolver(string)
+#solution = solver.solve()
+#solver.setSolution(solution)
+#solver.setDone('y')
+#print getPotentialEnergy(solution)
+
+solver = ab.alpha_beta(string)
+solution = solver.solve()
 solver.setSolution(solution)
 solver.setDone('y')
 print getPotentialEnergy(solution)
-
