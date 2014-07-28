@@ -144,8 +144,8 @@ function drawSampleProtein(chain){
 	
 	var minimumX = 0;
 	var minimumY = 0;
-	var maximumX = 0;
-	var maximumY = 0;
+	var maximumX = 1;
+	var maximumY = 1;
 	var padding = 50;
 
 	for (i = 0; i < chain.acids.length; i++)
