@@ -33,7 +33,6 @@ def main():
   for points in xrange(minPoints,maxPoints,pointInterval):
       xvalues = []
       yvalues = []
-      print points
       for point in xrange(points):
           works = False
           while(works == False):
@@ -57,12 +56,11 @@ def main():
       solver.append(atd.AntTotalDistanceSolver())
       solver.append(atd.AntTotalDistanceSolver())
       solver[-1].REMOVE_LINE_CROSSES=False
-    #  solver.append(dts.DijkstraSolver())
-
+      solver.append(dts.DijkstraSolver())
+      solver.append(dts2.DijkstraTravelingSalesmanSolver())
 
       for solves in solver:
           solves.loadCoordinatesFromXYArrays(xvalues,yvalues)
-          print "L",len(solves.cords)
           timer = time.time()
           solves.solve()
           timer = time.time()-timer
