@@ -196,7 +196,7 @@ function drawSampleProtein(chain){
    	context.moveTo(chain.acids[0]["x"], chain.acids[0]["y"]);   
     for (i = 0; i < chain.acids.length; i++)
     {
-    	buildAminoAcid(chain.acids[i]["type"], padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"]* (canvas.height-padding*2)/maximumY);
+    	buildAminoAcid(chain,chain.acids[i]["type"], padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"]* (canvas.height-padding*2)/maximumY);
     	if (i > 0) {
     		var previousPoint = i - 1;
     		var p = previousPoint;
@@ -210,12 +210,26 @@ function drawSampleProtein(chain){
     }
 }
 
-function buildAminoAcid(type, x, y) {
+function buildAminoAcid(chain,type, x, y) {
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 	var centerX = x;
     var centerY = y;
     var radius = 10;
+
+
+    if (chain.acids.length > 10){
+     	radius = 5;
+    }
+    else if (chain.acids.length > 20){
+     	radius = 2;
+    }
+    else if (chain.acids.length > 50){
+    	radius = 1;
+    }
+    else if (chain.acids.length > 100){
+    	radius = 0.5;
+    }
 
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
