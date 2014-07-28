@@ -68,7 +68,6 @@ function animate(){
   }
 }
 
-
 function doneProcessing(){
   processing=false;
   DB_ID=0;
@@ -143,7 +142,7 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
       $("#progbar").fadeIn(500);
     })
     .fail(function() {
-      alert("The AJAX request to pose the problem has raised an error.");
+      //alert("The AJAX request to pose the problem has raised an error.");
     });
 }
 
@@ -179,6 +178,9 @@ function provideDataToPage(data){
   answer = data.answer;
   if(answer!=null){
     answer = jQuery.parseJSON( answer );
+    if(answer.potentialEnergy!=null){
+      $("#potentialEnergy").html("Potential energy: "+Math.floor(answer.potentialEnergy*100)/100);
+    }
     atoms = answer.atoms;
     loadSpheres(atoms);
   }

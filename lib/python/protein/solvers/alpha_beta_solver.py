@@ -39,6 +39,8 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 
         current_chain_index += 1
 
+      self.setCoords(self.chosen_coords)
+
       acids = []
       self.getEnergy()
       for i in range(len(self.chosen_coords)):
@@ -164,6 +166,7 @@ class alpha_beta(ProteinChainClass.ProteinChain):
                 possible_final_paths.append(minimum_path)
                 #current_chain_index += 1
 
+<<<<<<< HEAD
             minimum_final_energy = min(potential_energy_per_final_path)
             minimum_final_energy_index = potential_energy_per_final_path.index(minimum_final_energy)
             minimum_final_path = possible_final_paths[minimum_final_energy_index]
@@ -194,3 +197,9 @@ s = alpha_beta("HPHPHPHPHPHPHPHPHPPPPPPHHHHHHPPPPPPHPHPHPHPHPHPH")
 
 
     print s.chosen_coords
+=======
+# s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
+# s.solve()
+
+# print s.chosen_coords
+>>>>>>> b932688c5d0cedf4a1a428df638c22f32352cdce

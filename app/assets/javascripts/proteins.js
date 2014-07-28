@@ -8,14 +8,14 @@ $(document).ready(docReady);
 function doneProcessing(){
 	processing=false;
 	DB_ID=0;
-	$("#floatingProgressBar").fadeOut(500);
+	$("#progbar").fadeOut(500);
 }
 
 
 function docReady(){
 
 	getSolutionProgress();
-
+	doneProcessing();
 	animate();
 	$("#cancel_solution").click(function(){
 		cancelSolution();
@@ -82,7 +82,6 @@ function cancelSolution(){
 		})
 		.fail(function() {
 			//console.log("error");
-			doneProcessing();
 		})
 		.always(function() {
 			//console.log("complete");
@@ -105,6 +104,10 @@ function getSolutionProgress(){
 			console.log(data.message);
 			console.log(data.statusDone);
 			console.log(data.done)
+
+			$("#statusDone").html(data.statusDone);
+      		$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#progbar").width());
+
 			if(data.answer!=null&&data.answer!=""){
 				//answer
 				//$("#output").html(data.answer);
@@ -172,13 +175,14 @@ function drawSampleProtein(chain){
     	}
     }
 
+    loadSpheres(chain.acids,maximumX,maximumY);
+
+    $("#current-potential-energy").html("Potential Energy: "+chain.potentialEnergy);
+
+	/*
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 	context.clearRect(0,0,canvas.width,canvas.height);
-	//console.log(maximumX+" "+maximumY);
-    //console.log( (canvas.width-padding*2)+" "+ (canvas.height-padding*2));
-
-    $("#current-potential-energy").html(chain.potentialEnergy);
 
 	context.beginPath();
    	context.moveTo(chain.acids[0]["x"], chain.acids[0]["y"]);   
@@ -196,6 +200,7 @@ function drawSampleProtein(chain){
     	// context.strokeStyle = 'blue'
     	// context.stroke();
     }
+    */
 }
 
 function buildAminoAcid(chain,type, x, y) {
@@ -253,7 +258,7 @@ function getSolution(){
 	var xvalues =[];
 	var yvalues=[];		
 	processing=true;
-
+	$("#progbar").fadeIn(500);
 	var data=$("#data").val();
 	var algorithm=$("#algorithm").val();
 	startTime= (new Date().getTime());
