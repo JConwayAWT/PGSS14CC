@@ -12,11 +12,11 @@ html
           .navbar-brand
             =link_to "#{image_tag("logo.png",style: "margin-top:-10px; margin-right:10px;")} CATNIP".html_safe, root_path,style: "text-decoration: none; background:transparent;"
         ul.nav.navbar-nav
-          li
+          li class="#{'active' if params[:controller] == 'traveling_salesmen'}"
             a href="tsp" TSP
-          li
+          li class="#{'active' if params[:controller] == 'proteins'}"
             a href="protein" Protein
-          li
+          li class="#{'active' if params[:controller] == 'metalics'}"
             a href="metalics" Metallics
           /li
             /a href="#" Option 2
