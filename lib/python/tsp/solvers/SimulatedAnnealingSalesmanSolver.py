@@ -36,6 +36,8 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     self.bestscore = None
     self.bestPath = []
 
+    self.logScalingFactor =0
+
 #  def solve(self):
     #self.bestDistance=float("inf")
     #self.compute(0, 0, -1, []);
@@ -51,6 +53,17 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
             ysum += self.cords[i].y;
         CM = CC.Coordinate(xsum/len(self.cords), ysum/len(self.cords), 0);
         return CM;
+  def TemperatureUpdate (self, Iter, maxiter):
+        if Iter >= 0 and Iter <= maxiter/5:
+            return 0.8
+        if Iter > maxiter/5 and Iter <= maxiter*2/5:
+            return 0.6
+        if Iter > maxiter*2/5 and Iter <= maxiter*3/5:
+            return 0.5
+        if Iter > maxiter*3/5 and Iter <= maxiter*4/5:
+            return 0.4
+        if Iter > maxiter*4/5 and Iter <= maxiter:
+            return Iter/maxiter
 
 
   """
@@ -119,16 +132,16 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
   def generatenewpath (self, path):#######bug########
     answerpath = copy.deepcopy(path)
     randint1 = random.randint(0,(len(path)-1))
+    randint2 = random.randint(0,(len(path)-1))
     switchedentry = None
-    first = answerpath[randint1]
-    indextwo = randint1 + 1
+    answerpath[randint1],answerpath[randint2] = answerpath[randint2], answerpath[randint1]
     #print (indextwo)
-    if randint1 +1 >= len(path):
-        indextwo = 0
-    second = answerpath[indextwo]
+    #if randint1 +1 >= len(path):
+        #indextwo = 0
+    #second = answerpath[indextwo]
     #print (first,second,randint1,indextwo, "answerpath")
-    answerpath[randint1] = second
-    answerpath[indextwo] = first
+    #answerpath[randint1] = second
+    #answerpath[indextwo] = first
     """
     for entry in path:
         entry = int(entry)
@@ -173,7 +186,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     currentpath = self.generatepath()
     CALCULATIONS=10000
     for timestried in range(CALCULATIONS):
-        self.Temperature = 1-(timestried/CALCULATIONS)
+        self.Temperature = 1-self.TemperatureUpdate(timestried, CALCULATIONS)
         if timestried%1000==0:
             pDone=float(timestried)/CALCULATIONS
             self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
