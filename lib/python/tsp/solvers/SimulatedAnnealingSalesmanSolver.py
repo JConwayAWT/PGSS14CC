@@ -53,7 +53,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
         return CM;
 
 
-
+  """
   def originTransform(self,index):
     xold=self.cords[index].x
     yold=self.cords[index].y
@@ -66,7 +66,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
 
   def getangle(self,point):
     return m.atan2(self.cords[point].y,self.cords[point].x)
-
+    """
   def addpolarcord(self):
     pass
     """
@@ -116,8 +116,7 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     scorefn=self.distance(path)#math.e*((-self.distance(path))/self.Temperature)
     return scorefn
   def generatenewpath (self, path):#######bug########
-    #print((path,"aa"))
-    answerpath = path
+    answerpath = copy.deepcopy(path)
     randint1 = random.randint(0,(len(path)-1))
     switchedentry = None
     first = answerpath[randint1]
@@ -140,40 +139,48 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
             answerpath+=(entry)
         index += 1
         """
+    #print((answerpath,"aa"))
     return answerpath
-  def AnnealingMC(self):
-    currentpath = self.generatepath()
+  def AnnealingMC(self, path):
+    #currentpath = self.generatepath()
+    currentpath = path
     newpath =self.generatenewpath(currentpath)
 
     newscore = self.Scoringfunction(newpath)
     currentscore = self.Scoringfunction(currentpath)
 
     score = newscore
+    #print (currentpath, currentscore, newpath, score)
 
-    if currentscore <= newscore:
-        return [newpath, score]
+    if currentscore >= newscore:
+        #print ("YAYAYAY", newpath)
+        return [newpath, score,newpath]
     else:
         randint = random.randint(0,100)
         probability = newscore/currentscore
         if randint > 100*probability:
-            return [newpath, score]
+            return [newpath, score,newpath]
         else:
-            return [currentpath, score]
+            return [currentpath, currentscore,newpath]
 
   def solve(self):
     #self.addpolarcord()
     bestpath=[]
     path = []
     #path=self.generatepath()
+    currentpath = self.generatepath()
     for timestried in range(1000):
-        solution = self.AnnealingMC()
-        path = solution[0]
+        solution = self.AnnealingMC(currentpath)
+        currentpath = solution[2]
+        #print("bestscore", self.bestscore, "\n", "best")
         if self.bestscore == None:
             self.bestscore = solution[1]
-        if solution[1] <= self.bestscore:
+            self.bestPath = solution[0]
+        if solution[1] < self.bestscore:
+            print(self.bestscore,self.bestPath)
             self.bestscore = solution[1]
             self.bestPath = solution[0]
-            print(solution[0],self.bestPath, solution[1], "path")
+            print(self.bestPath, self.bestscore, "bestpath")
     #self.setSolution(path)
     finalsolution = ""
     index = 0
@@ -194,9 +201,9 @@ if __name__ == '__main__':
     A.cords.append(CC.Coordinate(-1,2,1))
     A.cords.append(CC.Coordinate(0,2,2))
     A.cords.append(CC.Coordinate(1,1,3))
-    #A.cords.append(CC.Coordinate(2,0,4))
-    #A.cords.append(CC.Coordinate(0,-2,5))
-    #print(A.solve(), "sol")
-    print(A.distance([0,1,2,3]))
-    print(A.distance([0,2,1,3]))
-    print(A.distance([1,0,2,3]))
+    A.cords.append(CC.Coordinate(2,0,4))
+    A.cords.append(CC.Coordinate(0,-2,5))
+    print(A.solve(), "sol")
+    #print(A.distance([0,1,2,3]))
+    #print(A.distance([0,2,1,3]))
+    #print(A.distance([1,0,2,3]))
