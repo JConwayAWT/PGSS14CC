@@ -21,9 +21,16 @@ import random
 import copy
 
 class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
-  REMOVE_LINE_CROSSES=True
-  bestOrder = []
-  intersecting = []
+
+  def __init__(self):
+     self.initSolver()
+     self.initOverlapSolver()
+  def initOverlapSolver(self):
+     #print "L"
+     #super(TravelingSalesmanSolver,self).__init__()
+     self.REMOVE_LINE_CROSSES=True
+     self.bestOrder = []
+     self.intersecting = []
 
   def solve(self):
     self.bestOrder = [i for i in range(0,len(self.cords))]
@@ -32,7 +39,7 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
 
     self.calculateIntersects()
     self.removeLineCrosses()
-    self.printBestPath()  
+    self.printBestPath()
     return self.answer;
 
   def printBestPath(self):
@@ -55,12 +62,12 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
         if restarts==len(self.cords):
           break
         for iindex in range(1,len(self.bestOrder)):
-          i=self.bestOrder[iindex] 
+          i=self.bestOrder[iindex]
           x=self.bestOrder[iindex-1]
           xi = (min(x,i),max(x,i))
           for aindex in range(iindex+2,len(self.bestOrder)+1):
             aindexAdjusted= aindex if aindex<len(self.bestOrder) else 0
-            a=self.bestOrder[aindexAdjusted]           
+            a=self.bestOrder[aindexAdjusted]
             b=self.bestOrder[aindex-1]
             if a==x:
               continue
@@ -71,7 +78,7 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
               #self.answer+="New Inter"+" "+str(iindex)+" "+str(aindex)
               for r in range(iindex,(aindex-1)+1):
                 self.bestOrder[r]=bestOrderCopy[aindex-1-(r-iindex)]
-                restart=True 
+                restart=True
             #break
     #print "Restarts: ",restarts,";"
 
@@ -82,7 +89,7 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
     return Line.linesIntersect(self.cords[i],self.cords[x],self.cords[a],self.cords[b])
 
 
-  def calculateIntersects(self):    
+  def calculateIntersects(self):
     self.intersecting= [[ [] for i in range(0,len(self.cords))] for i in range(0,len(self.cords))]
     #for i in range(0,len(self.cords)):
       #pDone = float(i)/len(self.cords)
@@ -98,5 +105,4 @@ class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.Trav
               #print "<br> Intersect ",i,x,a,b
               #self.intersecting[i][x].append((a,b))
               #self.intersecting[a][b].append((i,x))
-              
-  
+

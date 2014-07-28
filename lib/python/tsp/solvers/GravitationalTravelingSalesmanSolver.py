@@ -15,14 +15,22 @@ import TravelingSalesmanSolver;
 import LineOverlapEliminatorTravelingSalesmanSolver
 
 class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
-      bestOrder=[];
-      CM = Coordinate.Coordinate(0, 0, 0);
-      bestDistance=float("inf");
-      current = Coordinate.Coordinate(0, 0, 0);
-      pointsLeft = [];
+
+      def __init__(self):
+        self.initSolver()
+        self.initOverlapSolver()
+        #super(LineOverlapEliminatorTravelingSalesmanSolver,self).__init__()
+        #LineOverlapEliminatorTravelingSalesmanSolver.__init__("")
+        self.bestOrder=[];
+        self.CM = Coordinate.Coordinate(0, 0, 0);
+        self.bestDistance=float("inf");
+        self.current = Coordinate.Coordinate(0, 0, 0);
+        self.pointsLeft = [];
 
       def solve(self):
-        for index in range(0, len(self.cords)):
+        for index in range(len(self.cords)):
+            #print self.cords[index].x
+            #print self.cords[index].y
             self.pointsLeft.append(self.cords[index]);
         self.bestDistance= float("inf");
         self.CM = self.getCM();
@@ -47,7 +55,7 @@ class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesm
           bo.append(c.i)
         self.bestOrder=bo
 
-        if self.REMOVE_LINE_CROSSES:            
+        if self.REMOVE_LINE_CROSSES:
             self.removeLineCrosses()
 
         self.getAnswer();
@@ -89,6 +97,10 @@ class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesm
                 if(self.lineDistance(self.current, self.pointsLeft[i], self.CM) == 0):
                     energy = float("inf");
                 else:
+                    if (self.lineDistance(self.current, self.pointsLeft[i], self.CM) == 0):
+                        print "hi"
+                    if (self.current.dist(self.pointsLeft[i]) == 0):
+                        print "yay"
                     energy = -1.0/self.current.dist(self.pointsLeft[i]) + 1.0/self.lineDistance(self.current, self.pointsLeft[i], self.CM);
                 if energy < minEnergy:
                     minEnergy = energy;

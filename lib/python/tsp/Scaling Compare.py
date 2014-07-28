@@ -26,22 +26,13 @@ from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
 
 def main():
-  solver = []
-#  solver.append(bft.BruteForceTravelingSalesmanSolver())
-  solver.append(atd.AntTotalDistanceSolver())
-  solver[-1].REMOVE_LINE_CROSSES=False
-#  solver.append(atd.AntTotalDistanceSolver())
-  solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
-  solver.append(gts.GravitationalTravelingSalesmanSolver())
-  solver.append(dts.DijkstraSolver())
 
   minPoints = 25
   maxPoints = 200
   pointInterval = 5
-  cords = []
-  xvalues = []
-  yvalues = []
   for points in xrange(minPoints,maxPoints,pointInterval):
+      xvalues = []
+      yvalues = []
       print points
       for point in xrange(points):
           works = False
@@ -49,17 +40,32 @@ def main():
               xvalue = random.randrange(1,500)
               yvalue = random.randrange(1,500)
               works = True
-              for checkpoint in range(len(cords)):
-                  if ((cords[checkpoint].x - xvalue)**2 + (cords[checkpoint].y - yvalue)**2 <= 16):
+              for checkpoint in range(len(xvalues)):
+                  if ((xvalues[checkpoint] - xvalue)**2 + (yvalues[checkpoint] - yvalue)**2 <= 16):
                       works = False
           xvalues.append(xvalue)
           yvalues.append(yvalue)
-      print xvalues
-      print yvalues
+      #print xvalues
+      #print yvalues
+
+      print "X",len(xvalues)
+
+      solver = []
+    #  solver.append(bft.BruteForceTravelingSalesmanSolver())
+    #  solver.append(atd.AntTotalDistanceSolver())
+    #  solver[-1].REMOVE_LINE_CROSSES=False
+    #  solver.append(atd.AntTotalDistanceSolver())
+      solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
+      solver.append(gts.GravitationalTravelingSalesmanSolver())
+    #  solver.append(dts.DijkstraSolver())
+
+
       for solves in solver:
           solves.loadCoordinatesFromXYArrays(xvalues,yvalues)
+          print "L",len(solves.cords)
           timer = time.time()
           solves.solve()
           timer = time.time()-timer
           print timer
+
 main()
