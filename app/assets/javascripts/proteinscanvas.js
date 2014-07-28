@@ -43,8 +43,8 @@ $(document).ready(function(){
 
 	$("#canvas3d").mousedown(function(e) {
 		dragging=$(this);
-		dragY=e.pageY-parseInt(dragging.parent().css('top'));
-		dragX=e.pageX-parseInt(dragging.parent().css('left'));
+		dragY=e.pageY;
+		dragX=e.pageX;
 	});
 
 
@@ -69,17 +69,28 @@ $(document).ready(function(){
 
 function loadSpheres(acids,maximumX,maximumY){
 	scene.remove(content);
-	content =  new THREE.Object3D();
+	if(content==null){
+		content =  new THREE.Object3D();
+	}else{
+		oldcontent = content;
+		content =  new THREE.Object3D();
+		content.rotation.x = oldcontent.rotation.x;
+		content.rotation.y = oldcontent.rotation.y;
+	}
 	var geometry = new THREE.SphereGeometry(.25, 50, 50);
 	var red = new THREE.MeshPhongMaterial( { color: 0xff0000} );
 	var green = new THREE.MeshPhongMaterial( { color: 0x00ff00} );
 
 	var points = new THREE.Geometry();
 
-  	for(var i=0;i<acids.length;i++){
-	    console.log(acids[i]+" "+maximumX/2);
+  	for(var i=0;i<acids.length;i++){	    
 	    if(acids[i].type=="H"||acids[i].type=="h"){color=red;}
 	    if(acids[i].type=="P"|acids[i].type=="p"){color=green;}
+
+	    if(isNaN(acids[i].z)){
+	    	acids[i].z=0;
+	    }
+
 		var sphere = new THREE.Mesh(geometry, color) ;
 		sphere.position.x=acids[i].x-maximumX/2;
 	    sphere.position.y=acids[i].y-maximumY/2;

@@ -68,7 +68,6 @@ function animate(){
   }
 }
 
-
 function doneProcessing(){
   processing=false;
   DB_ID=0;
@@ -179,6 +178,9 @@ function provideDataToPage(data){
   answer = data.answer;
   if(answer!=null){
     answer = jQuery.parseJSON( answer );
+    if(answer.potentialEnergy!=null){
+      $("#potentialEnergy").html("Potential energy: "+Math.floor(answer.potentialEnergy*100)/100);
+    }
     atoms = answer.atoms;
     loadSpheres(atoms);
   }
