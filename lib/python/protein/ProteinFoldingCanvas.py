@@ -23,6 +23,7 @@ import urlparse
 import sys
 from solvers import ExampleSolver as e
 from solvers import SlitheringSnakeSolver as ss
+from solvers import alpha_beta as ab
 from database import database_connect as dbf
 
 
@@ -41,6 +42,9 @@ def main():
   algorithm = database_row[4]
   solver = None
 
+  if algorithm == "Alpha Beta":
+    solver = ab.alpha_beta(params)
+
   if algorithm =="Slithering Snake":
     solver = ss.SlitheringSnakeSolver(params)
 
@@ -50,7 +54,7 @@ def main():
     solver.cur = cur
     solver.database_row_id=database_row_id
     solver.setStatusDone("Calculating solution...")
-    solution =solver.solve(100)
+    solution =solver.solve()
     solver.setSolution(solution)
     solver.setDone('y')
     print solution
