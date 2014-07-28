@@ -76,7 +76,12 @@ br
     .col-md-12
       center
         button#submit_data.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
-        button#cancel_solution.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel
+        button#cancel_solution.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel        
+        br
+        br
+        .progress#progbar style="overflow:hidden; width:720px;" 
+          .progress-bar.progress-bar-striped.active#progress role="progressbar"aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"  
+            span#statusDone Loading Page...
 
   br
 
@@ -97,7 +102,3 @@ br
   br
   br
   br
-footer.navbar.navbar-fixed-bottom
-  .progress#progbar style="overflow:hidden;"
-      .progress-bar.progress-bar-striped.active#progress role="progressbar"aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"  
-        span#statusDone Loading Page...
