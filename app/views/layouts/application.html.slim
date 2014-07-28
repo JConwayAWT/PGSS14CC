@@ -3,7 +3,9 @@ html
   head
     title CATNIP
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', controller_name,'data-turbolinks-track' => true
+    = stylesheet_link_tag     controller_name, media: 'all','data-turbolinks-track' => true
+    = stylesheet_link_tag    'scaffolds', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag  controller_name,'data-turbolinks-track' => true
     = csrf_meta_tags
   body
     nav.navbar.navbar-fixed-top#no-border-radius role="navigation"
@@ -12,11 +14,11 @@ html
           .navbar-brand
             =link_to "#{image_tag("logo.png",style: "margin-top:-10px; margin-right:10px;")} CATNIP".html_safe, root_path,style: "text-decoration: none; background:transparent;"
         ul.nav.navbar-nav
-          li
+          li class="#{'active' if params[:controller] == 'traveling_salesmen'}"
             a href="tsp" TSP
-          li
+          li class="#{'active' if params[:controller] == 'proteins'}"
             a href="protein" Protein
-          li
+          li class="#{'active' if params[:controller] == 'metalics'}"
             a href="metalics" Metallics
           /li
             /a href="#" Option 2
