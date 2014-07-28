@@ -143,7 +143,7 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
       $("#progbar").fadeIn(500);
     })
     .fail(function() {
-      alert("The AJAX request to pose the problem has raised an error.");
+      //alert("The AJAX request to pose the problem has raised an error.");
     });
 }
 
