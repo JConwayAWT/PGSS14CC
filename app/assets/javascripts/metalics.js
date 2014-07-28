@@ -88,6 +88,6 @@ function startCheckingForUpdates(databaseId){
 function provideDataToPage(data){
   answer = data.answer;
   $("#display-answer").show();
-
+  alert(data.potentialEnergy);
   $("#answer-goes-here").text(answer);
 }
