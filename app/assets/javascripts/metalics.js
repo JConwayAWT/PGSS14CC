@@ -48,9 +48,24 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
 
   definingString = ""
   numberOfAtoms = parseInt(numberOfAtoms)
-  definingString += e1 + parseInt(parseInt(nAtoms) * parseInt(p1)/100) + e2 + parseInt(parseInt(nAtoms) * parseInt(p2)/100);
+
+  n1 = parseInt(parseInt(nAtoms)*(p1/100));
+  n2 = parseInt(parseInt(nAtoms)*(p2/100));
+  
   if (e3 != "None"){
-    definingString += e3 + parseInt(parseInt(nAtoms) * parseInt(p3)/100);
+    n3 = parseInt(parseInt(nAtoms)*(p3/100));
+  }
+  else{
+    n3 = 0;
+  }
+
+  while (n1 + n2 + n3 != numberOfAtoms){
+    n1 += 1;
+  }
+
+  definingString += e1 + n1 + e2 + n2;
+  if (e3 != "None"){
+    definingString += e3 + n3;
   }
 
   pass_info = {data: {"definingString": definingString, "numberOfAtoms": numberOfAtoms}, algorithm: alg}
