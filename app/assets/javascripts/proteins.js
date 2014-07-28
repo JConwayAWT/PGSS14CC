@@ -116,10 +116,35 @@ function docReady(){
 
 function drawSampleProtein(chain){
 //	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 100, "y": 200}, {"type":"P", "x": 150, "y": 250}, {"type":"H", "x": 170, "y": 180}, {"type": "H", "x": 100, "y": 123}]}
+	
+	var minimumX = 0;
+	var minimumY = 0;
 	var maximumX = 0;
 	var maximumY = 0;
 	var padding = 50;
 
+	for (i = 0; i < chain.acids.length; i++)
+    {
+    	if (chain.acids[i]["x"] < minimumX) {
+    		minimumX = chain.acids[i]["x"];
+    	}
+    }
+    for (i = 0; i < chain.acids.length; i++)
+    {
+    	chain.acids[i]["x"] = chain.acids[i]["x"] - minimumX;
+    }
+
+    for (i = 0; i < chain.acids.length; i++)
+    {
+    	if (chain.acids[i]["y"] < minimumY) {
+    		minimumY = chain.acids[i]["y"];
+    	}
+    }
+	for (i = 0; i < chain.acids.length; i++)
+    {
+    	chain.acids[i]["y"] = chain.acids[i]["y"] - minimumY;
+    }
+	
 	for (i = 0; i < chain.acids.length; i++)
     {
     	if (chain.acids[i]["x"] > maximumX) {
@@ -136,15 +161,17 @@ function drawSampleProtein(chain){
 
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
-	
-	console.log(maximumX+" "+maximumY);
-    console.log( (canvas.width-padding*2)+" "+ (canvas.height-padding*2));
+	context.clearRect(0,0,canvas.width,canvas.height);
+	//console.log(maximumX+" "+maximumY);
+    //console.log( (canvas.width-padding*2)+" "+ (canvas.height-padding*2));
+
+    $("#current-potential-energy").html(chain.potentialEnergy);
 
 	context.beginPath();
    	context.moveTo(chain.acids[0]["x"], chain.acids[0]["y"]);   
     for (i = 0; i < chain.acids.length; i++)
     {
-    	buildAminoAcid(chain.acids[i]["type"], padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"]* (canvas.width-padding*2)/maximumY);
+    	buildAminoAcid(chain.acids[i]["type"], padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"]* (canvas.height-padding*2)/maximumY);
     	if (i > 0) {
     		var previousPoint = i - 1;
     		var p = previousPoint;
