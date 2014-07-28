@@ -23,7 +23,7 @@ import urlparse
 import sys
 from solvers import ExampleSolver as e
 from solvers import SlitheringSnakeSolver as ss
-from solvers import alpha_beta as ab
+from solvers import alpha_beta_solver as ab
 from database import database_connect as dbf
 
 
