@@ -173,13 +173,12 @@ function drawSampleProtein(chain){
 
     loadSpheres(chain.acids,maximumX,maximumY);
 
+    $("#current-potential-energy").html(chain.potentialEnergy);
+
+	/*
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 	context.clearRect(0,0,canvas.width,canvas.height);
-	//console.log(maximumX+" "+maximumY);
-    //console.log( (canvas.width-padding*2)+" "+ (canvas.height-padding*2));
-
-    $("#current-potential-energy").html(chain.potentialEnergy);
 
 	context.beginPath();
    	context.moveTo(chain.acids[0]["x"], chain.acids[0]["y"]);   
@@ -197,6 +196,7 @@ function drawSampleProtein(chain){
     	// context.strokeStyle = 'blue'
     	// context.stroke();
     }
+    */
 }
 
 function buildAminoAcid(chain,type, x, y) {
