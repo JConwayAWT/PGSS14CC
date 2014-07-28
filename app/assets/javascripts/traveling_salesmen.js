@@ -97,6 +97,8 @@ function docReady(){
 
 	function animate(){
 
+		setTimeout(animate,50);
+
 		context.canvas.width=innerWidth-20;
 		context.canvas.height=innerHeight-20;
 
@@ -108,7 +110,7 @@ function docReady(){
 			cord.draw();
 		}
 		drawSolution();
-		setTimeout(animate,50);
+		
 		//canvas.width=window.innerWidth-200;
 		$("#submit_data").prop('disabled', processing);
 		$("#cancel_solution").prop('disabled', !processing);
