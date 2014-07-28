@@ -1,50 +1,53 @@
 br
 br
 br
+.content
+	.row
+		.col-md-12
+			.text-center
+				h1 Protein Folding
 
-.row
-	.col-md-12
-		.text-center
-			h1 Protein Folding
-
-.row
-	.col-md-1.col-md-offset-3
-		| Amino Acid Chain:
-	.col-md-5
-		input.form-control#data type="text" value="PHPHPP" placeholder="P for polar; H for hydrophobic"
-br
-.row
-	.col-md-1.col-md-offset-3
-		| Algorithm:
-	.col-md-5
-		select.form-control#algorithm
-			option Slithering Snake
-			option Neural Network
-		div#output
-br
-.row
-	.col-md-1.col-md-offset-5
-		.text-center
-			button.btn.btn-success.btn-block#submit_data type="button" height="default" width="125" Run
-	.col-md-1
-		.text-center
-			button.btn.btn-danger.btn-block#cancel_solution type="button" height="default" width="125" Cancel
-br
-br
-.row
-	.col-md-8.col-md-offset-2 align="center"
-		canvas#protein-canvas height="360" width="720"
-.row
-	.col-md-2.col-md-offset-4
-		.text-center
-			| Red: Hydrophobic
-	.col-md-2
-		.text-center
-			| Green: Hydrophilic
-br
-br
-.row
-	.col-md-1.col-md-offset-3
-		| Potential Energy:
-	.col-md-5#current-potential-energy
-		| Not yet calculated
+	.row
+		.col-md-1.col-md-offset-3
+			| Amino Acid Chain:
+		.col-md-3
+			input.form-control#data type="text" placeholder="P for polar; H for hydrophobic"
+		.col-md-2
+			button.btn.btn-primary.btn-block#random_string type="button" height="default" width="150" Random String
+	br
+	.row
+		.col-md-1.col-md-offset-3
+			| Algorithm:
+		.col-md-5
+			select.form-control#algorithm
+				option Slithering Snake
+				option value="Alpha Beta" Neural Network
+				option value="Alpha Beta 3D" Neural Network 3D
+			div#output
+	br
+	.row
+		.col-md-1.col-md-offset-5
+			.text-center
+				button.btn.btn-success.btn-block#submit_data type="button" height="default" width="125" Run
+		.col-md-1
+			.text-center
+				button.btn.btn-danger.btn-block#cancel_solution type="button" height="default" width="125" Cancel
+	br
+	br
+	.row
+		.col-md-8.col-md-offset-2 align="center"
+			canvas#protein-canvas height="360" width="720"
+	.row
+		.col-md-6
+			.text-right
+				span.label.label-danger.hydroph-button Red: Hydrophobic
+		.col-md-6
+			.text-left
+				span.label.label-success.polar-button Green: Polar
+	br
+	br
+	.row
+		.col-md-1.col-md-offset-3
+			| Potential Energy:
+		.col-md-5#current-potential-energy
+			| Not yet calculated

@@ -144,16 +144,16 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
           if (self.cords[index][2] == 'H'):
             self.Energy -= 0.5
 
-def list_of_as_in_a_row(chain):
-  list_of_a_indexes = []
-  current_list = []
-  for k in range(len(chain)):
-      if chain[k] == 'A':
-          current_list.append(k)
-      else:
-          if current_list != []:
-              list_of_a_indexes.append(current_list)
-          current_list= []
-      if k == len(chain) -1:
-          list_of_a_indexes.append(current_list)
-  return [element for element in list_of_a_indexes if element != []]
+  def list_of_hs_in_a_row(self, chain):
+    list_of_h_indexes = []
+    current_list = []
+    for k in range(len(chain)):
+        if chain[k] == 'H':
+            current_list.append(k)
+        else:
+            if current_list != []:
+                list_of_h_indexes.append(current_list)
+            current_list= []
+        if k == len(chain) -1:
+            list_of_h_indexes.append(current_list)
+    return [element for element in list_of_h_indexes if element != []]

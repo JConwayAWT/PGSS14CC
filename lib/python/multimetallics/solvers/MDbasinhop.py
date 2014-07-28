@@ -29,6 +29,7 @@ from copy import deepcopy
 class MDSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
+
     #Create the initial particle from the defining string/number atoms
     self.particle = NanoClass.genParticle(self.definingString, int(self.numberOfAtoms))
     self.reCenter()

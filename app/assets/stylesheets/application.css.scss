@@ -9,7 +9,6 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
  *= require_tree .
  *= require_self
  */
@@ -25,5 +24,14 @@
 }
 
 .navbar-fixed-top{
-  background-color:rgba(255,255,255,0.7);
+  background-color:rgba(255,255,255,.7);
+
+  .active{
+  	background-color:rgba(230,230,230,.7);
+  	text-decoration: underline;
+  }
+}
+
+.container{
+	overflow:none;
 }
