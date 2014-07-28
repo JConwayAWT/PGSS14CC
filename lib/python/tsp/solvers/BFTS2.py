@@ -19,7 +19,7 @@ import itertools
 import TravelingSalesmanSolver
 
 class BFTS2 (TravelingSalesmanSolver.TravelingSalesmanSolver):
-  def __init__(self,params):
+  def __init__(self,params=None):
      self.initSolver(params)
      self.initOverlapSolver()
      self.CALCS_DONE=0
