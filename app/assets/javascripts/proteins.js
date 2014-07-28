@@ -24,7 +24,32 @@ function docReady(){
 		cancelSolution();
 	});
 
+	$("#random_string").click(function(){
+		randomString();
+	});
+
 	getSolutionProgress();
+
+	function randomString(){
+		var n=0;
+		var notNum=false;
+		while(true){
+			s=prompt("How many amino acids do you want to be added? \n\n"+(notNum?"You must enter a number!":""));
+			if(s==null||s==""){
+				break;
+			}
+			n=parseInt(s);
+			if(s==n+""){
+				var value="";
+				for(var i=0;i<n;i++){
+					value+=(Math.random()<.5?"H":"P");
+				}
+				$("#data").val(value);
+				break;
+			}
+			notNum=true;
+		}
+	}
 
 	function cancelSolution(){
 		if(DB_ID>0){			
@@ -94,7 +119,7 @@ function docReady(){
 				console.log(data.done)
 				if(data.answer!=null&&data.answer!=""){
 					//answer
-					$("#output").html(data.answer);
+					//$("#output").html(data.answer);
 					drawSampleProtein(JSON.parse(data.answer));
 				}
 				if(data.done){
