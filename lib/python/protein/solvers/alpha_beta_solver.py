@@ -128,4 +128,4 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
 s.solve()
 
-print s.chosen_coords
+#print s.chosen_coords
