@@ -19,6 +19,7 @@ sys.path.append(lib_path)
 lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
 
+import copy
 import time
 import Coordinate
 import json
@@ -85,7 +86,7 @@ class TravelingSalesmanSolver(object):
                 self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
                 sys.exit(0)
 
-    def totalDistance(path = None):
+    def tourDistance(self,path = None):
         if path is None:
             path = self.bestOrder
 
@@ -99,7 +100,7 @@ class TravelingSalesmanSolver(object):
             totalD+=self.cords[path[i]].dist(self.cords[path[i+1]])
 
         return totalD
-    
+
     def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
         assert len(xPoints) == len(yPoints)
         for i in range(0,len(xPoints)):
