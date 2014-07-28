@@ -1,7 +1,7 @@
 var sphere_array = [];
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, 720 / 360, 0.1, 10000 );
-
+var content;
 var renderer = new THREE.WebGLRenderer();
 $(document).ready(function(){
 	renderer.setSize( 720, 360 );
@@ -12,25 +12,6 @@ $(document).ready(function(){
 	$("input#slider-goes-here").on('slide', function() {
 		camera.position.z = 50 - $("input#slider-goes-here").slider('getValue');
 	});
-
-
-	var geometry_Al = new THREE.SphereGeometry(1.25, 50, 50);
-	var geometry_Ni = new THREE.SphereGeometry(1.35, 50, 50);
-	var geometry_Cu = new THREE.SphereGeometry(1.35, 50, 50);
-	var geometry_Pd = new THREE.SphereGeometry(1.4, 50, 50);
-	var geometry_Ag = new THREE.SphereGeometry(1.6, 50, 50);
-	var geometry_Pt = new THREE.SphereGeometry(1.35, 50, 50);
-	var geometry_Au = new THREE.SphereGeometry(1.35, 50, 50);
-
-	var material_Al = new THREE.MeshPhongMaterial( { color: 0xBFA6A6} );
-	var material_Ni = new THREE.MeshPhongMaterial( { color: 0x50D050} );
-	var material_Cu = new THREE.MeshPhongMaterial( { color: 0xC88033} );
-	var material_Pd = new THREE.MeshPhongMaterial( { color: 0x006985} );
-	var material_Ag = new THREE.MeshPhongMaterial( { color: 0xC0C0C0} );
-	var material_Pt = new THREE.MeshPhongMaterial( { color: 0xD0D0E0} );
-	var material_Au = new THREE.MeshPhongMaterial( { color: 0xDAA520} );
-
-	var atom_array = []
 
 	scene.add(camera);
 	var pointLight = new THREE.PointLight( 0xFFFFFF );
@@ -45,14 +26,43 @@ $(document).ready(function(){
 
 	function render() {
 	  requestAnimationFrame(render);
-	  renderer.render(scene, camera);	  
+	  renderer.render(scene, camera);
+
 	}
 	render();
 
+	var dragging=null;
+	var dragY=0;
+	var dragX=0;
+
+	$("#metallics-canvas").mousedown(function(e) {
+		dragging=$(this);
+		dragY=e.pageY-parseInt(dragging.parent().css('top'));
+		dragX=e.pageX-parseInt(dragging.parent().css('left'));
+	});
+
+
+	$(window).mouseup(function(e) {
+		dragging=null;
+	});
+
+	$(window).mousemove(function(e) {
+		if(dragging!=null){
+			var dispY=e.pageY-dragY;
+			var dispX=e.pageX-dragX;
+			dragY=e.pageY;
+			dragX=e.pageX;
+			if(!isNaN(dispY)){		
+				content.rotation.x+=parseFloat(dispY)*.01;
+				content.rotation.y+=parseFloat(dispX)*.01;
+			}
+		}
+	});
 });
 
 function loadSpheres(atoms){
-	sphere_array=[];
+	scene.remove(content);
+	content = new THREE.Object3D();
 	var geometry_Al = new THREE.SphereGeometry(1.25, 50, 50);
 	var geometry_Ni = new THREE.SphereGeometry(1.35, 50, 50);
 	var geometry_Cu = new THREE.SphereGeometry(1.35, 50, 50);
@@ -61,12 +71,12 @@ function loadSpheres(atoms){
 	var geometry_Pt = new THREE.SphereGeometry(1.35, 50, 50);
 	var geometry_Au = new THREE.SphereGeometry(1.35, 50, 50);
 
-	var material_Al = new THREE.MeshPhongMaterial( { color: 0xBFA6A6} );
-	var material_Ni = new THREE.MeshPhongMaterial( { color: 0x50D050} );
+	var material_Al = new THREE.MeshPhongMaterial( { color: 0xDDE0EB} );
+	var material_Ni = new THREE.MeshPhongMaterial( { color: 0x7FB598} );
 	var material_Cu = new THREE.MeshPhongMaterial( { color: 0xC88033} );
-	var material_Pd = new THREE.MeshPhongMaterial( { color: 0x006985} );
-	var material_Ag = new THREE.MeshPhongMaterial( { color: 0xC0C0C0} );
-	var material_Pt = new THREE.MeshPhongMaterial( { color: 0xD0D0E0} );
+	var material_Pd = new THREE.MeshPhongMaterial( { color: 0xAB8FB5} );
+	var material_Ag = new THREE.MeshPhongMaterial( { color: 0x8694BD} );
+	var material_Pt = new THREE.MeshPhongMaterial( { color: 0xABAD7B} );
 	var material_Au = new THREE.MeshPhongMaterial( { color: 0xDAA520} );
 
   	for(var i=0;i<atoms.length;i++){
@@ -97,10 +107,10 @@ function loadSpheres(atoms){
 		sphere.position.x=atoms[i].x;
 	    sphere.position.y=atoms[i].y;
 	    sphere.position.z=atoms[i].z;
-	    sphere_array.push(sphere);
-	    scene.add(sphere);
+	    content.add(sphere);
 	    console.log("add sphere "+i);
   	}
+  	scene.add(content);
 }
 
 $('camera').slider({
