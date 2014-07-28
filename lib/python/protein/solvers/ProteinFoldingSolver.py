@@ -25,10 +25,6 @@ class ProteinFoldingSolver:
 	database_row_id=0
 	TIMEOUT_TIME=10
 
-	def __init__(self, params=None):
-
-		self.startTime = self.millis()
-
 	def solve(self):
 		return "No solution implemented!"
 
@@ -48,12 +44,12 @@ class ProteinFoldingSolver:
 		if self.cur != None:
 			self.cur.execute ("UPDATE proteins SET done=\'"+done+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
-	def checkTimeout(self,done):
+	def checkTimeout(self):
 		if self.cur != None:
 			self.cur.execute ("SELECT last_tick FROM proteins WHERE id=\'"+str(self.database_row_id)+"\' LIMIT 1;")
 			database_row = self.cur.fetchone()
   			last_tick = database_row[0]
-	  	
+
   			#self.setStatusDone(str(self.millis()/1000)+" "+str(last_tick)+" "+str(self.millis()/1000-last_tick))
   			if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
   				self.cur.execute ("UPDATE proteins SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")

@@ -27,6 +27,8 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
     moves = len(self.amino_acid_chain)*100
     self.bestEnergy = deepcopy(self.Energy)
     self.bestCords = deepcopy(self.cords)
+    self.currentJson = self.formatSolution()
+    self.setSolution(self.currentJson)
     for i in range(moves):
       self.singleMove()
       self.reCenter()
@@ -35,32 +37,29 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
       if (self.Energy < self.bestEnergy):
         self.bestEnergy = deepcopy(self.Energy)
         self.bestCords = deepcopy(self.cords)
-      #  print self.bestEnergy, self.bestCords
-    acids = []
-    for i in self.bestCords:
-      acids.append({"type": i[2], "x": i[0], "y": i[1]})
-    dictionary_to_be_turned_into_json = {"potentialEnergy": self.bestEnergy, "acids": acids}
-    actually_json = json.dumps(dictionary_to_be_turned_into_json)
-    return actually_json
+        self.currentJson = self.formatSolution()
+        self.setSolution(self.currentJson)
+      self.checkTimeout()
+    return self.currentJson
 
   def singleMove(self):
     end_coord = deepcopy(self.coords[-1])
     test_coords = [[end_coord[0] + 1, end_coord[1]],[end_coord[0] - 1, end_coord[1]],[end_coord[0], end_coord[1] + 1],[end_coord[0], end_coord[1] - 1]]
-    trapped = True
+    testtrapped = True
     while (len(test_coords) > 0):
       R = random.randint(0,len(test_coords) - 1)
       trial_move = test_coords.pop(R)
       if (trial_move not in self.coords):
-        trapped = False
+        testtrapped = False
         break
-    if (trapped == False):
+    if (testtrapped == False):
       new_coords = deepcopy(self.coords)
       new_coords.pop(0)
       new_coords.append(trial_move)
       self.setCoords(new_coords)
     else:
+      self.trappedCount += 1
       self.generateChainCoordinates()
-      self.generateChainAminoAcids()
       self.getEnergy()
 
   def reCenter(self):
