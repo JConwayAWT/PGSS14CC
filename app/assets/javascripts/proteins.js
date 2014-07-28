@@ -227,6 +227,9 @@ function buildAminoAcid(chain,type, x, y) {
     else if (chain.acids.length > 50){
     	radius = 1;
     }
+    else if (chain.acids.length > 100){
+    	radius = 0.5;
+    }
 
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
