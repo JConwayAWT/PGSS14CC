@@ -32,7 +32,7 @@ class simulatedAnnealingNano(MetalicsSolver.MetalicFoldingSolver):
 
         while temp > 0:
             print "Temp ",temp
-            berendsen.run(30)
+            berendsen.run(17)
             print "Run done"
             testEnergy = self.particle.get_potential_energy()
             if (testEnergy < self.bestEnergy):
@@ -59,6 +59,3 @@ if __name__ == '__main__':
     SA.numberOfAtoms = 80
     print SA.solve()
     print "DONE"
-
-
-
