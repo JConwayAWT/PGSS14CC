@@ -172,6 +172,8 @@ function drawSampleProtein(chain){
     	}
     }
 
+    loadSpheres(chain.acids,maximumX,maximumY);
+
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 	context.clearRect(0,0,canvas.width,canvas.height);

@@ -1,3 +1,4 @@
+= javascript_include_tag 'proteinscanvas','data-turbolinks-track' => true
 br
 br
 br
@@ -12,7 +13,7 @@ form onsubmit="return getSolution()"
 			.col-md-1.col-md-offset-3
 				| Amino Acid Chain:
 			.col-md-3
-				input.form-control#data type="text" placeholder="P for polar; H for hydrophobic" pattern="[PHph]*"
+				input.form-control#data type="text" placeholder="P for polar; H for hydrophobic" pattern="[PHph]*" value="PHPHPH"
 
 			.col-md-2
 				button.btn.btn-primary.btn-block#random_string type="button" height="default" width="150" Random String
@@ -22,9 +23,9 @@ form onsubmit="return getSolution()"
 				| Algorithm:
 			.col-md-5
 				select.form-control#algorithm
+					option value="Alpha Beta 3D" Neural Network 3D
 					option Slithering Snake
 					option value="Alpha Beta" Neural Network
-					option value="Alpha Beta 3D" Neural Network 3D
 				div#output
 		br
 		.row
@@ -39,6 +40,13 @@ form onsubmit="return getSolution()"
 		.row
 			.col-md-8.col-md-offset-2 align="center"
 				canvas#protein-canvas height="360" width="720"
+				#canvas3d
+				 br
+	      		#metallic-slider
+		        	label Zoom
+		        	br
+		        	input#slider-goes-here data-slider-min= "0" data-slider-max= "50" data-slider-step= ".1" data-slider-value= "25"
+
 		.row
 			.col-md-6
 				.text-right
