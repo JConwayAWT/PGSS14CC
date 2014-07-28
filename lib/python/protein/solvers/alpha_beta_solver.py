@@ -123,6 +123,30 @@ class alpha_beta(ProteinChainClass.ProteinChain):
         if location_of_previous_acid[0] != location_of_next_acid[0] and location_of_previous_acid[1]!= location_of_next_acid[1]:
             corners.append(current_amino_acid)
 
+    def change_corner(self, corners):
+        potential_paths = []
+        for current_corner in range(corners()):
+            possible_paths.append(current_corner)#original path
+            possible_paths = [[current_corner[0] + 1, current_corner[1]],[current_corner[0] - 1, current_corner[1]],[current_corner[0], current_corner[1] + 1],[current_corner[0], current_corner[1] - 1]]
+            possible_paths = self.remove_filled_positions(possible_paths)
+            for coordinate in chosen_coords:
+                if chosen_coords.index(coordinate) > chosen_coords.index(current_corner):
+                    chosen_coords.pop(coordinate)
+            for i in range(len(self.possible_paths)):
+                chosen_coords.append(possible_paths[i])
+                #FIX NEEDED: solve, only calculating potential energy
+                self.getEnergy()
+                potential_energy_per_path = []
+                potential_energy_per_path.append(self.Energy)
+
+                minimum_energy = min(potential_energy_per_path)
+                minimum_energy_index = potential_energy_per_path.index(minimum_energy)
+                minimum_path = possible_paths[minimum_energy_index]
+
+                print minimum_path
+
+                #current_chain_index += 1
+
 
 
 s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
