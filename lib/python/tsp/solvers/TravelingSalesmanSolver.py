@@ -85,6 +85,21 @@ class TravelingSalesmanSolver(object):
                 self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
                 sys.exit(0)
 
+    def totalDistance(path = None):
+        if path is None:
+            path = self.bestOrder
+
+        path = copy.copy(path)
+
+        if path[0] != path [-1]:
+            path.append(path[0])
+
+        totalD=0
+        for i in range(len(path)-1):
+            totalD+=self.cords[path[i]].dist(self.cords[path[i+1]])
+
+        return totalD
+    
     def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
         assert len(xPoints) == len(yPoints)
         for i in range(0,len(xPoints)):
