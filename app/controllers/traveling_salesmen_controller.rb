@@ -38,6 +38,7 @@ class TravelingSalesmenController < ApplicationController
     t = TravelingSalesman.new
     t.problem_parameters = params[:points].to_json
     t.algorithm = params[:algorithm]
+    t.remove_overlaps=params[:remove_overlaps]=='y'
     t.statusdone = "Waiting in queue..."
     t.last_tick=Time.now
     t.done=false

@@ -17,7 +17,8 @@ function docReady(){
 					"Such cat, very algorithm",
 					"Click on one of the tabbies to learn more",
 					"Our results are guaranteed to never be catastrophic",
-					"A tale of two cities<br>A tale of two kitties<br>A tail of two kitties"];
+					"A tale of two cities<br>A tale of two kitties<br>A tail of two kitties",
+					"We're the best in the category - no question"];
 
 	function newSaying(){
 		sayingOn++;

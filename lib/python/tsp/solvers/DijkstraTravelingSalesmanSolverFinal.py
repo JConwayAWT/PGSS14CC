@@ -5,12 +5,17 @@ sys.path.append(lib_path)
 import Coordinate
 import math
 import TravelingSalesmanSolver
+import LineOverlapEliminatorTravelingSalesmanSolver
 from copy import deepcopy
 
-class DijkstraSolver(TravelingSalesmanSolver.TravelingSalesmanSolver):
+class DijkstraSolver(LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 
   def solve(self):
-    for i in range(len(self.cords)):
+    for i in range(len(self.cords)):      
+      pDone=float(i)/len(self.cords)
+      self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+      self.checkTimeout(self)
+
       self.initialize_necessary_variables(i)
       self.distances_array = self.initialize_distances_array()
       while None in self.itinerary:
@@ -22,6 +27,11 @@ class DijkstraSolver(TravelingSalesmanSolver.TravelingSalesmanSolver):
       elif (self.bestSolution > testDist):
         self.bestitinerary = deepcopy(self.itinerary)
         self.bestSolution = self.totalDistance()
+
+    if self.REMOVE_LINE_CROSSES:
+      self.bestOrder=self.bestitinerary
+      self.removeLineCrosses()
+
     return ",".join([str(element) for element in self.bestitinerary])
 
   def totalDistance(self):

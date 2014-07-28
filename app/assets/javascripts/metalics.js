@@ -89,5 +89,5 @@ function provideDataToPage(data){
   answer = data.answer;
   $("#display-answer").show();
 
-  $("#display-answer").text(answer);
+  $("#answer-goes-here").text(answer);
 }

@@ -24,15 +24,17 @@ import Coordinate
 import json
 import math
 
-class TravelingSalesmanSolver:
-    cords = []
-    answer=";"
-    cur=None
-    database_row_id=0
-    TIMEOUT_TIME=10
+class TravelingSalesmanSolver(object):
 
     def __init__(self, params=None):
-
+        self.initSolver(params)
+    def initSolver(self,params = None):
+        #print "T"
+        self.cords = []
+        self.answer=";"
+        self.cur=None
+        self.database_row_id=0
+        self.TIMEOUT_TIME=10
         self.startTime = self.millis()
 
         if params == None:
@@ -43,6 +45,7 @@ class TravelingSalesmanSolver:
             self.cords.append(cord)
 
         self.calcCordDists()
+
 
     def calcCordDists(self):
         self.cdists =[[0 for i in range(len(self.cords))] for j in range(len(self.cords))]
@@ -58,7 +61,6 @@ class TravelingSalesmanSolver:
             self.cur.execute ("UPDATE traveling_salesmen SET message=\'"+message+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 
     def setStatusDone(self,statusDone):
-        print statusDone
         if self.cur != None:
             self.cur.execute ("UPDATE traveling_salesmen SET statusdone=\'"+statusDone+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
 

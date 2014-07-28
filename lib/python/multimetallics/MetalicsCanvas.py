@@ -42,7 +42,6 @@ def main():
   algorithm = database_row[2]
   solver = None
 
-
   if algorithm == "Alg A":
     solver = e.ExampleSolver(params)
   elif algorithm == "MD Solver":

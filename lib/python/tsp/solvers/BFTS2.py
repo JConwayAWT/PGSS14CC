@@ -19,10 +19,12 @@ import itertools
 import TravelingSalesmanSolver
 
 class BFTS2 (TravelingSalesmanSolver.TravelingSalesmanSolver):
-
-  CALCS_DONE=0
-  CALCULATIONS=0
-  CALCULATION_UPDATES=100000
+  def __init__(self):
+     self.initSolver()
+     self.initOverlapSolver()
+     self.CALCS_DONE=0
+     self.CALCULATIONS=0
+     self.CALCULATION_UPDATES=100000
 
   def solve(self):
     self.CALCULATIONS=math.factorial(len(self.cords))
