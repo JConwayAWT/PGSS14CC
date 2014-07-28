@@ -44,6 +44,7 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
       self.coords.pop(-1)
       self.coords.pop(-1)
       self.coords.pop(-1)
+      self.coords.pop(-1)
 
   def trapped(self):
     last_coord = deepcopy(self.coords[-1])
@@ -58,8 +59,14 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
     while (len(self.coords) < self.number_of_acids):
       self.add_or_subtract_one_from_x_or_y()
       if (self.trappedCount > 10):
-        self.coords = [[0,0]]
+        self.coords = self.lineGen()
         self.trappedCount = 0
+
+  def lineGen(self):
+    linecoords = []
+    for i in range(len(self.amino_acid_chain)):
+      linecoords.append([0,i])
+    self.setCoords(linecoords)
 
   def getCoords(self):
     return self.coords
