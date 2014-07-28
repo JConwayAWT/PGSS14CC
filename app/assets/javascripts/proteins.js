@@ -82,7 +82,6 @@ function cancelSolution(){
 		})
 		.fail(function() {
 			//console.log("error");
-			doneProcessing();
 		})
 		.always(function() {
 			//console.log("complete");

@@ -76,8 +76,7 @@ function loadSpheres(acids,maximumX,maximumY){
 
 	var points = new THREE.Geometry();
 
-  	for(var i=0;i<acids.length;i++){
-	    console.log(acids[i]+" "+maximumX/2);
+  	for(var i=0;i<acids.length;i++){	    
 	    if(acids[i].type=="H"||acids[i].type=="h"){color=red;}
 	    if(acids[i].type=="P"|acids[i].type=="p"){color=green;}
 		var sphere = new THREE.Mesh(geometry, color) ;
