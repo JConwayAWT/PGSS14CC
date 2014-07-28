@@ -101,7 +101,9 @@ $(document).ready(function(){
 
 	*/
 
-	camera.position.z = 25;
+	camera.position.z = 20;
+
+
 	scene.add(camera);
 	var pointLight = new THREE.PointLight( 0xFFFFFF );
 
