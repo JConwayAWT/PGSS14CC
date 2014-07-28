@@ -1,0 +1,60 @@
+diff --git a/app/assets/stylesheets/application.css.scss b/app/assets/stylesheets/application.css.scss
+index 2e5c440..7316fe9 100644
+--- a/app/assets/stylesheets/application.css.scss
++++ b/app/assets/stylesheets/application.css.scss
+@@ -10,6 +10,7 @@
+  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+  * file per style scope.
+  * =require_self
++ * =require_tree
+  */
+ 
+ @import "bootstrap-sprockets";
+@@ -22,14 +23,6 @@
+   border-bottom-right-radius: 0px;
+ }
+ 
+-.navbar-header > navbar-brand > a{
+-	color:#000000;
+-}
+-
+-.navbar-nav > li > a{
+-	color:#000000;
+-}
+-
+ .navbar-fixed-top{
+   background-color:rgba(255,255,255,1);
+ 
+diff --git a/app/views/layouts/application.html.slim b/app/views/layouts/application.html.slim
+index e018fd1..e1dcac8 100644
+--- a/app/views/layouts/application.html.slim
++++ b/app/views/layouts/application.html.slim
+@@ -2,9 +2,7 @@ doctype html
+ html
+   head
+     title CATNIP
+-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+-    = stylesheet_link_tag     controller_name, media: 'all','data-turbolinks-track' => true
+-    = stylesheet_link_tag    'scaffolds', media: 'all', 'data-turbolinks-track' => true
++    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true    
+     = javascript_include_tag  controller_name,'data-turbolinks-track' => true
+     = csrf_meta_tags
+   body
+diff --git a/config/initializers/assets.rb b/config/initializers/assets.rb
+index dd01455..a5c65c1 100644
+--- a/config/initializers/assets.rb
++++ b/config/initializers/assets.rb
+@@ -11,10 +11,4 @@ Rails.application.config.assets.precompile += %w( proteins.js )
+ Rails.application.config.assets.precompile += %w( traveling_salesmen.js )
+ Rails.application.config.assets.precompile += %w( metalics.js )
+ Rails.application.config.assets.precompile += %w( metallicscanvas.js )
+-Rails.application.config.assets.precompile += %w( statics.js )
+-
+-Rails.application.config.assets.precompile += %w( proteins.css )
+-Rails.application.config.assets.precompile += %w( traveling_salesmen.css )
+-Rails.application.config.assets.precompile += %w( metalics.css )
+-Rails.application.config.assets.precompile += %w( scaffolds.css )
+-Rails.application.config.assets.precompile += %w( statics.css )
+\ No newline at end of file
++Rails.application.config.assets.precompile += %w( statics.js )
+\ No newline at end of file

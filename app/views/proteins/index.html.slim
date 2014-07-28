@@ -22,6 +22,7 @@ br
 			select.form-control#algorithm
 				option Slithering Snake
 				option value="Alpha Beta" Neural Network
+				option value="Alpha Beta 3D" Neural Network 3D
 			div#output
 	br
 	.row
@@ -37,12 +38,12 @@ br
 		.col-md-8.col-md-offset-2 align="center"
 			canvas#protein-canvas height="360" width="720"
 	.row
-		.col-md-2.col-md-offset-4
-			.text-center
-				| Red: Hydrophobic
-		.col-md-2
-			.text-center
-				| Green: Hydrophilic
+		.col-md-6
+			.text-right
+				span.label.label-danger.hydroph-button Red: Hydrophobic
+		.col-md-6
+			.text-left
+				span.label.label-success.polar-button Green: Polar
 	br
 	br
 	.row
