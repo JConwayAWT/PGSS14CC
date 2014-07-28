@@ -149,8 +149,6 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 
                 #current_chain_index += 1
 
-
-
 # s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
 # s.solve()
 
