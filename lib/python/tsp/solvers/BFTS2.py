@@ -19,8 +19,8 @@ import itertools
 import TravelingSalesmanSolver
 
 class BFTS2 (TravelingSalesmanSolver.TravelingSalesmanSolver):
-  def __init__(self):
-     self.initSolver()
+  def __init__(self,params):
+     self.initSolver(params)
      self.initOverlapSolver()
      self.CALCS_DONE=0
      self.CALCULATIONS=0
