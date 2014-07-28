@@ -8,14 +8,14 @@ $(document).ready(docReady);
 function doneProcessing(){
 	processing=false;
 	DB_ID=0;
-	$("#floatingProgressBar").fadeOut(500);
+	$("#progbar").fadeOut(500);
 }
 
 
 function docReady(){
 
 	getSolutionProgress();
-
+	doneProcessing();
 	animate();
 	$("#cancel_solution").click(function(){
 		cancelSolution();
@@ -104,6 +104,10 @@ function getSolutionProgress(){
 			console.log(data.message);
 			console.log(data.statusDone);
 			console.log(data.done)
+
+			$("#statusDone").html(data.statusDone);
+      		$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#progbar").width());
+
 			if(data.answer!=null&&data.answer!=""){
 				//answer
 				//$("#output").html(data.answer);
@@ -173,7 +177,7 @@ function drawSampleProtein(chain){
 
     loadSpheres(chain.acids,maximumX,maximumY);
 
-    $("#current-potential-energy").html(chain.potentialEnergy);
+    $("#current-potential-energy").html("Potential Energy: "+chain.potentialEnergy);
 
 	/*
 	var canvas = document.getElementById('protein-canvas');
@@ -254,7 +258,7 @@ function getSolution(){
 	var xvalues =[];
 	var yvalues=[];		
 	processing=true;
-
+	$("#progbar").fadeIn(500);
 	var data=$("#data").val();
 	var algorithm=$("#algorithm").val();
 	startTime= (new Date().getTime());
