@@ -50,7 +50,7 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 
     def get_score_of_single_coordinate(self, coordinate, adjacent_value, diagonal_value, twice_removed_value):
       total_score = 0
-      h_value = 3
+      h_value = 4
       p_value = 1
       neighbor_locations = [[coordinate[0] + 1, coordinate[1]],[coordinate[0] - 1, coordinate[1]],[coordinate[0], coordinate[1] + 1],[coordinate[0], coordinate[1] - 1]]
       diagonal_locations = [[coordinate[0] + 1, coordinate[1] + 1],[coordinate[0] - 1, coordinate[1] - 1],[coordinate[0] - 1, coordinate[1] + 1],[coordinate[0] + 1, coordinate[1] - 1]]
