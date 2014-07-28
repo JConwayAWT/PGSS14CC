@@ -1,10 +1,12 @@
-$(document).ready(function(){
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera( 75, 720 / 360, 0.1, 10000 );
+var sphere_array = [];
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 75, 720 / 360, 0.1, 10000 );
 
-	var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer();
+$(document).ready(function(){
 	renderer.setSize( 720, 360 );
-	document.body.appendChild( renderer.domElement );
+	$("#metallics-canvas").html( renderer.domElement );
+
 
 	var geometry_Al = new THREE.SphereGeometry(1.25, 50, 50);
 	var geometry_Ni = new THREE.SphereGeometry(1.35, 50, 50);
@@ -50,8 +52,11 @@ $(document).ready(function(){
 	// 	sphere.position.z = 0;
 	// 	scene.add(sphere);
 	// }
+
 	// var geometry = new THREE.SphereGeometry(1.5, 50, 50);
 	// var material = new THREE.MeshPhongMaterial( { color: 0xfdca00 } );
+
+	/*
 	var sphere = new THREE.Mesh( geometry_Al, material_Al);
 	sphere.position.x = -6;
 	sphere.position.y = 0;
@@ -94,7 +99,11 @@ $(document).ready(function(){
 	sphere6.position.z = 0;
 	scene.add( sphere6 );
 
-	camera.position.z = 25;
+	*/
+
+	camera.position.z = 20;
+
+
 	scene.add(camera);
 	var pointLight = new THREE.PointLight( 0xFFFFFF );
 
@@ -108,8 +117,23 @@ $(document).ready(function(){
 
 	function render() {
 	  requestAnimationFrame(render);
-	  renderer.render(scene, camera);
-	  sphere.rotation.x += 0.1;
+	  renderer.render(scene, camera);	  
 	}
 	render();
 });
+
+function loadSpheres(atoms){
+	sphere_array=[];
+  	var geometry = new THREE.SphereGeometry(1, 50, 50);
+  	var material = new THREE.MeshPhongMaterial( { color: 0x8B9C1E} );
+  	for(var i=0;i<atoms.length;i++){
+	    console.log(atoms[i]);
+	    var sphere = new THREE.Mesh(geometry, material);
+	    sphere.position.x=atoms[i].x;
+	    sphere.position.y=atoms[i].y;
+	    sphere.position.z=atoms[i].z;
+	    sphere_array.push(sphere);
+	    scene.add(sphere);
+	    console.log("add sphere "+i);
+  	}
+}
