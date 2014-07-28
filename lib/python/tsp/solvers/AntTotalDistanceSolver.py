@@ -21,7 +21,7 @@ import random
 import copy
 
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
-  def __init__(self,params):
+  def __init__(self,params=None):
      self.initSolver(params)
      self.initOverlapSolver()
      self.phermones =[[]]
@@ -51,7 +51,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
     for i in range(0,self.CALCULATIONS):
       if i%self.CALCULATION_UPDATES==0:
         pDone=float(i)/self.CALCULATIONS
-#        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
         self.checkTimeout(self)
       if i%self.BEST_UPDATES==0:
         self.printBestPath()

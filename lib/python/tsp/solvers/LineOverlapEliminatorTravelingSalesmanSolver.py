@@ -22,7 +22,7 @@ import copy
 
 class LineOverlapEliminatorTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
 
-  def __init__(self,params):
+  def __init__(self,params=None):
     self.initSolver(params)
     self.initOverlapSolver()
   def initOverlapSolver(self):

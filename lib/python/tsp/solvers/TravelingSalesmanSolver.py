@@ -19,6 +19,7 @@ sys.path.append(lib_path)
 lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
 
+import copy
 import time
 import Coordinate
 import json
@@ -84,6 +85,21 @@ class TravelingSalesmanSolver(object):
             if self.millis()/1000-last_tick>self.TIMEOUT_TIME:
                 self.cur.execute ("UPDATE traveling_salesmen SET last_tick=\'"+str(-999)+"\' WHERE id=\'"+str(self.database_row_id)+"\';")
                 sys.exit(0)
+
+    def tourDistance(self,path = None):
+        if path is None:
+            path = self.bestOrder
+
+        path = copy.copy(path)
+
+        if path[0] != path [-1]:
+            path.append(path[0])
+
+        totalD=0
+        for i in range(len(path)-1):
+            totalD+=self.cords[path[i]].dist(self.cords[path[i+1]])
+
+        return totalD
 
     def loadCoordinatesFromXYArrays(self,xPoints, yPoints):
         assert len(xPoints) == len(yPoints)

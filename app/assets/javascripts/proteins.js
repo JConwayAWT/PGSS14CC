@@ -24,7 +24,32 @@ function docReady(){
 		cancelSolution();
 	});
 
+	$("#random_string").click(function(){
+		randomString();
+	});
+
 	getSolutionProgress();
+
+	function randomString(){
+		var n=0;
+		var notNum=false;
+		while(true){
+			s=prompt("How many amino acids do you want to be added? \n\n"+(notNum?"You must enter a number!":""));
+			if(s==null||s==""){
+				break;
+			}
+			n=parseInt(s);
+			if(s==n+""){
+				var value="";
+				for(var i=0;i<n;i++){
+					value+=(Math.random()<.5?"H":"P");
+				}
+				$("#data").val(value);
+				break;
+			}
+			notNum=true;
+		}
+	}
 
 	function cancelSolution(){
 		if(DB_ID>0){			
@@ -94,7 +119,7 @@ function docReady(){
 				console.log(data.done)
 				if(data.answer!=null&&data.answer!=""){
 					//answer
-					$("#output").html(data.answer);
+					//$("#output").html(data.answer);
 					drawSampleProtein(JSON.parse(data.answer));
 				}
 				if(data.done){
@@ -116,10 +141,35 @@ function docReady(){
 
 function drawSampleProtein(chain){
 //	chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 100, "y": 200}, {"type":"P", "x": 150, "y": 250}, {"type":"H", "x": 170, "y": 180}, {"type": "H", "x": 100, "y": 123}]}
+	
+	var minimumX = 0;
+	var minimumY = 0;
 	var maximumX = 0;
 	var maximumY = 0;
 	var padding = 50;
 
+	for (i = 0; i < chain.acids.length; i++)
+    {
+    	if (chain.acids[i]["x"] < minimumX) {
+    		minimumX = chain.acids[i]["x"];
+    	}
+    }
+    for (i = 0; i < chain.acids.length; i++)
+    {
+    	chain.acids[i]["x"] = chain.acids[i]["x"] - minimumX;
+    }
+
+    for (i = 0; i < chain.acids.length; i++)
+    {
+    	if (chain.acids[i]["y"] < minimumY) {
+    		minimumY = chain.acids[i]["y"];
+    	}
+    }
+	for (i = 0; i < chain.acids.length; i++)
+    {
+    	chain.acids[i]["y"] = chain.acids[i]["y"] - minimumY;
+    }
+	
 	for (i = 0; i < chain.acids.length; i++)
     {
     	if (chain.acids[i]["x"] > maximumX) {
@@ -136,15 +186,17 @@ function drawSampleProtein(chain){
 
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
-	
-	console.log(maximumX+" "+maximumY);
-    console.log( (canvas.width-padding*2)+" "+ (canvas.height-padding*2));
+	context.clearRect(0,0,canvas.width,canvas.height);
+	//console.log(maximumX+" "+maximumY);
+    //console.log( (canvas.width-padding*2)+" "+ (canvas.height-padding*2));
+
+    $("#current-potential-energy").html(chain.potentialEnergy);
 
 	context.beginPath();
    	context.moveTo(chain.acids[0]["x"], chain.acids[0]["y"]);   
     for (i = 0; i < chain.acids.length; i++)
     {
-    	buildAminoAcid(chain.acids[i]["type"], padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"]* (canvas.width-padding*2)/maximumY);
+    	buildAminoAcid(chain,chain.acids[i]["type"], padding+chain.acids[i]["x"]* (canvas.width-padding*2)/maximumX, padding+chain.acids[i]["y"]* (canvas.height-padding*2)/maximumY);
     	if (i > 0) {
     		var previousPoint = i - 1;
     		var p = previousPoint;
@@ -158,12 +210,26 @@ function drawSampleProtein(chain){
     }
 }
 
-function buildAminoAcid(type, x, y) {
+function buildAminoAcid(chain,type, x, y) {
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 	var centerX = x;
     var centerY = y;
     var radius = 10;
+
+
+    if (chain.acids.length > 10){
+     	radius = 5;
+    }
+    else if (chain.acids.length > 20){
+     	radius = 2;
+    }
+    else if (chain.acids.length > 50){
+    	radius = 1;
+    }
+    else if (chain.acids.length > 100){
+    	radius = 0.5;
+    }
 
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
