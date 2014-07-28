@@ -1,4 +1,7 @@
 var processing=false;
+var DB_ID=0;
+var startTime=0;
+
 
 $(document).ready(docReady);
 
@@ -8,18 +11,12 @@ function doneProcessing(){
 	$("#floatingProgressBar").fadeOut(500);
 }
 
+
 function docReady(){
 
-	//drawSampleProtein();
+	getSolutionProgress();
 
-	var DB_ID=0;
-
-	var startTime=0;
-
-	$("#submit_data").click(function(){
-		getSolution();
-	});
-
+	animate();
 	$("#cancel_solution").click(function(){
 		cancelSolution();
 	});
@@ -28,68 +25,59 @@ function docReady(){
 		randomString();
 	});
 
-	getSolutionProgress();
 
-	function randomString(){
-		var n=0;
-		var notNum=false;
-		while(true){
-			s=prompt("How many amino acids do you want to be added? \n\n"+(notNum?"You must enter a number!":""));
-			if(s==null||s==""){
-				break;
-			}
-			n=parseInt(s);
-			if(s==n+""){
-				var value="";
-				for(var i=0;i<n;i++){
-					value+=(Math.random()<.5?"H":"P");
-				}
-				$("#data").val(value);
-				break;
-			}
-			notNum=true;
-		}
+}
+
+function animate(){
+
+	setTimeout(animate,50);
+
+	$("#submit_data").prop('disabled', processing);
+	$("#cancel_solution").prop('disabled', !processing);
+	$("#remove_all_datapoints").prop('disabled', processing);
+	$("#add_random_points").prop('disabled', processing);
+
+
+	if(processing){
+		$("#submit_data").hide();
+		$("#cancel_solution").show();
+	}else{
+		$("#submit_data").show();
+		$("#cancel_solution").hide();
 	}
+}
 
-	function cancelSolution(){
-		if(DB_ID>0){			
-			$.ajax({
-				url: '/cancel_protein_problem',
-				type: 'POST',
-				data: {id: DB_ID},
-			})
-			.done(function(data) {
-				//console.log("success");
-				
-				//console.log("DB_ID "+DB_ID);
-			})
-			.fail(function() {
-				//console.log("error");
-				doneProcessing();
-			})
-			.always(function() {
-				//console.log("complete");
-			});
+function randomString(){
+	var n=0;
+	var notNum=false;
+	while(true){
+		s=prompt("How many amino acids do you want to be added? \n\n"+(notNum?"You must enter a number!":""));
+		if(s==null||s==""){
+			break;
 		}
-		
+		n=parseInt(s);
+		if(s==n+""){
+			var value="";
+			for(var i=0;i<n;i++){
+				value+=(Math.random()<.5?"H":"P");
+			}
+			$("#data").val(value);
+			break;
+		}
+		notNum=true;
 	}
-	function getSolution(){
-		if(processing)return;
-		var xvalues =[];
-		var yvalues=[];		
-		processing=true;
+}
 
-		var data=$("#data").val();
-		var algorithm=$("#algorithm").val();
-		startTime= (new Date().getTime());
+function cancelSolution(){
+	if(DB_ID>0){			
 		$.ajax({
-			url: '/pose_protein_problem',
+			url: '/cancel_protein_problem',
 			type: 'POST',
-			data: {data: data, algorithm: algorithm},
+			data: {id: DB_ID},
 		})
 		.done(function(data) {
 			//console.log("success");
-			DB_ID=data.databaseId;
+			
 			//console.log("DB_ID "+DB_ID);
 		})
 		.fail(function() {
@@ -99,43 +87,43 @@ function docReady(){
 		.always(function() {
 			//console.log("complete");
 		});
-		
 	}
+	
+}
 
-
-	function getSolutionProgress(){		
-		setTimeout(getSolutionProgress,1000);
-		if(DB_ID>0){
-			$.ajax({
-				url: '/retreive_protein_problem',
-				type: 'POST',
-				data: {id: DB_ID},
-			})
-			.done(function(data) {
-				console.log(data);
-				console.log(data.answer);
-				console.log(data.message);
-				console.log(data.statusDone);
-				console.log(data.done)
-				if(data.answer!=null&&data.answer!=""){
-					//answer
-					//$("#output").html(data.answer);
-					drawSampleProtein(JSON.parse(data.answer));
-				}
-				if(data.done){
-					DB_ID=0;
-					doneProcessing();
-				}
-			})
-			.fail(function() {
-				//console.log("error");
-			})
-			.always(function() {
-				//console.log("complete");
-			});		
-		}
+function getSolutionProgress(){		
+	setTimeout(getSolutionProgress,1000);
+	if(DB_ID>0){
+		$.ajax({
+			url: '/retreive_protein_problem',
+			type: 'POST',
+			data: {id: DB_ID},
+		})
+		.done(function(data) {
+			console.log(data);
+			console.log(data.answer);
+			console.log(data.message);
+			console.log(data.statusDone);
+			console.log(data.done)
+			if(data.answer!=null&&data.answer!=""){
+				//answer
+				//$("#output").html(data.answer);
+				drawSampleProtein(JSON.parse(data.answer));
+			}
+			if(data.done){
+				DB_ID=0;
+				doneProcessing();
+			}
+		})
+		.fail(function() {
+			//console.log("error");
+		})
+		.always(function() {
+			//console.log("complete");
+		});		
 	}
 }
+
 
 // chain = {"potentialEnergy": 342, "acids": [{"type": "H", "x": 10, "y": 20}, {"type":"P", "x": 15, "y": 25}, {"type:":"H", "x": 17, "y": 18}]}
 
@@ -233,11 +221,11 @@ function buildAminoAcid(chain,type, x, y) {
 
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-    if (type == "H") {
+    if (type == "H"||type=="h") {
     	context.fillStyle = '#ff0000';
     	context.fill();
     }
-    else if (type == "P") {
+    else if (type == "P"||type=="p") {
     	context.fillStyle = '#00ff00';
     	context.fill();
     }
@@ -258,4 +246,34 @@ function drawPeptideBonds(x1,y1,x2,y2) {
     // context.lineWidth = 3
     // context.strokeStyle = 'blue'
     context.stroke();
+}
+
+function getSolution(){
+	if(processing)return false;
+	var xvalues =[];
+	var yvalues=[];		
+	processing=true;
+
+	var data=$("#data").val();
+	var algorithm=$("#algorithm").val();
+	startTime= (new Date().getTime());
+	$.ajax({
+		url: '/pose_protein_problem',
+		type: 'POST',
+		data: {data: data, algorithm: algorithm},
+	})
+	.done(function(data) {
+		//console.log("success");
+		DB_ID=data.databaseId;
+		//console.log("DB_ID "+DB_ID);
+	})
+	.fail(function() {
+		//console.log("error");
+		doneProcessing();
+	})
+	.always(function() {
+		//console.log("complete");
+	});
+	
+	return false;
 }
