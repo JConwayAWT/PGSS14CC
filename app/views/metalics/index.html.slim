@@ -2,90 +2,91 @@
 br
 br
 br
-.row
-  .col-md-2.col-offset-2
-  .col-md-8
-    .text-center
-      h1 Multimetallic Optimization
-.row
-  .col-md-3.col-md-offset-3
-    .form-group
-      label Element 1
-      select.form-control#element-1
-        option Al
-        option Ni
-        option Cu
-        option Pd
-        option Ag
-        option Pt
-        option Au
-  .col-md-3
-    .form-group
-      label Percentage (%)
-      br
-      input.form-control#percentage-1 value="50" placeholder = ("--%")
-.row
-  .col-md-3.col-md-offset-3
-    .form-group
-      label Element 2
-      select.form-control#element-2
-        option None
-        option Al
-        option selected="selected" Ni
-        option Cu
-        option Pd
-        option Ag
-        option Pt
-        option Au
-  .col-md-3
-    .form-group
-      label Percentage (%)
-      br
-      input.form-control#percentage-2 value="50" placeholder = ("--%")
-.row
-  .col-md-3.col-md-offset-3
-    .form-group
-      label Element 3
-      select.form-control#element-3
-        option None
-        option Al
-        option Ni
-        option Cu
-        option Pd
-        option Ag
-        option Pt
-        option Au
-  .col-md-3
-    .form-group
-      label Percentage (%)
-      br
-      input.form-control#percentage-3 placeholder = ("--%")
-.row
-  .col-md-3.col-md-offset-3
-    .form-group
-      label Algorithm:
-      select.form-control#algorithm
-        option value="MD Solver" MD Solver
-        option value="Alg A" Algorithm A (Sample)
-  .col-md-3
-    .form-group
-      label # of Atoms:
-      br
-      input.form-control#number-of-atoms value="8"
-.row
-  .col-md-6.text-right
-    button#submit_data.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
-  .col-md-6.text-left
-    button.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel
+.content
+  .row
+    .col-md-2.col-offset-2
+    .col-md-8
+      .text-center
+        h1 Multimetallic Optimization
+  .row
+    .col-md-3.col-md-offset-3
+      .form-group
+        label Element 1
+        select.form-control#element-1
+          option Al
+          option Ni
+          option Cu
+          option Pd
+          option Ag
+          option Pt
+          option Au
+    .col-md-3
+      .form-group
+        label Percentage (%)
+        br
+        input.form-control#percentage-1 value="50" placeholder = ("--%")
+  .row
+    .col-md-3.col-md-offset-3
+      .form-group
+        label Element 2
+        select.form-control#element-2
+          option None
+          option Al
+          option selected="selected" Ni
+          option Cu
+          option Pd
+          option Ag
+          option Pt
+          option Au
+    .col-md-3
+      .form-group
+        label Percentage (%)
+        br
+        input.form-control#percentage-2 value="50" placeholder = ("--%")
+  .row
+    .col-md-3.col-md-offset-3
+      .form-group
+        label Element 3
+        select.form-control#element-3
+          option None
+          option Al
+          option Ni
+          option Cu
+          option Pd
+          option Ag
+          option Pt
+          option Au
+    .col-md-3
+      .form-group
+        label Percentage (%)
+        br
+        input.form-control#percentage-3 placeholder = ("--%")
+  .row
+    .col-md-3.col-md-offset-3
+      .form-group
+        label Algorithm:
+        select.form-control#algorithm
+          option value="MD Solver" MD Solver
+          option value="Alg A" Algorithm A (Sample)
+    .col-md-3
+      .form-group
+        label # of Atoms:
+        br
+        input.form-control#number-of-atoms value="8"
+  .row
+    .col-md-6.text-right
+      button#submit_data.btn.btn-default.btn-success.btn-lg style="width: 125px;" Run
+    .col-md-6.text-left
+      button.btn.btn-default.btn-danger.btn-lg style="width: 125px;" Cancel
 
-.row#display-answer style="display: none;"
-  .col-md-8.col-md-offset-2
-    .text-center
-    br
-      #answer-goes-here Waiting...
+  .row#display-answer style="display: none;"
+    .col-md-8.col-md-offset-2
+      .text-center
+      br
+        #answer-goes-here Waiting...
 
-br
+  br
 
-.row
-  .col-md-8.col-md-offset-2 align="center"
-    canvas#metallics-canvas width="720" height="360"
+  .row
+    .col-md-8.col-md-offset-2 align="center"
+      #metallics-canvas width="720" height="360"
