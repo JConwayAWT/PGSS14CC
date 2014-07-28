@@ -169,10 +169,15 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     path = []
     #path=self.generatepath()
     currentpath = self.generatepath()
-    for timestried in range(1000):
+    CALCULATIONS=100000
+    for timestried in range(CALCULATIONS):
+        if timestried%1000==0:
+            pDone=float(timestried)/CALCULATIONS
+            self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+            self.checkTimeout(self)
+
         solution = self.AnnealingMC(currentpath)
         currentpath = solution[2]
-        #print("bestscore", self.bestscore, "\n", "best")
         if self.bestscore == None:
             self.bestscore = solution[1]
             self.bestPath = solution[0]
