@@ -19,8 +19,7 @@ class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesm
       def __init__(self):
         self.initSolver()
         self.initOverlapSolver()
-        #super(LineOverlapEliminatorTravelingSalesmanSolver,self).__init__()
-        #LineOverlapEliminatorTravelingSalesmanSolver.__init__("")
+
         self.bestOrder=[];
         self.CM = Coordinate.Coordinate(0, 0, 0);
         self.bestDistance=float("inf");

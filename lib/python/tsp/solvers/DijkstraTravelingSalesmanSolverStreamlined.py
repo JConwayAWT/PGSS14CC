@@ -9,7 +9,10 @@ import LineOverlapEliminatorTravelingSalesmanSolver
 
 class DijkstraTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 
-  itinerary = []
+  def __init__(self):
+    self.initSolver()
+    self.initOverlapSolver()
+    self.itinerary = []
 
   def solve(self):
     self.distances_array = self.initialize_distances_to_and_from_each_city()

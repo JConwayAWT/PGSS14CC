@@ -51,12 +51,12 @@ def main():
       print "X",len(xvalues)
 
       solver = []
-    #  solver.append(bft.BruteForceTravelingSalesmanSolver())
-    #  solver.append(atd.AntTotalDistanceSolver())
-    #  solver[-1].REMOVE_LINE_CROSSES=False
-    #  solver.append(atd.AntTotalDistanceSolver())
+      #solver.append(bft.BruteForceTravelingSalesmanSolver())
       solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
       solver.append(gts.GravitationalTravelingSalesmanSolver())
+      solver.append(atd.AntTotalDistanceSolver())
+      solver.append(atd.AntTotalDistanceSolver())
+      solver[-1].REMOVE_LINE_CROSSES=False
     #  solver.append(dts.DijkstraSolver())
 
 

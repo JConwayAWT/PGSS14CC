@@ -21,21 +21,23 @@ import random
 import copy
 
 class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
-#  probability =[[]]
-  phermones =[[]]
-  CALCULATIONS=10000
-  CALCULATION_UPDATES=1000
-  BEST_UPDATES=1000
-  debugData=""
-  traversed=[]
-  numTraversed=0
-  start=0
-  totalDistance=0
-  bestDistance=float("inf")
-  avgEdgeWeight=0
-  PHERNOME_SCALE=1000000
-  PHERNOME_EXP  =3#must be odd
-  order = []
+  def __init__(self):
+     self.initSolver()
+     self.initOverlapSolver()
+     self.phermones =[[]]
+     self.CALCULATIONS=10000
+     self.CALCULATION_UPDATES=1000
+     self.BEST_UPDATES=1000
+     self.debugData=""
+     self.traversed=[]
+     self.numTraversed=0
+     self.start=0
+     self.totalDistance=0
+     self.bestDistance=float("inf")
+     self.avgEdgeWeight=0
+     self.PHERNOME_SCALE=1000000
+     self.PHERNOME_EXP  =3#must be odd
+     self.order = []
   def solve(self):
     if self.REMOVE_LINE_CROSSES:
       self.calculateIntersects()
