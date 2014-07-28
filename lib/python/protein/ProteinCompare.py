@@ -23,6 +23,7 @@ import sys
 from solvers import ExampleSolver as e
 from solvers import SlitheringSnakeSolver as ss
 from solvers import alpha_beta_solver as ab
+from solvers import alpha_beta_solver_3d as ab3d
 def getPotentialEnergy(solution):
     continuing = True
     i = len(solution) - 1
@@ -55,5 +56,9 @@ solution = solver.solve()
 print getPotentialEnergy(solution)
 
 solver = ab.alpha_beta(string)
+solution = solver.solve()
+print getPotentialEnergy(solution)
+
+solver = ab3d.alpha_beta_3d(string)
 solution = solver.solve()
 print getPotentialEnergy(solution)
