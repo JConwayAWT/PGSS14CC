@@ -18,6 +18,30 @@ import math
 import TravelingSalesmanSolver
 
 class BruteForceTravelingSalesmanSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
+
+
+"""
+
+
+
+
+
+
+
+THIS FILE HAS BEEN REPLACED BY BFTS2
+
+
+
+DO NOT USE THIS CODE
+
+
+
+
+
+
+
+"""
+
   def __init__(self,params=None):
       self.initSolver(params)
       self.bestOrder=[]
