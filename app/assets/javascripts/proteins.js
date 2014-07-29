@@ -103,11 +103,6 @@ function getSolutionProgress(){
 			data: {id: DB_ID},
 		})
 		.done(function(data) {
-			console.log(data);
-			console.log(data.answer);
-			console.log(data.message);
-			console.log(data.statusDone);
-			console.log(data.done)
 
 			$("#statusDone").html(data.statusDone);
       		$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#progbar").width());
@@ -247,7 +242,6 @@ function buildAminoAcid(chain,type, x, y) {
     }
 
 function drawPeptideBonds(x1,y1,x2,y2) {
-	console.log(x1,y1,x2,y2);
 	var canvas = document.getElementById('protein-canvas');
     var context = canvas.getContext('2d');
 
