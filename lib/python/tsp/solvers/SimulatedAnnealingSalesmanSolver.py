@@ -137,9 +137,8 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
         #print(self.cords[int(node)].dist(self.cords[nextnode]))
         #print (finalnode)
         distance += self.cords[node].dist(self.cords[nextnode])
-        #print (self.cords[node].dist(self.cords[nextnode]))
         countruns += 1
-        #print ("d",distance)
+
     return distance
 
 
@@ -186,13 +185,12 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
         """
     #print((answerpath,"aa"))
     return answerpath
-  def AnnealingMC(self, path):
+  def AnnealingMC(self, path, currentscore):
     #currentpath = self.generatepath()
     currentpath = path
     newpath =self.generatenewpath(currentpath)
 
     newscore = self.Scoringfunction(newpath)
-    currentscore = self.Scoringfunction(currentpath)
 
     score = newscore
     print (currentpath, currentscore, newpath, score)
@@ -221,10 +219,8 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
   def putIntoBestOrder(self):
     self.bestOrder=self.bestPath
   def solve(self):
-    #self.addpolarcord()
     bestpath=[]
     path = []
-    #path=self.generatepath()
     dijkstra_solver = ds.DijkstraTravelingSalesmanSolver()
     dijkstra_solver.cords = self.cords
     dijkstra_solver.REMOVE_LINE_CROSSES=self.REMOVE_LINE_CROSSES
@@ -234,6 +230,7 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     if self.enforce_random_start:
         currentpath = [k for k in range(len(self.cords))]
         CALCULATIONS=30000
+    currentscore = self.Scoringfunction(currentpath)
     for timestried in range(CALCULATIONS):
         #print (self.calculateIntersects())
         if timestried%1000==0:
@@ -246,8 +243,9 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
             self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
             self.checkTimeout(self)
 
-        solution = self.AnnealingMC(currentpath)
+        solution = self.AnnealingMC(currentpath, currentscore)
         currentpath = solution[0]
+        currentscore = solution[1]
         if self.bestscore == None:
             self.bestscore = solution[1]
             self.bestPath = solution[0]
