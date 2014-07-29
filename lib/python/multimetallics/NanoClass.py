@@ -21,7 +21,7 @@ def genParticle(definingString,number):
     dummyAtom.pop(-1)
   coords = dummyAtom.get_positions()
   shuffledCoords = []
-  while (len(coords) > 0):
+  while (len(coords) > 0):#THIS IS SCREWED UP!
     R = random.randint(0,len(coords) - 1)
     item = coords.pop(R)
     suffledCoords.append(item)
