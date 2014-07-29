@@ -9,6 +9,7 @@ lib_path = os.path.abspath('..');
 sys.path.append(lib_path);
 lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
+import copy
 import Coordinate;
 import math;
 import TravelingSalesmanSolver;
@@ -34,6 +35,7 @@ class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesm
         self.bestDistance= float("inf");
         self.CM = self.getCM();
         index = self.findFarthest();
+        cordsbackup = copy.deepcopy(self.cords)
         if index > 0:
             temp = self.cords[index];
             self.cords[index] = self.cords[0];
@@ -49,6 +51,9 @@ class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesm
         self.current = self.cords[0];
         self.compute();
 
+
+        self.cords = cordsbackup
+
         bo = []
         for c in self.bestOrder:
           bo.append(c.i)
@@ -57,14 +62,13 @@ class GravitationalTravelingSalesmanSolver (LineOverlapEliminatorTravelingSalesm
         if self.REMOVE_LINE_CROSSES:
             self.removeLineCrosses()
 
-        self.getAnswer();
-        #for i in range(0, len(self.bestOrder)):
-            #print("X: " + str(self.bestOrder[i].x) + " Y: " + str(self.bestOrder[i].y));
-        return self.answer;
+        return self.getAnswer()
 
       def getAnswer(self):
+        answer=""
         for c in self.bestOrder:
-          self.answer+=str(c)+","
+          answer+=str(c)+","
+        return answer
 
       def getCM(self):
         xsum = 0.0;
