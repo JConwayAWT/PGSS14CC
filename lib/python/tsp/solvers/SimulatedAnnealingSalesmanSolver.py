@@ -193,7 +193,7 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     currentscore = self.Scoringfunction(currentpath)
 
     score = newscore
-    print (currentpath, currentscore, newpath, score)
+    #print (currentpath, currentscore, newpath, score)
 
     if currentscore >= newscore:
         #print ("YAYAYAY", newpath)
@@ -226,11 +226,11 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     currentpath = self.generatepath()
     CALCULATIONS=10000#*len(currentpath)
     for timestried in range(CALCULATIONS):
-        print (self.calculateIntersects())
+        #print (self.calculateIntersects())
         if timestried%1000==0:
             self.setSolution(self.getAnswer())
         self.Temperature = 1-self.TemperatureUpdate(timestried, CALCULATIONS)
-        print self.Temperature
+        #print self.Temperature
         if timestried%100==0:
             pDone=float(timestried)/CALCULATIONS
             self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
@@ -242,10 +242,10 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
             self.bestscore = solution[1]
             self.bestPath = solution[0]
         if solution[1] < self.bestscore:
-            print(self.bestscore,self.bestPath)
+            #print(self.bestscore,self.bestPath)
             self.bestscore = solution[1]
             self.bestPath = solution[0]
-            print(self.bestPath, self.bestscore, "bestpath")
+            #print(self.bestPath, self.bestscore, "bestpath")
 
     self.putIntoBestOrder()
 
@@ -255,16 +255,16 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     return self.getAnswer()
 
 #
-if __name__ == '__main__':
-    A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(-2,0,0))
-    A.cords.append(CC.Coordinate(-1,2,1))
-    A.cords.append(CC.Coordinate(0,2,2))
-    A.cords.append(CC.Coordinate(1,1,3))
-
-    A.cords.append(CC.Coordinate(0,-2,5))
-    A.cords.append(CC.Coordinate(2,0,4))
-    print(A.solve(), "sol")
-    #print(A.distance([0,1,2,3]))
-    #print(A.distance([0,2,1,3]))
-    #print(A.distance([1,0,2,3]))
+##if __name__ == '__main__':
+##    A=SimulatedAnnealingSalesmanSolver()
+##    A.cords.append(CC.Coordinate(-2,0,0))
+##    A.cords.append(CC.Coordinate(-1,2,1))
+##    A.cords.append(CC.Coordinate(0,2,2))
+##    A.cords.append(CC.Coordinate(1,1,3))
+##
+##    A.cords.append(CC.Coordinate(0,-2,5))
+##    A.cords.append(CC.Coordinate(2,0,4))
+##    #print(A.solve(), "sol")
+##    #print(A.distance([0,1,2,3]))
+##    #print(A.distance([0,2,1,3]))
+##    #print(A.distance([1,0,2,3]))

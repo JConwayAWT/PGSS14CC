@@ -28,14 +28,14 @@ from solvers import SimulatedAnnealingSalesmanSolver as sass
 
 def main():
 
-  minPoints = 2
-  maxPoints = 11
-  pointInterval = 1
-  iteration = 1
+  minPoints = 25
+  maxPoints = 205
+  pointInterval = 5
+  iteration = 2
   for points in xrange(minPoints,maxPoints,pointInterval):
-      print "X",points
-      distances = [0,0,0,0,0,0,0,0,0,0,0]
-      times = 0
+      print points
+      #distances = [0,0,0,0,0,0,0,0,0,0,0]
+      times = [0,0,0,0,0,0,0,0,0,0,0]
       for iterations in xrange(iteration):
         xvalues = []
         yvalues = []
@@ -56,13 +56,13 @@ def main():
 
         solver = []
         #solver.append(bft.BFTS2())
-        #solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
-        #solver.append(gts.GravitationalTravelingSalesmanSolver())
-        #solver.append(atd.AntTotalDistanceSolver())
-        #solver.append(atd.AntTotalDistanceSolver())
-        #solver[-1].REMOVE_LINE_CROSSES=False
-        #solver.append(dts.DijkstraSolver())
-        #solver.append(dts2.DijkstraTravelingSalesmanSolver())
+        solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
+        solver.append(gts.GravitationalTravelingSalesmanSolver())
+        solver.append(atd.AntTotalDistanceSolver())
+        solver.append(atd.AntTotalDistanceSolver())
+        solver[-1].REMOVE_LINE_CROSSES=False
+        solver.append(dts.DijkstraSolver())
+        solver.append(dts2.DijkstraTravelingSalesmanSolver())
         solver.append(sass.SimulatedAnnealingSalesmanSolver())
 
         for solves in xrange(len(solver)):
@@ -70,9 +70,10 @@ def main():
            timer = time.time()
            solver[solves].solve()
            timer = time.time()-timer
-           times += timer
-           distances[solves] += solver[solves].tourDistance()
+           times[solves] += timer
+           #distances[solves] += solver[solves].tourDistance()
       for solves in xrange(len(solver)):
-        print times/iteration
-        print distances[solves]/iteration
+        print times[solves]/iteration
+        #print times/iteration
+        #print distances[solves]/iteration
 main()
