@@ -90,11 +90,15 @@ function centerSpheres(){
 
   	}
 }
+
+first_time = true;
+
 function loadSpheres(atoms){
 	centerSpheres();	
 	scene.remove(content);
-	if(content==null){
+	if(first_time == true){
 		content =  new THREE.Object3D();
+		first_time = false;
 	}else{
 		oldcontent = content;
 		content =  new THREE.Object3D();

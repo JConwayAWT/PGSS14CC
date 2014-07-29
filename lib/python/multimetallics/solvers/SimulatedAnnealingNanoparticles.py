@@ -46,28 +46,6 @@ class simulatedAnnealingNano(MetalicsSolver.MetalicFoldingSolver):
             self.reCenter()
             self.getAnswer()
             temp -= 10
-
-<<<<<<< HEAD
-        listOfAtoms = []
-        for atom in self.bestParticle:
-          dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
-          listOfAtoms.append(dictElement)
-        potentialEnergy = self.bestEnergy
-        dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": potentialEnergy}
-        actually_json = json.dumps(dictionary_to_be_turned_into_json)
-
-        # this gets returned to the parent class and shoved into the database as a string, then
-        # parsed as JSON on the page and displayed/drawn for the user
-        return actually_json
-
-
-# if __name__ == '__main__':
-#     SA = simulatedAnnealingNano()
-#     SA.definingString = "Pt50Au30"
-#     SA.numberOfAtoms = 80
-#     print SA.solve()
-#     print "DONE"
-=======
             if (temp % 50 == 0):
               self.bestEnergy = self.particle.get_potential_energy()
               self.bestParticle = deepcopy(self.particle)
@@ -102,12 +80,3 @@ class simulatedAnnealingNano(MetalicsSolver.MetalicFoldingSolver):
     def reCenter(self):
       self.particle.center()
       self.particle.set_positions(self.particle.get_positions() - 200.)
-
-
-#if __name__ == '__main__':
-#    SA = simulatedAnnealingNano()
-#    SA.definingString = "Pt50Au30"
-#    SA.numberOfAtoms = 80
-#    print SA.solve()
-#    print "DONE"
->>>>>>> 620d007307b07a1fe06fe370d939a8a20dde085c

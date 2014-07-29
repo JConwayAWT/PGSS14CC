@@ -44,6 +44,7 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
       coords.pop(-1)
       coords.pop(-1)
       coords.pop(-1)
+      coords.pop(-1)
     return coords
 
   def trapped(self,coords):
@@ -57,7 +58,7 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
     coords = [[0,0]]
     while (len(coords) < self.number_of_acids):
       coords = self.add_or_subtract_one_from_x_or_y(coords)
-      if (self.trappedCount > 10):
+      if (self.trappedCount > 500):
         break
     if ((len(coords) == self.number_of_acids)):
       self.setCoords(coords)
@@ -128,24 +129,32 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
           index = self.coords.index(test_coord)
           if (self.cords[index][2] == 'H'):
             self.Energy -= 0.5
+        elif (test_coord not in self.coords):
+          self.Energy += 0.25
         test_coord = deepcopy(coord)
         test_coord[0] -= 1
         if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
           index = self.coords.index(test_coord)
           if (self.cords[index][2] == 'H'):
             self.Energy -= 0.5
+        elif (test_coord not in self.coords):
+          self.Energy += 0.25
         test_coord = deepcopy(coord)
         test_coord[1] -= 1
         if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
           index = self.coords.index(test_coord)
           if (self.cords[index][2] == 'H'):
             self.Energy -= 0.5
+        elif (test_coord not in self.coords):
+          self.Energy += 0.25
         test_coord = deepcopy(coord)
         test_coord[1] -= 1
         if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
           index = self.coords.index(test_coord)
           if (self.cords[index][2] == 'H'):
             self.Energy -= 0.5
+        elif (test_coord not in self.coords):
+          self.Energy += 0.25
 
   def list_of_hs_in_a_row(self, chain):
     list_of_h_indexes = []
@@ -212,4 +221,3 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
 
                 possible_final_paths.append(minimum_path)
                 #current_chain_index += 1
-
