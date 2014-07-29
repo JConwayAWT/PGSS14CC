@@ -11,6 +11,7 @@ function doneProcessing(){
 	$("#progbar").fadeOut(500);
 	$("#loading").fadeOut(500);
 	$("#progress").css("width",$("#progbar").width());
+	$("#loading").css("opacity",1);
 	
 }
 

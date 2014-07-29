@@ -73,6 +73,7 @@ function doneProcessing(){
   DB_ID=0;
 
   $("#progress").css("width",$("#progbar").width());
+  $("#loading").css("opacity",1);
 
   $("#progbar").fadeOut(500);
   $("#loading").fadeOut(500);

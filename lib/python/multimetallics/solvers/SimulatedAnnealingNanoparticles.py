@@ -46,7 +46,6 @@ class simulatedAnnealingNano(MetalicsSolver.MetalicFoldingSolver):
             self.reCenter()
             self.getAnswer()
             temp -= 10
-
             if (temp % 50 == 0):
               self.bestEnergy = self.particle.get_potential_energy()
               self.bestParticle = deepcopy(self.particle)
@@ -81,11 +80,3 @@ class simulatedAnnealingNano(MetalicsSolver.MetalicFoldingSolver):
     def reCenter(self):
       self.particle.center()
       self.particle.set_positions(self.particle.get_positions() - 200.)
-
-
-#if __name__ == '__main__':
-#    SA = simulatedAnnealingNano()
-#    SA.definingString = "Pt50Au30"
-#    SA.numberOfAtoms = 80
-#    print SA.solve()
-#    print "DONE"
