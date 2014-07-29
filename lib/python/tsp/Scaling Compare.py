@@ -18,7 +18,7 @@ import urlparse
 import sys
 import random
 from solvers import TravelingSalesmanSolver
-from solvers import BruteForceTravelingSalesmanSolver as bft
+from solvers import BFTS2 as bft
 from solvers import AntTotalDistanceSolver as atd
 from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from solvers import GravitationalTravelingSalesmanSolver as gts
@@ -27,13 +27,14 @@ from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
 
 def main():
 
-  minPoints = 25
-  maxPoints = 200
-  pointInterval = 5
-  iteration = 2
+  minPoints = 2
+  maxPoints = 11
+  pointInterval = 1
+  iteration = 15
   for points in xrange(minPoints,maxPoints,pointInterval):
       print "X",points
       distances = [0,0,0,0,0,0,0,0,0,0,0]
+      times = 0
       for iterations in xrange(iteration):
         xvalues = []
         yvalues = []
@@ -53,7 +54,7 @@ def main():
 
 
         solver = []
-        #solver.append(bft.BruteForceTravelingSalesmanSolver())
+        solver.append(bft.BFTS2())
         #solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
         #solver.append(gts.GravitationalTravelingSalesmanSolver())
         #solver.append(atd.AntTotalDistanceSolver())
@@ -64,8 +65,12 @@ def main():
 
         for solves in xrange(len(solver)):
            solver[solves].loadCoordinatesFromXYArrays(xvalues,yvalues)
+           timer = time.time()
            solver[solves].solve()
+           timer = time.time()-timer
+           times += timer
            distances[solves] += solver[solves].tourDistance()
       for solves in xrange(len(solver)):
+        print times/iteration
         print distances[solves]/iteration
 main()

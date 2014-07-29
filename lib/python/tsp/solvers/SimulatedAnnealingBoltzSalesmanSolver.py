@@ -33,18 +33,15 @@ lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
 
 from math import *
-from LineOverlapEliminatorTravelingSalesmanSolver import *
-import DijkstraTravelingSalesmanSolverStreamlined as ds
+from TravelingSalesmanSolver import *
 #import Lined
 
 
-class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver):
-
+class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
 
   def __init__(self,params=None):
 
     self.initSolver(params)
-    self.initOverlapSolver()
     self.bestOrder=[]
     self.bestDistance=float("inf")
     self.Temperature = 1.0
@@ -70,15 +67,14 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
         CM = CC.Coordinate(xsum/len(self.cords), ysum/len(self.cords), 0);
         return CM;
   def TemperatureUpdate (self, Iter, maxiter):
-
         if Iter >= 0 and Iter <= maxiter/5:
             return 0.9
         if Iter > maxiter/5 and Iter <= maxiter*2/5:
-            return 0.8
+            return 0.9
         if Iter > maxiter*2/5 and Iter <= maxiter*3/5:
-            return 0.6
+            return 0.8
         if Iter > maxiter*3/5 and Iter <= maxiter*4/5:
-            return 0.5
+            return 0.6
         if Iter > maxiter*4/5 and Iter <= maxiter:
             return 1-(float(Iter)/float(maxiter))
 
@@ -212,33 +208,34 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
             return [newpath, score,newpath]
         else:
             return [currentpath, currentscore,newpath]
-  def getAnswer(self):
-        answer=""
-        for c in self.bestOrder:
-          answer+=str(c)+","
-        return answer
 
-  def putIntoBestOrder(self):
-    self.bestOrder=self.bestPath
+  def getAnswer(self):
+    finalsolution = ""
+    index = 0
+    print (self.bestPath, "sdf")
+    for element in self.bestPath:
+        if index != 0:
+            finalsolution += ","
+        #print (element)
+        element = str(element)
+        finalsolution += element
+        index += 1
+    return finalsolution
   def solve(self):
+
     #self.addpolarcord()
     bestpath=[]
     path = []
     #path=self.generatepath()
-    dijkstra_solver = ds.DijkstraTravelingSalesmanSolver()
-    dijkstra_solver.cords = self.cords
-    dijkstra_solver.REMOVE_LINE_CROSSES=self.REMOVE_LINE_CROSSES
-    dijkstra_solution = dijkstra_solver.solve()
-    currentpath = [int(k) for k in dijkstra_solution.split(",")]
+    currentpath = self.generatepath()
     CALCULATIONS=10000#*len(currentpath)
     for timestried in range(CALCULATIONS):
-        #print (self.calculateIntersects())
-        if timestried%1000==0:
-            self.putIntoBestOrder()
+        print (self.calculateIntersects())
+        if timestried%10==0:
             self.setSolution(self.getAnswer())
         self.Temperature = 1-self.TemperatureUpdate(timestried, CALCULATIONS)
-        #print self.Temperature
-        if timestried%100==0:
+        print self.Temperature
+        if timestried%1000==0:
             pDone=float(timestried)/CALCULATIONS
             self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
             self.checkTimeout(self)
@@ -249,16 +246,10 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
             self.bestscore = solution[1]
             self.bestPath = solution[0]
         if solution[1] < self.bestscore:
-            #print(self.bestscore,self.bestPath)
+            print(self.bestscore,self.bestPath)
             self.bestscore = solution[1]
             self.bestPath = solution[0]
-            #print(self.bestPath, self.bestscore, "bestpath")
-
-    self.putIntoBestOrder()
-
-    if self.REMOVE_LINE_CROSSES:
-        self.removeLineCrosses()
-
+            print(self.bestPath, self.bestscore, "bestpath")
     return self.getAnswer()
 
 #
@@ -271,7 +262,7 @@ if __name__ == '__main__':
 
     A.cords.append(CC.Coordinate(0,-2,5))
     A.cords.append(CC.Coordinate(2,0,4))
-    #print(A.solve(), "sol")
+    print(A.solve(), "sol")
     #print(A.distance([0,1,2,3]))
     #print(A.distance([0,2,1,3]))
     #print(A.distance([1,0,2,3]))
