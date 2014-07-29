@@ -15,6 +15,15 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('BebasNeue-webfont.eot');
+  src: url('BebasNeue-webfont.eot?iefix') format("eot"), url('BebasNeue-webfont.woff') format("woff"), url('BebasNeue-webfont.ttf') format("truetype"), url('BebasNeue-webfont.svg#webfont') format("svg");
+}
+
+
 
 #no-border-radius{
   border-bottom-left-radius: 0px;
@@ -22,7 +31,10 @@
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-
+.navbar-options{
+  font-family: 'BebasNeue';
+  font-size: 30px;
+}
 .navbar-fixed-top{
   background-color:rgba(255,255,255,.7);
   
