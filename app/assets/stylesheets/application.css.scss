@@ -19,11 +19,13 @@
 
 @font-face {
   font-family: 'BebasNeue';
-  src: url('BebasNeue-webfont.eot');
-  src: url('BebasNeue-webfont.eot?iefix') format("eot"), url('BebasNeue-webfont.woff') format("woff"), url('BebasNeue-webfont.ttf') format("truetype"), url('BebasNeue-webfont.svg#webfont') format("svg");
+  src: url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.eot');
+  src: url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.eot?iefix') format("eot"), url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.woff') format("woff"), url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.ttf') format("truetype"), url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.svg#webfont') format("svg");
 }
 
-
+body{
+  font-family: 'Raleway';
+}
 
 #no-border-radius{
   border-bottom-left-radius: 0px;
@@ -38,6 +40,10 @@
 .navbar-fixed-top{
   background-color:rgba(255,255,255,.7);
   
+  a{
+    color:rgb(167,167,167);
+  }
+
   .active{
   	background-color:rgba(230,230,230,.7);
   	text-decoration: underline;

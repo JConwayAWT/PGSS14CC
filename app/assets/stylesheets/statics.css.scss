@@ -7,21 +7,21 @@
 }
 #message{
 	text-align:left;
-  font-family: 'Raleway';
 	max-width:300px;
-   	color: white;
-   	text-shadow:
-       2px 2px 0 #555,
-     -1px -1px 0 #555,  
-      1px -1px 0 #555,
-      -1px 1px 0 #555,
-       1px 1px 0 #555;
-    font-size:30px;
-    h1{
-		font-size:60px;
-		color:#FFFFFF;
-		-webkit-text-stroke: 1px gray;
-    }    
+
+ 	color:rgb(0,100,0);
+ 	//text-shadow:
+    //1px 1px 0 #555,
+   //-1px -1px 0 #555,  
+    //1px -1px 0 #555,
+    //-1px 1px 0 #555,
+     //1px 1px 0 #555;
+  font-size:20px;
+  h1{
+  	font-size:60px;
+  	color:#FFFFFF;
+  	-webkit-text-stroke: 1px gray;
+  }    
 }
 
 #statement:hover{
