@@ -36,5 +36,11 @@ function docReady(){
 	}
 	document.cookie="loadedPage";
 	
-	$("#statement").click(newSaying);
+	$('#statement').on('dragstart', function(event) { event.preventDefault(); });
+
+	$("#statement").click(function(event){
+		newSaying();
+		event.preventDefault();
+		return false;
+	});
 }
