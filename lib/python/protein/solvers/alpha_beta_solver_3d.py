@@ -69,7 +69,7 @@ class alpha_beta_3d(ProteinChainClass3D.ProteinChain3D):
     def get_score_of_single_coordinate(self, coordinate, values_at_hop_distance):
       total_score = 0
       h_value = 4
-      p_value = 1
+      p_value = 0
       coordinates_for_neighbords_with_manhattan_distance_of_index = [None]
       for k in range(1, 7):
         coordinates_for_neighbords_with_manhattan_distance_of_index.append(self.get_hops_at_distance(k, coordinate))

@@ -23,12 +23,12 @@ class simulatedAnnealingNano(MetalicsSolver.MetalicFoldingSolver):
     def solve(self):
     #Create the initial particle from the defining string/number atoms
 
-        temp = 1500
-        maxtemp = temp
+        temp = 1750
         mintemp = 150
         self.particle = genParticle(self.definingString,int(self.numberOfAtoms))
-#        self.bestEnergy = self.particle.get_potential_energy()
-#        self.bestParticle = copy.copy(self.particle)
+        if (len(self.particle) < 16):
+          temp = 1250
+        maxtemp = temp
         berendsen = Langevin(self.particle, 2.5 * units.fs, units.kB * temp, 0.02)
         # the 5.0 * units.fs is used instead of 0.1 * units.fs b/c it makes the program run faster
         MaxwellBoltzmannDistribution(self.particle,units.kB * temp)

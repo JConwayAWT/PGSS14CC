@@ -24,7 +24,7 @@ from copy import deepcopy
 class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
 
   def solve(self):
-    moves = len(self.amino_acid_chain)*100
+    moves = len(self.amino_acid_chain)*10
     self.bestEnergy = deepcopy(self.Energy)
     self.bestCords = deepcopy(self.cords)
     self.currentJson = self.formatSolution()
