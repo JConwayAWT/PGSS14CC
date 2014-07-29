@@ -10,7 +10,7 @@ html
       .container-fluid
         .navbar-header
           .navbar-brand
-            =link_to "#{image_tag("logo.png",style: "margin-top:-10px; margin-right:10px;")} CATNIP".html_safe, root_path,style: "text-decoration: none; background:transparent;"
+            =link_to "#{image_tag("websitelogo.png",style: "margin-top:-10px; margin-right:10px; height:40px;")}".html_safe, root_path,style: "text-decoration: none; background:transparent;"
         ul.nav.navbar-nav
           li class="#{'active' if params[:controller] == 'traveling_salesmen'}"
             a href="tsp" TSP

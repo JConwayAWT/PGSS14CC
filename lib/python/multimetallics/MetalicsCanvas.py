@@ -24,6 +24,7 @@ import sys
 from solvers import ExampleSolver as e
 from solvers import MetalicsSolver as ms
 from solvers import MDbasinhop as md
+from solvers import SimulatedAnnealingNanoparticles as san
 from database import database_connect as dbf
 from solvers import GeneticAlgorithmSolver as gas
 
@@ -47,6 +48,8 @@ def main():
     solver = md.MDSolver(params)
   elif algorithm =="Genetics":
     solver = gas.GeneticSolver(params)
+  elif algorithm == "Simulated Annealing":
+    solver = san.simulatedAnnealingNano(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"
