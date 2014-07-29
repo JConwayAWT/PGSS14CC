@@ -24,13 +24,14 @@ from solvers import LineOverlapEliminatorTravelingSalesmanSolver as loe
 from solvers import GravitationalTravelingSalesmanSolver as gts
 from solvers import DijkstraTravelingSalesmanSolverFinal as dts
 from solvers import DijkstraTravelingSalesmanSolverStreamlined as dts2
+from solvers import SimulatedAnnealingSalesmanSolver as sass
 
 def main():
 
   minPoints = 2
   maxPoints = 11
   pointInterval = 1
-  iteration = 15
+  iteration = 1
   for points in xrange(minPoints,maxPoints,pointInterval):
       print "X",points
       distances = [0,0,0,0,0,0,0,0,0,0,0]
@@ -54,7 +55,7 @@ def main():
 
 
         solver = []
-        solver.append(bft.BFTS2())
+        #solver.append(bft.BFTS2())
         #solver.append(loe.LineOverlapEliminatorTravelingSalesmanSolver())
         #solver.append(gts.GravitationalTravelingSalesmanSolver())
         #solver.append(atd.AntTotalDistanceSolver())
@@ -62,6 +63,7 @@ def main():
         #solver[-1].REMOVE_LINE_CROSSES=False
         #solver.append(dts.DijkstraSolver())
         #solver.append(dts2.DijkstraTravelingSalesmanSolver())
+        solver.append(sass.SimulatedAnnealingSalesmanSolver())
 
         for solves in xrange(len(solver)):
            solver[solves].loadCoordinatesFromXYArrays(xvalues,yvalues)
