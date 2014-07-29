@@ -84,7 +84,7 @@ function loadSpheres(atoms){
 	var material_Pd = new THREE.MeshPhongMaterial( { color: 0xAB8FB5} );
 	var material_Ag = new THREE.MeshPhongMaterial( { color: 0x8694BD} );
 	var material_Pt = new THREE.MeshPhongMaterial( { color: 0xABAD7B} );
-	var material_Au = new THREE.MeshPhongMaterial( { color: 0xDAA520} );
+	var material_Au = new THREE.MeshPhongMaterial( { color: 0xBDC23E} );
 
   	for(var i=0;i<atoms.length;i++){
 	    console.log(atoms[i]);
