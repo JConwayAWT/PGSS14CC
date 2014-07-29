@@ -24,7 +24,6 @@ class AntSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
 # Solve Method
 
   def solve(self):
-    self.REFERENCE_POINTS = 5
     self.ITERATIONS = 6000
     numpoints = len(self.cords)
     self.setupprob()
@@ -55,7 +54,7 @@ class AntSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
         for i in xrange(1,len(self.path)):
             # Method of Production
             distsum = 0
-            for k in xrange(int(-math.floor(self.REFERENCE_POINTS/2)),int(math.floor(self.REFERENCE_POINTS/2))):
+            for k in xrange(int(-math.floor(len(self.cords)/2)),int(math.floor(len(self.cords)/2))):
                 if (i+k)<len(self.path):
                     distsum += 200*pow(1.002,j)/pow(self.distance(self.path[i+k-1],self.path[i+k]),3)
                 else:
@@ -66,10 +65,10 @@ class AntSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
                         self.prob[l][j] -= .001
                      if self.prob[l][j] <= 0:
                         self.prob[l][j] = .001
-            distsum /= self.REFERENCE_POINTS
+            distsum /= len(self.cords)
             self.prob[self.path[i-1]][self.path[i]] += 10*distsum
             self.prob[self.path[i]][self.path[i-1]] += 10*distsum
-            #print self.path
+            print self.prob[0][1]
 
   def distance(self,pt1,pt2):
     if pt1 >= len(self.cords):
@@ -106,17 +105,17 @@ class AntSolver (TravelingSalesmanSolver.TravelingSalesmanSolver):
     location -=1
     return location
 
-#ant = AntSolver()
-#ant.cords.append(Coordinate.Coordinate(400,100))
-#ant.cords.append(Coordinate.Coordinate(300,100))
-#ant.cords.append(Coordinate.Coordinate(200,100))
-#ant.cords.append(Coordinate.Coordinate(100,100))
-#ant.cords.append(Coordinate.Coordinate(100,200))
-#ant.cords.append(Coordinate.Coordinate(100,300))
-#ant.cords.append(Coordinate.Coordinate(200,400))
-#ant.cords.append(Coordinate.Coordinate(100,400))
-#ant.cords.append(Coordinate.Coordinate(300,400))
-#ant.cords.append(Coordinate.Coordinate(400,400))
-#ant.cords.append(Coordinate.Coordinate(400,300))
-#ant.cords.append(Coordinate.Coordinate(400,200))
-#print ant.solve()
+ant = AntSolver()
+ant.cords.append(Coordinate.Coordinate(400,100))
+ant.cords.append(Coordinate.Coordinate(300,100))
+ant.cords.append(Coordinate.Coordinate(200,100))
+ant.cords.append(Coordinate.Coordinate(100,100))
+ant.cords.append(Coordinate.Coordinate(100,200))
+ant.cords.append(Coordinate.Coordinate(100,300))
+ant.cords.append(Coordinate.Coordinate(200,400))
+ant.cords.append(Coordinate.Coordinate(100,400))
+ant.cords.append(Coordinate.Coordinate(300,400))
+ant.cords.append(Coordinate.Coordinate(400,400))
+ant.cords.append(Coordinate.Coordinate(400,300))
+ant.cords.append(Coordinate.Coordinate(400,200))
+print ant.solve()
