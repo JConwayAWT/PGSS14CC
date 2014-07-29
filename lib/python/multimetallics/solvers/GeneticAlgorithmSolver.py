@@ -27,52 +27,63 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
-        self.particle = genParticle(self.definingString,int(self.numberOfAtoms)); #Generates the base particle
-        print self.particle.get_potential_energy(); #Prints base case energy
-        self.bestParticles = []; #Initializes the list of bestParticles
-        self.bestEnergy = self.particle.get_potential_energy(); #Initializes best energy
-        self.bestParticle = copy.copy(self.particle); #Best particle is a copy of particle
-        heapq.heappush(self.bestParticles, (self.particle.get_potential_energy(), self.particle)); #Pushes particle to bestParticles
-        for i in range(100): #Mutates particle 100 times and pushes results into a heap
-            self.bestPparticle = self.mutate(self.particle);
-            heapq.heappush(self.bestParticles, (self.bestParticle.get_potential_energy(), self.bestParticle));
-        self.currentEnergy = 0;
-        self.currentParticle = None;
-        for i in range(15):
-            self.currentEnergy = 1000000;
-            self.newBestParticles = [];
-            for l in range(10):
-                self.newBestParticles.append(heapq.heappop(self.bestParticles));
-                print((self.newBestParticles[-1])[0]);
-            self.bestParticles = copy.copy(self.newBestParticles);
-            self.children = self.breed(self.bestParticles);
-            for j in range(len(self.bestParticles)):
-                newparticle = self.mutate((self.bestParticles[j])[1]);
-                self.bestParticles[j] = (newparticle.get_potential_energy(), newparticle);
-                if((self.bestParticles[j])[0] < self.currentEnergy):
-                    self.currentParticle = (self.bestParticles[j])[1];
-                    self.currentEnergy = (self.bestParticles[j])[0];
-            for index in range(len(self.children)):
-                newparticle = (self.children[index]);
-                heapq.heappush(self.bestParticles, (newparticle.get_potential_energy(), newparticle));
-            print("-------------");
-        self.minEnergy = 100000;
-        self.bestParticle = None;
-        for i in range(len(self.bestParticles)):
-            if((self.bestParticles[i])[0] < self.minEnergy):
-                self.bestParticle = (self.bestParticles[i])[1];
-                minEnergy = (self.bestParticles[i])[0];
-        listOfAtoms = [];
-        for atom in self.bestParticle:
-          dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
-          listOfAtoms.append(dictElement)
-        dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": minEnergy}
-        actually_json = json.dumps(dictionary_to_be_turned_into_json)
+    self.particle = genParticle(self.definingString,int(self.numberOfAtoms)); #Generates the base particle
+    print self.particle.get_potential_energy(); #Prints base case energy
+    self.bestParticles = []; #Initializes the list of bestParticles
+    self.bestEnergy = self.particle.get_potential_energy(); #Initializes best energy
+    self.bestParticle = copy.copy(self.particle); #Best particle is a copy of particle
+    heapq.heappush(self.bestParticles, (self.particle.get_potential_energy(), self.particle)); #Pushes particle to bestParticles
+    for i in range(100): #Mutates particle 100 times and pushes results into a heap
+        if i%5==0:
+            pDone=float(i)/100
+            self.setStatusDone(str(math.floor(pDone*100))+"% | Stage 1 | "+self.remainingTime(pDone))
+            self.checkTimeout()
+        self.bestParticle = self.mutate(self.particle);
+        heapq.heappush(self.bestParticles, (self.bestParticle.get_potential_energy(), self.bestParticle));
+    self.currentEnergy = 0;
+    self.currentParticle = None;
+    CALCULATIONS=15
+    for i in range(CALCULATIONS):
+        if i%1==0 and i>0:
+            pDone=float(i)/CALCULATIONS
+            self.setStatusDone(str(math.floor(pDone*100))+"% | Stage 2  | "+self.remainingTime(pDone))
+            self.checkTimeout()
+            self.setSolution(self.getAnswer())
+        self.currentEnergy = 1000000;
+        self.newBestParticles = [];
+        for l in range(10):
+            self.newBestParticles.append(heapq.heappop(self.bestParticles));
+            print((self.newBestParticles[-1])[0]);
+        self.bestParticles = copy.copy(self.newBestParticles);
+        self.children = self.breed(self.bestParticles);
+        for j in range(len(self.bestParticles)):
+            newparticle = self.mutate((self.bestParticles[j])[1]);
+            self.bestParticles[j] = (newparticle.get_potential_energy(), newparticle);
+            if((self.bestParticles[j])[0] < self.currentEnergy):
+                self.currentParticle = (self.bestParticles[j])[1];
+                self.currentEnergy = (self.bestParticles[j])[0];
+        for index in range(len(self.children)):
+            newparticle = (self.children[index]);
+            heapq.heappush(self.bestParticles, (newparticle.get_potential_energy(), newparticle));
+        print("-------------");
 
-        # this gets returned to the parent class and shoved into the database as a string, then
-        # parsed as JSON on the page and displayed/drawn for the user
-        return actually_json
+    return self.getAnswer()
 
+  def getAnswer(self):
+    self.minEnergy = 100000;
+    self.bestParticle = None;
+    for i in range(len(self.bestParticles)):
+        if((self.bestParticles[i])[0] < self.minEnergy):
+            self.bestParticle = (self.bestParticles[i])[1];
+            minEnergy = (self.bestParticles[i])[0];
+
+    listOfAtoms = [];
+    for atom in self.bestParticle:
+      dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
+      listOfAtoms.append(dictElement)
+    dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": minEnergy}
+    actually_json = json.dumps(dictionary_to_be_turned_into_json)
+    return actually_json
   def breed(self, generation):
     children = [];
     for i in range(len(generation)):

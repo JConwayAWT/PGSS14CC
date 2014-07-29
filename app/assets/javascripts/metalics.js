@@ -72,6 +72,8 @@ function doneProcessing(){
   processing=false;
   DB_ID=0;
 
+  $("#progress").css("width",$("#progbar").width());
+
   $("#progbar").fadeOut(500);
 }
 
@@ -167,7 +169,7 @@ function startCheckingForUpdates(){
       }
     })
     .fail(function() {
-      alert("The AJAX request to retreive the problem has raised an error");
+      //alert("The AJAX request to retreive the problem has raised an error");
     });  
   }
 }

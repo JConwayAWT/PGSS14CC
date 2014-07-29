@@ -9,6 +9,7 @@ function doneProcessing(){
 	processing=false;
 	DB_ID=0;
 	$("#progbar").fadeOut(500);
+	$("#progress").css("width",$("#progbar").width());
 }
 
 

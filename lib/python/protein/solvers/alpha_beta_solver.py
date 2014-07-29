@@ -166,3 +166,4 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 ##s.solve()
 
 ##print s.chosen_coords
+

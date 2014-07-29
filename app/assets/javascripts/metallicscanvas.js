@@ -59,10 +59,40 @@ $(document).ready(function(){
 		}
 	});
 });
+function centerSpheres(){
+	minX=999999;
+	minY=999999;
+	minZ=999999;
+	maxX=-999999;
+	maxY=-999999;
+	maxZ=-999999;
+	for(var i=0;i<atoms.length;i++){
+		minX=Math.min(atoms[i].x,minX);
+	    minY=Math.min(atoms[i].y,minY);
+	    minZ=Math.min(atoms[i].z,minZ);
 
+	    maxX=Math.max(atoms[i].x,maxX);
+	    maxY=Math.max(atoms[i].y,maxY);
+	    maxZ=Math.max(atoms[i].z,maxZ);
+  	}
+  	for(var i=0;i<atoms.length;i++){
+		atoms[i].x-=minX+(maxX-minX)/2;
+		atoms[i].y-=minY+(maxY-minY)/2;
+		atoms[i].z-=minZ+(maxZ-minZ)/2;
+
+  	}
+}
 function loadSpheres(atoms){
+	centerSpheres();	
 	scene.remove(content);
-	content = new THREE.Object3D();
+	if(content==null){
+		content =  new THREE.Object3D();
+	}else{
+		oldcontent = content;
+		content =  new THREE.Object3D();
+		content.rotation.x = oldcontent.rotation.x;
+		content.rotation.y = oldcontent.rotation.y;
+	}
 	var geometry_Al = new THREE.SphereGeometry(1.25, 50, 50);
 	var geometry_Ni = new THREE.SphereGeometry(1.35, 50, 50);
 	var geometry_Cu = new THREE.SphereGeometry(1.35, 50, 50);
