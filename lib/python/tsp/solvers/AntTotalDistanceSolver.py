@@ -26,7 +26,7 @@ class AntTotalDistanceSolver (LineOverlapEliminatorTravelingSalesmanSolver.LineO
      self.initOverlapSolver()
      self.phermones =[[]]
      self.CALCULATIONS=10000
-     self.CALCULATION_UPDATES=1000
+     self.CALCULATION_UPDATES=100
      self.BEST_UPDATES=1000
      self.debugData=""
      self.traversed=[]
