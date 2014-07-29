@@ -73,8 +73,10 @@ function doneProcessing(){
   DB_ID=0;
 
   $("#progress").css("width",$("#progbar").width());
+  $("#loading").css("opacity",1);
 
   $("#progbar").fadeOut(500);
+  $("#loading").fadeOut(500);
 }
 
 function validateParametersForSubmission(elementOne, elementTwo, elementThree, percentageOne, percentageTwo, percentageThree, algorithm, numberOfAtoms){
@@ -142,6 +144,7 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
       DB_ID=data.databaseId;
       processing=true;
       $("#progbar").fadeIn(500);
+      $("#loading").fadeIn(500);
     })
     .fail(function() {
       //alert("The AJAX request to pose the problem has raised an error.");
@@ -163,6 +166,7 @@ function startCheckingForUpdates(){
       console.log(data);
       $("#statusDone").html(data.statusDone);
       $("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#progbar").width());
+      $("#loading").css("opacity",1-parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100);
       if(data.done){
         DB_ID=0;
         doneProcessing();

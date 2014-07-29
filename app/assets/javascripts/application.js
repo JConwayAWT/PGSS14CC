@@ -16,3 +16,15 @@
 //= require bootstrap-sprockets
 //= require three.min
 //= require bootstrap-slider
+
+$(document).ready(function(){
+	var rotation=0;
+	setInterval(function(){		
+		var rstring ="rotate("+rotation+"deg)";
+		$("#loading").css("transform", rstring);
+		$("#loading").css("-ms-transform", rstring);
+		$("#loading").css("-webkit-transform", rstring);		
+		rotation+=5;
+		rotation%=360;
+	},25);
+});

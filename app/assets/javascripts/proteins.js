@@ -9,7 +9,10 @@ function doneProcessing(){
 	processing=false;
 	DB_ID=0;
 	$("#progbar").fadeOut(500);
+	$("#loading").fadeOut(500);
 	$("#progress").css("width",$("#progbar").width());
+	$("#loading").css("opacity",1);
+	
 }
 
 
@@ -108,6 +111,7 @@ function getSolutionProgress(){
 
 			$("#statusDone").html(data.statusDone);
       		$("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#progbar").width());
+      		$("#loading").css("opacity",1-parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100);
 
 			if(data.answer!=null&&data.answer!=""){
 				//answer
@@ -260,6 +264,7 @@ function getSolution(){
 	var yvalues=[];		
 	processing=true;
 	$("#progbar").fadeIn(500);
+	$("#loading").fadeIn(500);
 	var data=$("#data").val();
 	var algorithm=$("#algorithm").val();
 	startTime= (new Date().getTime());
@@ -283,3 +288,4 @@ function getSolution(){
 	
 	return false;
 }
+
