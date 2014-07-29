@@ -33,6 +33,7 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     self.bestEnergy = self.particle.get_potential_energy(); #Initializes best energy
     self.bestParticle = copy.copy(self.particle); #Best particle is a copy of particle
     heapq.heappush(self.bestParticles, (self.particle.get_potential_energy(), self.particle)); #Pushes particle to bestParticles
+    self.startTime = self.millis()
     for i in range(100): #Mutates particle 100 times and pushes results into a heap
         if i%5==0:
             pDone=float(i)/100
@@ -42,6 +43,7 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
         heapq.heappush(self.bestParticles, (self.bestParticle.get_potential_energy(), self.bestParticle));
     self.currentEnergy = 0;
     self.currentParticle = None;
+    self.startTime = self.millis()
     CALCULATIONS=15
     for i in range(CALCULATIONS):
         if i%1==0 and i>0:

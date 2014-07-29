@@ -9,7 +9,7 @@ lib_path = os.path.abspath('../')
 sys.path.append(lib_path)
 random.seed()
 
-class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
+class ProteinChain3D(ProteinFoldingSolver.ProteinFoldingSolver):
 
   def __init__(self,amino_acid_chain_string):
     self.startTime = self.millis()
@@ -22,18 +22,22 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
     self.getEnergy()
 
 
-  def add_or_subtract_one_from_x_or_y(self,coords):
+  def add_or_subtract_one_from_x_or_y_or_z(self,coords):
     R = random.random() #range of [0,1]
     last_coord = deepcopy(coords[-1])
     new_coord = deepcopy(coords[-1])
-    if (R >= 0) and (R <= 0.25):
+    if (R >= 0) and (R <= 0.16):
       new_coord[0]+=1
-    elif (R <= .5):
+    elif (R <= .32):
       new_coord[0]-=1
-    elif (R <= 0.75):
+    elif (R <= 0.48):
       new_coord[1]+=1
-    else:
+    elif (R <= 0.62):
       new_coord[1]-=1
+    elif (R <= 0.78):
+      new_coord[2]+=1
+    else:
+      new_coord[2]-=1
     if (new_coord not in coords):
       coords.append(new_coord)
     if self.trapped(coords):
@@ -48,15 +52,15 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
 
   def trapped(self,coords):
     last_coord = deepcopy(coords[-1])
-    if (([last_coord[0]+1, last_coord[1]] in coords) and ([last_coord[0]-1, last_coord[1]] in coords)and([last_coord[0], last_coord[1]+1] in coords)and([last_coord[0], last_coord[1]-1] in coords)):
+    if (([last_coord[0]+1, last_coord[1], last_coord[2]] in coords) and ([last_coord[0]-1, last_coord[1], last_coord[2]] in coords)and([last_coord[0], last_coord[1]+1,last_coord[2]] in coords)and([last_coord[0], last_coord[1]-1,last_coord[2]] in coords) and ([last_coord[0], last_coord[1], last_coord[2] + 1] in coords) and ([last_coord[0], last_coord[1], last_coord[2] - 1] in coords)):
       return True
     else:
       return False
 
   def generateChainCoordinates(self):
-    coords = [[0,0]]
+    coords = [[0,0,0]]
     while (len(coords) < self.number_of_acids):
-      coords = self.add_or_subtract_one_from_x_or_y(coords)
+      coords = self.add_or_subtract_one_from_x_or_y_or_z(coords)
       if (self.trappedCount > 10):
         break
     if ((len(coords) == self.number_of_acids)):
@@ -69,7 +73,7 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
   def lineGen(self):
     linecoords = []
     for i in range(len(self.amino_acid_chain)):
-      linecoords.append([0,i])
+      linecoords.append([0,i,0])
     self.setCoords(linecoords)
 
   def getCoords(self):
@@ -112,40 +116,72 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
     for i in range(len(self.coords)):
       self.cords[i][0] = self.coords[i][0]
       self.cords[i][1] = self.coords[i][1]
+      self.cords[i][2] = self.coords[i][2]
     self.getEnergy()
 
   def getChain(self):
     return self.chainAminoAcids
 
   def getEnergy(self):
-    self.Energy = 0.
+    self.Energy = 0.0
     for acid in self.chainAminoAcids:
-      if acid.pole == 'H':
+      if acid.pole == "H":
         coord = deepcopy(acid.coord)
         test_coord = deepcopy(coord)
+
         test_coord[0] += 1
-        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
+        if (test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor):
           index = self.coords.index(test_coord)
-          if (self.cords[index][2] == 'H'):
+          if self.cords[index][3] == 'H':
             self.Energy -= 0.5
-        test_coord = deepcopy(coord)
+        elif test_coord not in self.coords:
+          self.Energy += 0.1
         test_coord[0] -= 1
-        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
+
+        test_coord[0] -= 1
+        if (test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor):
           index = self.coords.index(test_coord)
-          if (self.cords[index][2] == 'H'):
+          if self.cords[index][3] == 'H':
             self.Energy -= 0.5
-        test_coord = deepcopy(coord)
+        elif test_coord not in self.coords:
+          self.Energy += 0.1
+        test_coord[0] += 1
+
+        test_coord[1] += 1
+        if (test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor):
+          index = self.coords.index(test_coord)
+          if self.cords[index][3] == 'H':
+            self.Energy -= 0.5
+        elif test_coord not in self.coords:
+          self.Energy += 0.1
         test_coord[1] -= 1
-        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
-          index = self.coords.index(test_coord)
-          if (self.cords[index][2] == 'H'):
-            self.Energy -= 0.5
-        test_coord = deepcopy(coord)
+
         test_coord[1] -= 1
-        if ((test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor)):
+        if (test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor):
           index = self.coords.index(test_coord)
-          if (self.cords[index][2] == 'H'):
+          if self.cords[index][3] == 'H':
             self.Energy -= 0.5
+        elif test_coord not in self.coords:
+          self.Energy += 0.1
+        test_coord[1] += 1
+
+        test_coord[2] += 1
+        if (test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor):
+          index = self.coords.index(test_coord)
+          if self.cords[index][3] == 'H':
+            self.Energy -= 0.5
+        elif test_coord not in self.coords:
+          self.Energy += 0.1
+        test_coord[2] -= 1
+
+        test_coord[2] -= 1
+        if (test_coord in self.coords) and (test_coord != acid.pNeighbor) and (test_coord != acid.nNeighbor):
+          index = self.coords.index(test_coord)
+          if self.cords[index][3] == 'H':
+            self.Energy -= 0.5
+        elif test_coord not in self.coords:
+          self.Energy += 0.1
+        test_coord[2] += 1
 
   def list_of_hs_in_a_row(self, chain):
     list_of_h_indexes = []
@@ -164,52 +200,7 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
   def formatSolution(self):
     acids = []
     for i in self.bestCords:
-      acids.append({"type": i[2], "x": i[0], "y": i[1]})
+      acids.append({"type": i[3], "x": i[0], "y": i[1], "z": i[2]})
     dictionary_to_be_turned_into_json = {"potentialEnergy": self.bestEnergy, "acids": acids}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
     return actually_json
-
-  def find_corner(self):
-        corners = []
-
-        location_of_previous_acid = self.chosen_coords[current_chain_index-1]
-        location_of_next_acid = self.chosen_coords[current_chain_index+1]
-        if location_of_previous_acid[0] != location_of_next_acid[0] and location_of_previous_acid[1]!= location_of_next_acid[1]:
-            location_of_current_acid = self.chosen_coords[current_chain_index]
-            corners.append(location_of_current_acid)
-
-  def get_rest_of_chain(self, amino_acid_chain):
-        i = 0
-        current_amino_acid = self.amino_acid_chain[current_chain_index] #gives us "H" or "P"
-        for i in range(len(amino_acid_chain)):
-            if i <= amino_acid_chain.index(current_amino_acid):#everything before and inluding the corner
-                amino_acid_chain.pop(amino_acid_chain[i])#outputs smaller amino acid chain (everything after the corner)
-
-  def change_corner(self, corners):
-        possible_paths = []
-        possible_final_paths = []
-        for current_corner in range(corners()):
-            possible_paths.append(current_corner)#original path
-            possible_paths = [[current_corner[0] + 1, current_corner[1]],[current_corner[0] - 1, current_corner[1]],[current_corner[0], current_corner[1] + 1],[current_corner[0], current_corner[1] - 1]]
-            possible_paths = self.remove_filled_positions(possible_paths)
-            for coordinate in chosen_coords:
-                if chosen_coords.index(coordinate) > chosen_coords.index(current_corner):
-                    chosen_coords.pop(coordinate)
-            for i in range(len(self.possible_paths)):
-                chosen_coords.append(possible_paths[i])
-                self.amino_acid_chain()
-                amino_acid_chain.solve()#FIX NEEDED: solve, only calculating potential energy
-                self.getEnergy()
-                potential_energy_per_path = []
-                potential_energy_per_path.append(self.Energy)
-
-                minimum_energy = min(potential_energy_per_path)
-                minimum_energy_index = potential_energy_per_path.index(minimum_energy)
-                minimum_path = possible_paths[minimum_energy_index]
-
-                potential_energy_per_final_path = []
-                potential_energy_per_final_path.append(minimum_energy)
-
-                possible_final_paths.append(minimum_path)
-                #current_chain_index += 1
-
