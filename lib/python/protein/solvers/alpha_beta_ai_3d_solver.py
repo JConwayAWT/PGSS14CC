@@ -13,8 +13,10 @@ from copy import deepcopy
 
 class alpha_beta_ai_3d(ProteinChainClass3D.ProteinChain3D):
     def solve(self):
+      self.setStatusDone("Initializing protein configuration...")
       bestEnergy = 999
       bestChain = []
+      attempt_count = 0
 
       for a in range(1, 4):
         for b in range(1, 4):
@@ -25,6 +27,13 @@ class alpha_beta_ai_3d(ProteinChainClass3D.ProteinChain3D):
                   self.chosen_coords = []
                   self.chosen_coords.append([0,0,0])
                   current_chain_index = 1
+                  retries = 0
+                  attempt_count += 1
+
+                  if attempt_count%20==0:
+                    pDone=float(attempt_count)/729
+                    self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+                    self.checkTimeout()
 
                   while len(self.chosen_coords) < len(self.amino_acid_chain): ##keep going until all AAs are used
                     current_amino_acid = self.amino_acid_chain[current_chain_index] #gives us "H" or "P"
@@ -52,13 +61,14 @@ class alpha_beta_ai_3d(ProteinChainClass3D.ProteinChain3D):
 
                       current_chain_index += 1
                     except:
-                      print "no possible neighbors..."
-                      number_to_pop = random.gauss(6, 3)
-                      number_to_pop = max(0, int(number_to_pop))
-                      self.chosen_coords = self.chosen_coords[-1*number_to_pop:]
-                      current_chain_index = len(self.chosen_coords)
-
-                      ## TO DO : FIX THIS.  IT STILL GETS STUCK SOMETIMES.
+                      if retries < 10:
+                        number_to_pop = random.gauss(6, 3)
+                        number_to_pop = max(0, int(number_to_pop))
+                        self.chosen_coords = self.chosen_coords[-1*number_to_pop:]
+                        current_chain_index = len(self.chosen_coords)
+                      else:
+                        for k in range(len(self.chosen_coords)):
+                          self.chosen_coords[k] = [0, k, 0]
 
 
                   self.setCoords(self.chosen_coords)
@@ -67,11 +77,24 @@ class alpha_beta_ai_3d(ProteinChainClass3D.ProteinChain3D):
                   if self.Energy < bestEnergy:
                     bestChain = copy.deepcopy(self.chosen_coords)
                     bestEnergy = copy.deepcopy(self.Energy)
-                    print "NEW BEST!"
-                    print bestEnergy, bestChain
+                    self.bestEnergy = copy.deepcopy(self.Energy)
+                    self.bestCords = copy.deepcopy(self.chosen_coords)
+                    j = self.formatForSolution(bestEnergy, bestChain)
+                    self.setSolution(j)
+                    print "Successfully set solution as ", j
 
       self.setCoords(bestChain)
       self.getEnergy()
+
+      acids = []
+      for i in range(len(bestChain)):
+        acids.append({"type": self.amino_acid_chain[i], "x": bestChain[i][0], "y": bestChain[i][1], "z": bestChain[i][2]})
+      dictionary_to_be_turned_into_json = {"potentialEnergy": bestEnergy, "acids": acids}
+      actually_json = json.dumps(dictionary_to_be_turned_into_json)
+      self.setSolution(actually_json)
+      return actually_json
+
+    def formatForSolution(self, bestEnergy, bestChain):
       acids = []
       for i in range(len(bestChain)):
         acids.append({"type": self.amino_acid_chain[i], "x": bestChain[i][0], "y": bestChain[i][1], "z": bestChain[i][2]})
@@ -139,8 +162,8 @@ class alpha_beta_ai_3d(ProteinChainClass3D.ProteinChain3D):
       return legal_coords
 
 
-s = alpha_beta_ai_3d("HHHHPPPPHHHHPHHHPPPHHHHPPPHPHPHHHPPPPHHHHHH")
-s.solve()
+##s = alpha_beta_ai_3d("HHHHPPPPHHHHPHHHPPPHHHHPPPHPHPHHHPPPPHHHHHH")
+##s.solve()
 
-print s.chosen_coords
-print s.Energy
+#print s.chosen_coords
+#print s.Energy
