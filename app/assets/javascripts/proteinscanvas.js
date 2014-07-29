@@ -9,9 +9,6 @@ $(document).ready(function(){
 	$("#canvas3d").html( renderer.domElement );
 	camera.position.z = 25;
 	
-	$("input#slider-goes-here").on('slide', function() {
-		camera.position.z = 50 - $("input#slider-goes-here").slider('getValue');
-	});
 
 	scene.add(camera);
 	var pointLight = new THREE.PointLight( 0xFFFFFF );
@@ -33,6 +30,7 @@ $(document).ready(function(){
     		//content.rotation.y+=.01
     		//content.rotation.y+=.1;	
     	}
+    	camera.position.z = 50 - $("input#slider-goes-here").slider('getValue');
 	}
 	render();
 
