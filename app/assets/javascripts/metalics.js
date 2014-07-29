@@ -78,29 +78,29 @@ function doneProcessing(){
 
 function validateParametersForSubmission(elementOne, elementTwo, elementThree, percentageOne, percentageTwo, percentageThree, algorithm, numberOfAtoms){
   if (elementOne == "None" || percentageOne == undefined){
-      alert("Please choose a primary element and specify its percentage");
+    alert("Please choose a primary element and specify its percentage");
+  }
+  else if (elementTwo == "None" || percentageTwo == undefined){
+    alert("Please choose a second element and specify its percentage.");
+  }
+  else if (elementThree != "None" && percentageThree == undefined){
+    alert("Please specify a percentage for your third element");
+  }
+  else if (numberOfAtoms == ""){
+    alert("Please specify a number of atoms.");
+  }
+  else{
+    if (elementThree == "None"){
+      percentageThree = "0";
     }
-    else if (elementTwo == "None" || percentageTwo == undefined){
-      alert("Please choose a second element and specify its percentage.");
-    }
-    else if (elementThree != "None" && percentageThree == undefined){
-      alert("Please specify a percentage for your third element");
-    }
-    else if (numberOfAtoms == ""){
-      alert("Please specify a number of atoms.");
+
+    if (parseFloat(percentageOne) + parseFloat(percentageTwo) + parseFloat(percentageThree) != 100){
+      alert("Please ensure that your percentages add to 100");
     }
     else{
-      if (elementThree == "None"){
-        percentageThree = "0";
-      }
-
-      if (parseInt(percentageOne) + parseInt(percentageTwo) + parseInt(percentageThree) != 100){
-        alert("Please ensure that your percentages add to 100");
-      }
-      else{
-        performAjaxRequest(elementOne, elementTwo, elementThree, percentageOne, percentageTwo, percentageThree, algorithm, numberOfAtoms);
-      }
+      performAjaxRequest(elementOne, elementTwo, elementThree, percentageOne, percentageTwo, percentageThree, algorithm, numberOfAtoms);
     }
+  }
 }
 
 
@@ -132,7 +132,7 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
 
   $("#progress").css("width",$("#progbar").width());
   $("#loading").css("opacity",1);
-
+  console.log(pass_info);
   $.ajax({
       url: '/pose_metalic_problem',
       type: 'POST',
