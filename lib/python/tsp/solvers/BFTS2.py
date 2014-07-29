@@ -21,7 +21,6 @@ import TravelingSalesmanSolver
 class BFTS2 (TravelingSalesmanSolver.TravelingSalesmanSolver):
   def __init__(self,params=None):
      self.initSolver(params)
-     self.initOverlapSolver()
      self.CALCS_DONE=0
      self.CALCULATIONS=0
      self.CALCULATION_UPDATES=100000
@@ -29,7 +28,7 @@ class BFTS2 (TravelingSalesmanSolver.TravelingSalesmanSolver):
   def solve(self):
     self.CALCULATIONS=math.factorial(len(self.cords))
     perms = itertools.permutations(range(len(self.cords)),len(self.cords))
-    bestOrder=None
+    bestOrderPerm=None
     bestDistance=float("inf")
 
     for p in perms:
@@ -43,12 +42,14 @@ class BFTS2 (TravelingSalesmanSolver.TravelingSalesmanSolver):
             d+=self.cdists[n][pr]
             pr=n
         if d<bestDistance:
-            bestOrder = p
+            bestOrderPerm = p
             bestDistance = d
 
     self.answer=";"
-    for c in bestOrder:
+    self.bestOrder = []
+    for c in bestOrderPerm:
       self.answer+=str(c)+","
+      self.bestOrder.append(c)
     self.answer+="0"
     return self.answer;
 
