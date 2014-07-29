@@ -53,9 +53,9 @@ class simulatedAnnealingNano(MetalicsSolver.MetalicFoldingSolver):
         return actually_json
 
 
-if __name__ == '__main__':
-    SA = simulatedAnnealingNano()
-    SA.definingString = "Pt50Au30"
-    SA.numberOfAtoms = 80
-    print SA.solve()
-    print "DONE"
+# if __name__ == '__main__':
+#     SA = simulatedAnnealingNano()
+#     SA.definingString = "Pt50Au30"
+#     SA.numberOfAtoms = 80
+#     print SA.solve()
+#     print "DONE"
