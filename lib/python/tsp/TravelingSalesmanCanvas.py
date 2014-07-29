@@ -72,7 +72,7 @@ def main():
     solver = sas.SimulatedAnnealingSalesmanSolver(params)
     solver.enforce_random_start = False
 
-  if algorithm =="Annealing (random start)":
+  if algorithm =="Annealing (Random start)":
     solver = sas.SimulatedAnnealingSalesmanSolver(params)
     solver.enforce_random_start = True
 
