@@ -32,8 +32,10 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
     for i in range(moves):
       self.singleMove()
       self.reCenter()
-      #if (i % 100 == 0):
-      #  print i
+      if (i % 100 == 0):
+        pDone=float(i)/moves
+        self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+        self.checkTimeout()
       if (self.Energy < self.bestEnergy):
         self.bestEnergy = deepcopy(self.Energy)
         self.bestCords = deepcopy(self.cords)
@@ -56,6 +58,10 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
       new_coords = deepcopy(self.coords)
       new_coords.pop(0)
       new_coords.append(trial_move)
+      self.setCoords(new_coords)
+    elif (self.trappedCount < 500):
+      new_coords = deepcopy(self.coords)
+      new_coords.reverse()
       self.setCoords(new_coords)
     else:
       self.trappedCount += 1
