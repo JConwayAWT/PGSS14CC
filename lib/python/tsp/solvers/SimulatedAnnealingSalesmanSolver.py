@@ -34,10 +34,12 @@ sys.path.append(lib_path)
 
 from math import *
 from LineOverlapEliminatorTravelingSalesmanSolver import *
+import DijkstraTravelingSalesmanSolverStreamlined as ds
 #import Lined
 
 
 class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver):
+
 
   def __init__(self,params=None):
 
@@ -223,11 +225,16 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     bestpath=[]
     path = []
     #path=self.generatepath()
-    currentpath = self.generatepath()
+    dijkstra_solver = ds.DijkstraTravelingSalesmanSolver()
+    dijkstra_solver.cords = self.cords
+    dijkstra_solver.REMOVE_LINE_CROSSES=self.REMOVE_LINE_CROSSES
+    dijkstra_solution = dijkstra_solver.solve()
+    currentpath = [int(k) for k in dijkstra_solution.split(",")]
     CALCULATIONS=10000#*len(currentpath)
     for timestried in range(CALCULATIONS):
         #print (self.calculateIntersects())
         if timestried%1000==0:
+            self.putIntoBestOrder()
             self.setSolution(self.getAnswer())
         self.Temperature = 1-self.TemperatureUpdate(timestried, CALCULATIONS)
         #print self.Temperature
@@ -254,7 +261,6 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
 
     return self.getAnswer()
 
-#
 ##if __name__ == '__main__':
 ##    A=SimulatedAnnealingSalesmanSolver()
 ##    A.cords.append(CC.Coordinate(-2,0,0))
@@ -268,3 +274,4 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
 ##    #print(A.distance([0,1,2,3]))
 ##    #print(A.distance([0,2,1,3]))
 ##    #print(A.distance([1,0,2,3]))
+
