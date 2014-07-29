@@ -67,15 +67,14 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
         CM = CC.Coordinate(xsum/len(self.cords), ysum/len(self.cords), 0);
         return CM;
   def TemperatureUpdate (self, Iter, maxiter):
-
         if Iter >= 0 and Iter <= maxiter/5:
             return 0.9
         if Iter > maxiter/5 and Iter <= maxiter*2/5:
-            return 0.8
+            return 0.9
         if Iter > maxiter*2/5 and Iter <= maxiter*3/5:
-            return 0.6
+            return 0.8
         if Iter > maxiter*3/5 and Iter <= maxiter*4/5:
-            return 0.5
+            return 0.6
         if Iter > maxiter*4/5 and Iter <= maxiter:
             return 1-(float(Iter)/float(maxiter))
 
