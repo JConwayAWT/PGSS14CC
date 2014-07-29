@@ -231,6 +231,9 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     dijkstra_solution = dijkstra_solver.solve()
     currentpath = [int(k) for k in dijkstra_solution.split(",")]
     CALCULATIONS=10000#*len(currentpath)
+    if self.enforce_random_start:
+        currentpath = [k for k in range(len(self.cords))]
+        CALCULATIONS=30000
     for timestried in range(CALCULATIONS):
         #print (self.calculateIntersects())
         if timestried%1000==0:

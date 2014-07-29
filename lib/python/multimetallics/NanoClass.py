@@ -19,8 +19,13 @@ def genParticle(definingString,number):
   dummyAtom = ase.io.read('InputGeom.vasp',format='vasp')
   while (len(dummyAtom) > number):
     dummyAtom.pop(-1)
-  coords = dummyAtom.get_positions()
-  newAtom = Atoms(definingString,coords)
+  coords = dummyAtom.get_positions().tolist()
+  shuffledCoords = []
+  while (len(coords) > 0):
+    R = random.randint(0,len(coords) - 1)
+    item = coords.pop(R)
+    shuffledCoords.append(item)
+  newAtom = Atoms(definingString,shuffledCoords)
   calc = EMT()
   newAtom.set_calculator(calc)
   newAtom.set_cell(dummyAtom.get_cell() * 10.)
