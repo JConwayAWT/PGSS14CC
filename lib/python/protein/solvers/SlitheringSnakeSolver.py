@@ -59,12 +59,13 @@ class SlitheringSnakeSolver(ProteinChainClass.ProteinChain):
       new_coords.pop(0)
       new_coords.append(trial_move)
       self.setCoords(new_coords)
-    elif (self.trappedCount < 500):
+    elif (self.trappedCount < 1000):
       new_coords = deepcopy(self.coords)
       new_coords.reverse()
       self.setCoords(new_coords)
-    else:
       self.trappedCount += 1
+    else:
+      self.trappedCount = 0
       self.generateChainCoordinates()
       self.getEnergy()
 
