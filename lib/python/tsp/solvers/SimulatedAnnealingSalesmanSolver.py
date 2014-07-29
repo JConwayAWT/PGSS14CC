@@ -50,9 +50,9 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     self.Temperature = 1.0
     self.bestscore = None
     self.bestPath = []
-    self.repeat = 0
+    #self.repeat = 0
 
-    self.logScalingFactor =0
+    #self.logScalingFactor =0
 
 #  def solve(self):
     #self.bestDistance=float("inf")
@@ -197,13 +197,13 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
 
     if currentscore >= newscore:
         #print ("YAYAYAY", newpath)
-        self.repeat = 0
+        #self.repeat = 0
         return [newpath, score,newpath]
     #elif self.repeat >= len(path):
         #print self.repeat
         #return [newpath, score, newpath]
     else:
-        self.repeat +=1
+        #self.repeat +=1
         randint = random.random()
         probability = 1/(1+exp(-(newscore-currentscore)/self.Temperature))#/self.Temperature)
         if randint > probability:
@@ -230,6 +230,7 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     if self.enforce_random_start:
         currentpath = [k for k in range(len(self.cords))]
         CALCULATIONS=30000
+    self.bestPath = currentpath
     currentscore = self.Scoringfunction(currentpath)
     for timestried in range(CALCULATIONS):
         #print (self.calculateIntersects())
