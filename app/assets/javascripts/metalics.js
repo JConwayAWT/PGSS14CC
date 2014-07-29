@@ -72,9 +72,6 @@ function doneProcessing(){
   processing=false;
   DB_ID=0;
 
-  $("#progress").css("width",$("#progbar").width());
-  $("#loading").css("opacity",1);
-
   $("#progbar").fadeOut(500);
   $("#loading").fadeOut(500);
 }
@@ -133,6 +130,9 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
 
   pass_info = {data: {"definingString": definingString, "numberOfAtoms": numberOfAtoms}, algorithm: alg}
 
+  $("#progress").css("width",$("#progbar").width());
+  $("#loading").css("opacity",1);
+
   $.ajax({
       url: '/pose_metalic_problem',
       type: 'POST',
@@ -159,7 +159,6 @@ function startCheckingForUpdates(){
     })
     .done(function(data) {
       provideDataToPage(data);
-      console.log(data);
       $("#statusDone").html(data.statusDone);
       $("#progress").css("width",parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100*$("#progbar").width());
       $("#loading").css("opacity",1-parseFloat(data.statusDone.substring(0,data.statusDone.indexOf('%')))/100);
