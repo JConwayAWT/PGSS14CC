@@ -108,8 +108,7 @@ function validateParametersForSubmission(elementOne, elementTwo, elementThree, p
 
 
 
-function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
-  console.log("R");
+function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){  
   definingString = ""
   numberOfAtoms = parseInt(numberOfAtoms)
 
@@ -133,7 +132,6 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
   }
 
   pass_info = {data: {"definingString": definingString, "numberOfAtoms": numberOfAtoms}, algorithm: alg}
-  console.log(pass_info);
 
   $.ajax({
       url: '/pose_metalic_problem',
@@ -151,11 +149,9 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
     });
 }
 
-function startCheckingForUpdates(){
-  console.log("check"+processing+" "+DB_ID);
+function startCheckingForUpdates(){  
   setTimeout(startCheckingForUpdates,1000);
   if(processing && DB_ID>0){
-    console.log("DBID"+DB_ID);
     $.ajax({
       url: '/retreive_metalic_problem',
       type: 'POST',
