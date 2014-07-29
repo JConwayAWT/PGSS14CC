@@ -35,6 +35,14 @@ $(document).ready(function(){
 	var dragY=0;
 	var dragX=0;
 
+	$('#loading').on('dragstart', function(event) { event.preventDefault(); });
+
+	
+	$("#loading").mousedown(function(){
+		startDrag();
+		return false;
+	});
+
 	$("#metallics-canvas").mousedown(function(e) {
 		dragging=$(this);
 		dragY=e.pageY-parseInt(dragging.parent().css('top'));

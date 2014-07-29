@@ -15,6 +15,17 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.eot');
+  src: url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.eot?iefix') format("eot"), url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.woff') format("woff"), url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.ttf') format("truetype"), url('webfonts/bebasneue_regular_macroman/BebasNeue-webfont.svg#webfont') format("svg");
+}
+
+body{
+  font-family: 'Raleway';
+}
 
 #no-border-radius{
   border-bottom-left-radius: 0px;
@@ -22,10 +33,17 @@
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-
+.navbar-options{
+  font-family: 'BebasNeue';
+  font-size: 30px;
+}
 .navbar-fixed-top{
   background-color:rgba(255,255,255,.7);
   
+  a{
+    color:rgb(167,167,167);
+  }
+
   .active{
   	background-color:rgba(230,230,230,.7);
   	text-decoration: underline;

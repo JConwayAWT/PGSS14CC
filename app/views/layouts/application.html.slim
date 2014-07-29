@@ -13,16 +13,17 @@ html
             =link_to "#{image_tag("websitelogo.png",style: "margin-top:-10px; margin-right:10px; height:40px;")}".html_safe, root_path,style: "text-decoration: none; background:transparent;"
         ul.nav.navbar-nav
           li class="#{'active' if params[:controller] == 'traveling_salesmen'}"
-            a href="tsp" TSP
+            a.navbar-options href="tsp" TSP
           li class="#{'active' if params[:controller] == 'proteins'}"
-            a href="protein" Protein
+            a.navbar-options href="protein" Protein
           li class="#{'active' if params[:controller] == 'metalics'}"
-            a href="metallics" Metallics
+            a.navbar-options href="metallics" Metallics
           /li
             /a href="#" Option 2
           /li
             /a href="#" Option 3
         ul.nav.navbar-nav.navbar-right
           li
-            a href="about" About Project CATNIP
+            a.navbar-options href="about" About Project CATNIP
     = yield  
+

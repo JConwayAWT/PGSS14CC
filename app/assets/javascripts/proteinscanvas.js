@@ -40,12 +40,19 @@ $(document).ready(function(){
 	var dragging=null;
 	var dragY=0;
 	var dragX=0;
+	$('#loading').on('dragstart', function(event) { event.preventDefault(); });
 
-	$("#canvas3d").mousedown(function(e) {
+	
+	$("#loading").mousedown(function(){
+		startDrag();
+		return false;
+	});
+	$("#canvas3d").mousedown(startDrag);
+	function startDrag(e) {
 		dragging=$(this);
 		dragY=e.pageY;
 		dragX=e.pageX;
-	});
+	}
 
 
 	$(window).mouseup(function(e) {
