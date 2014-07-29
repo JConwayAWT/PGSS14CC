@@ -20,7 +20,12 @@ def genParticle(definingString,number):
   while (len(dummyAtom) > number):
     dummyAtom.pop(-1)
   coords = dummyAtom.get_positions()
-  newAtom = Atoms(definingString,coords)
+  shuffledCoords = []
+  while (len(coords) > 0):
+    R = random.randint(0,len(coords) - 1)
+    item = coords.pop(R)
+    suffledCoords.append(item)
+  newAtom = Atoms(definingString,shuffledCoords)
   calc = EMT()
   newAtom.set_calculator(calc)
   newAtom.set_cell(dummyAtom.get_cell() * 10.)

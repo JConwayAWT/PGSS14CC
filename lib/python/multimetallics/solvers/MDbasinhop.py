@@ -35,9 +35,9 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     self.reCenter()
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
-    berendsen = NVTBerendsen(self.particle, 2.5 * units.fs, 5000, taut=0.5*1000*units.fs)
+    berendsen = NVTBerendsen(self.particle, 2.5 * units.fs, 3000, taut=0.5*1000*units.fs)
     dyn = FIRE(atoms=self.particle)
-    MaxwellBoltzmannDistribution(self.particle,5000)
+    MaxwellBoltzmannDistribution(self.particle,3000)
     CALCULATIONS=100
     for i in range(CALCULATIONS):
       if i%1==0:
@@ -46,7 +46,9 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
         self.checkTimeout()
         self.setSolution(self.getAnswer())
       self.particle.rattle(stdev=0.1)
-      berendsen.run(500)
+      MaxwellBoltzmannDistribution(self.particle,3000)
+      self.particle.get_potential_energy()
+      berendsen.run(1000)
       dyn.run()
       self.reCenter()
       testEnergy = self.particle.get_potential_energy()
