@@ -33,15 +33,16 @@ lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
 
 from math import *
-from TravelingSalesmanSolver import *
+from LineOverlapEliminatorTravelingSalesmanSolver import *
 #import Lined
 
 
-class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
+class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSolver):
 
   def __init__(self,params=None):
 
     self.initSolver(params)
+    self.initOverlapSolver()
     self.bestOrder=[]
     self.bestDistance=float("inf")
     self.Temperature = 1.0
@@ -209,21 +210,15 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
             return [newpath, score,newpath]
         else:
             return [currentpath, currentscore,newpath]
-
   def getAnswer(self):
-    finalsolution = ""
-    index = 0
-    print (self.bestPath, "sdf")
-    for element in self.bestPath:
-        if index != 0:
-            finalsolution += ","
-        #print (element)
-        element = str(element)
-        finalsolution += element
-        index += 1
-    return finalsolution
-  def solve(self):
+        answer=""
+        for c in self.bestOrder:
+          answer+=str(c)+","
+        return answer
 
+  def putIntoBestOrder(self):
+    self.bestOrder=self.bestPath
+  def solve(self):
     #self.addpolarcord()
     bestpath=[]
     path = []
@@ -232,11 +227,11 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
     CALCULATIONS=10000#*len(currentpath)
     for timestried in range(CALCULATIONS):
         print (self.calculateIntersects())
-        if timestried%10==0:
+        if timestried%1000==0:
             self.setSolution(self.getAnswer())
         self.Temperature = 1-self.TemperatureUpdate(timestried, CALCULATIONS)
         print self.Temperature
-        if timestried%1000==0:
+        if timestried%100==0:
             pDone=float(timestried)/CALCULATIONS
             self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
             self.checkTimeout(self)
@@ -251,6 +246,12 @@ class SimulatedAnnealingSalesmanSolver (TravelingSalesmanSolver):
             self.bestscore = solution[1]
             self.bestPath = solution[0]
             print(self.bestPath, self.bestscore, "bestpath")
+
+    self.putIntoBestOrder()
+
+    if self.REMOVE_LINE_CROSSES:
+        self.removeLineCrosses()
+
     return self.getAnswer()
 
 #
