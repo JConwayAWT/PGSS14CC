@@ -56,7 +56,7 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
       if (testEnergy < self.bestEnergy):
         self.bestEnergy = testEnergy
         self.bestParticle = deepcopy(self.particle)
-      else:
+      elif ((testEnergy +5.) > self.bestEnergy):
         self.particle = NanoClass.genParticle(self.definingString, int(self.numberOfAtoms))
         MaxwellBoltzmannDistribution(self.particle,1500*units.kB)
         self.particle.get_potential_energy()
