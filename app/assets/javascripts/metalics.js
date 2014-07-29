@@ -1,8 +1,6 @@
 var DB_ID=0;
 var processing=false;
 $(document).ready(function(){
-  provideDataToPage({"message":null,"answer":"{\"potentialEnergy\": 9.476281836779503, \"atoms\": [{\"y\": 0.2333782635814714, \"x\": -0.10048566927508773, \"symbol\": \"Al\", \"z\": -1.3040148469964379}, {\"y\": 0.067637335983079083, \"x\": -0.15420865752295754, \"symbol\": \"Al\", \"z\": 1.8756817537735344}, {\"y\": -1.979784310807446, \"x\": 0.63419078238743509, \"symbol\": \"Al\", \"z\": 0.23251302987083022}, {\"y\": -1.1249211975732862, \"x\": -1.9959061205926787, \"symbol\": \"Al\", \"z\": 0.23265767311664831}, {\"y\": 1.5274197709195505, \"x\": -1.7514164232802329, \"symbol\": \"Ni\", \"z\": 0.32600188251683448}, {\"y\": 2.1969917073425904, \"x\": 0.53783805854158118, \"symbol\": \"Ni\", \"z\": 0.39220889410739801}, {\"y\": 0.30939607217320031, \"x\": 1.9959061205926787, \"symbol\": \"Ni\", \"z\": 0.32586773319937379}, {\"y\": -2.1969917073425904, \"x\": -0.89051928697836047, \"symbol\": \"Ni\", \"z\": -1.875681753773506}]}","statusDone":"Calculating solution...","done":true});
-
   startCheckingForUpdates();
   doneProcessing();
   animate();
@@ -78,29 +76,29 @@ function doneProcessing(){
 
 function validateParametersForSubmission(elementOne, elementTwo, elementThree, percentageOne, percentageTwo, percentageThree, algorithm, numberOfAtoms){
   if (elementOne == "None" || percentageOne == undefined){
-      alert("Please choose a primary element and specify its percentage");
+    alert("Please choose a primary element and specify its percentage");
+  }
+  else if (elementTwo == "None" || percentageTwo == undefined){
+    alert("Please choose a second element and specify its percentage.");
+  }
+  else if (elementThree != "None" && percentageThree == undefined){
+    alert("Please specify a percentage for your third element");
+  }
+  else if (numberOfAtoms == ""){
+    alert("Please specify a number of atoms.");
+  }
+  else{
+    if (elementThree == "None"){
+      percentageThree = "0";
     }
-    else if (elementTwo == "None" || percentageTwo == undefined){
-      alert("Please choose a second element and specify its percentage.");
-    }
-    else if (elementThree != "None" && percentageThree == undefined){
-      alert("Please specify a percentage for your third element");
-    }
-    else if (numberOfAtoms == ""){
-      alert("Please specify a number of atoms.");
+
+    if (parseFloat(percentageOne) + parseFloat(percentageTwo) + parseFloat(percentageThree) != 100){
+      alert("Please ensure that your percentages add to 100");
     }
     else{
-      if (elementThree == "None"){
-        percentageThree = "0";
-      }
-
-      if (parseInt(percentageOne) + parseInt(percentageTwo) + parseInt(percentageThree) != 100){
-        alert("Please ensure that your percentages add to 100");
-      }
-      else{
-        performAjaxRequest(elementOne, elementTwo, elementThree, percentageOne, percentageTwo, percentageThree, algorithm, numberOfAtoms);
-      }
+      performAjaxRequest(elementOne, elementTwo, elementThree, percentageOne, percentageTwo, percentageThree, algorithm, numberOfAtoms);
     }
+  }
 }
 
 
@@ -132,7 +130,7 @@ function performAjaxRequest(e1, e2, e3, p1, p2, p3, alg, nAtoms){
 
   $("#progress").css("width",$("#progbar").width());
   $("#loading").css("opacity",1);
-
+  console.log(pass_info);
   $.ajax({
       url: '/pose_metalic_problem',
       type: 'POST',
