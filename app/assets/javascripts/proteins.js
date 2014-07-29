@@ -10,8 +10,6 @@ function doneProcessing(){
 	DB_ID=0;
 	$("#progbar").fadeOut(500);
 	$("#loading").fadeOut(500);
-	$("#progress").css("width",$("#progbar").width());
-	$("#loading").css("opacity",1);
 	
 }
 
@@ -262,6 +260,8 @@ function getSolution(){
 	var data=$("#data").val();
 	var algorithm=$("#algorithm").val();
 	startTime= (new Date().getTime());
+	$("#progress").css("width",$("#progbar").width());
+	$("#loading").css("opacity",1);
 	$.ajax({
 		url: '/pose_protein_problem',
 		type: 'POST',
