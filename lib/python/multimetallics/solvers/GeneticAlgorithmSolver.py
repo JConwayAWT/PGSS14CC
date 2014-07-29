@@ -13,6 +13,7 @@ lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
 lib_path = os.path.abspath('../')
 sys.path.append(lib_path)
+from copy import deepcopy
 import math
 import MetalicsSolver
 import random
@@ -22,6 +23,10 @@ import heapq
 from NanoClass import genParticle
 from ase.md.nvtberendsen import NVTBerendsen
 from ase import units
+from ase.optimize import FIRE
+std_outpath = sys.stdout
+f = open(os.devnull, 'w')
+
 
 class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
 
@@ -31,7 +36,7 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     print self.particle.get_potential_energy(); #Prints base case energy
     self.bestParticles = []; #Initializes the list of bestParticles
     self.bestEnergy = self.particle.get_potential_energy(); #Initializes best energy
-    self.bestParticle = copy.copy(self.particle); #Best particle is a copy of particle
+    self.bestParticle = deepcopy(self.particle); #Best particle is a copy of particle
     heapq.heappush(self.bestParticles, (self.particle.get_potential_energy(), self.particle)); #Pushes particle to bestParticles
     self.startTime = self.millis()
     for i in range(100): #Mutates particle 100 times and pushes results into a heap
@@ -53,10 +58,10 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
             self.setSolution(self.getAnswer())
         self.currentEnergy = 1000000;
         self.newBestParticles = [];
-        for l in range(10):
+        for l in range(4):
             self.newBestParticles.append(heapq.heappop(self.bestParticles));
-            print((self.newBestParticles[-1])[0]);
-        self.bestParticles = copy.copy(self.newBestParticles);
+            print((self.newBestParticles[l])[0]);
+        self.bestParticles = deepcopy(self.newBestParticles);
         self.children = self.breed(self.bestParticles);
         for j in range(len(self.bestParticles)):
             newparticle = self.mutate((self.bestParticles[j])[1]);
@@ -90,46 +95,46 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     children = [];
     for i in range(len(generation)):
         for j in range(i, len(generation)):
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
-            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+          children = []
+          for k in range(7):
+            child1 = deepcopy(generation[i][1])
+            child2 = deepcopy(generation[j][1])
+            child = self.breedParticles(child1,child2)
+            children.append(child);
+          print i, j, k
     return children;
 
   def mutate(self, particle):
     temp = particle.get_potential_energy;
     for atom in particle:
-        if(random.random() < 0.05):
-            val = random.random()/100.0;
+        rand = random.random();
+        if(rand < 0.33):
+            val = random.random()/5.0;
             atom.x += val;
             if(particle.get_potential_energy > temp):
                 atom.x -= 2*val
-        elif(random.random() < 0.05):
-            val = random.random()/100.0;
+        elif(rand < 0.66):
+            val = random.random()/5.0;
             atom.y += val;
             if(particle.get_potential_energy > temp):
                 atom.y -= 2*val
-        elif(random.random() < 0.05):
-            val = random.random()/100.0;
+        elif(rand < 0.99):
+            val = random.random()/5.0;
             atom.z += val;
             if(particle.get_potential_energy > temp):
                 atom.z -= 2*val
         elif(random.random() < 0.05):
-            val = random.random()/100.0;
+            val = random.random()/5.0;
             atom.x -= val;
             if(particle.get_potential_energy > temp):
                 atom.x += 2*val
         elif(random.random() < 0.05):
-            val = random.random()/100.0;
+            val = random.random()/5.0;
             atom.y -= val;
             if(particle.get_potential_energy > temp):
                 atom.y += 2*val
         elif(random.random() < 0.05):
-            val = random.random()/100.0;
+            val = random.random()/5.0;
             atom.z -= val;
             if(particle.get_potential_energy > temp):
                 atom.z += 2*val
@@ -141,16 +146,21 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     mindistance = 0;
     bestatom = None;
     for atom in particle1:
-        mindistance = 1000000;
+        mindistance = 1000000.;
         bestatom = None;
         if(random.random() < 0.5):
             for atom2 in particle2:
                 if(atom2.symbol == atom.symbol and (atom.position[0] - atom2.position[0])**2 + (atom.position[1] - atom2.position[1])**2 + (atom.position[2] - atom2.position[2])**2 < mindistance**2):
                     mindistance = ((atom.position[0] - atom2.position[0])**2 + (atom.position[1] - atom2.position[1])**2 + (atom.position[2] - atom2.position[2])**2)**0.5;
-                    bestatom = atom2;
-            atom.x = bestatom.position[0];
-            atom.y = bestatom.position[1];
-            atom.z = bestatom.position[2];
+                    bestatom = deepcopy(atom2);
+            atom.x = bestatom.position[0] + random.gauss(0.,0.25);
+            atom.y = bestatom.position[1] + random.gauss(0.,0.25);
+            atom.z = bestatom.position[2] + random.gauss(0.,0.25);
+    particle1.get_potential_energy()
+    sys.stdout = f
+    dyn = FIRE(atoms=particle1)
+    dyn.run()
+    sys.stdout = std_outpath
     return particle1;
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@ $(document).ready(function(){
 		$("#loading").css("transform", rstring);
 		$("#loading").css("-ms-transform", rstring);
 		$("#loading").css("-webkit-transform", rstring);		
-		rotation+=5;
+		rotation+=10;
 		rotation%=360;
-	},25);
+	},50);
 });
