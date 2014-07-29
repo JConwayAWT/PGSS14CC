@@ -167,7 +167,7 @@ function startCheckingForUpdates(){
       }
     })
     .fail(function() {
-      alert("The AJAX request to retreive the problem has raised an error");
+      //alert("The AJAX request to retreive the problem has raised an error");
     });  
   }
 }

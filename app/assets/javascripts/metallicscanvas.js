@@ -62,7 +62,14 @@ $(document).ready(function(){
 
 function loadSpheres(atoms){
 	scene.remove(content);
-	content = new THREE.Object3D();
+	if(content==null){
+		content =  new THREE.Object3D();
+	}else{
+		oldcontent = content;
+		content =  new THREE.Object3D();
+		content.rotation.x = oldcontent.rotation.x;
+		content.rotation.y = oldcontent.rotation.y;
+	}
 	var geometry_Al = new THREE.SphereGeometry(1.25, 50, 50);
 	var geometry_Ni = new THREE.SphereGeometry(1.35, 50, 50);
 	var geometry_Cu = new THREE.SphereGeometry(1.35, 50, 50);
