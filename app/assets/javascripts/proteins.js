@@ -178,7 +178,7 @@ function drawSampleProtein(chain){
 
     loadSpheres(chain.acids,maximumX,maximumY);
 
-    $("#current-potential-energy").html("Potential Energy: "+chain.potentialEnergy);
+    $("#current-potential-energy").html("Potential Energy: "+Math.floor(chain.potentialEnergy*100)/100);
 
 	/*
 	var canvas = document.getElementById('protein-canvas');

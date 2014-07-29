@@ -80,10 +80,12 @@ function loadSpheres(acids,maximumX,maximumY){
 	var geometry = new THREE.SphereGeometry(.25, 50, 50);
 	var red = new THREE.MeshPhongMaterial( { color: 0xff0000} );
 	var green = new THREE.MeshPhongMaterial( { color: 0x00ff00} );
+	var white = new THREE.MeshPhongMaterial( { color: 0xffffff} );
 
 	var points = new THREE.Geometry();
 
   	for(var i=0;i<acids.length;i++){	    
+  		color = white;
 	    if(acids[i].type=="H"||acids[i].type=="h"){color=red;}
 	    if(acids[i].type=="P"|acids[i].type=="p"){color=green;}
 
