@@ -2,7 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.navbar-fixed-top{
+  background-color:rgba(255,255,255,1);
+}
 
-#metallics-canvas{
-	border: thin solid black;
+#metallic-slider{
+	.slider-horizontal{
+		width: 720px;
+	}
+	.slider-selection{
+		background: #8ECBE6;
+	}
 }

@@ -24,6 +24,7 @@ import sys
 from solvers import ExampleSolver as e
 from solvers import SlitheringSnakeSolver as ss
 from solvers import alpha_beta_solver as ab
+from solvers import alpha_beta_solver_3d as ab3d
 from database import database_connect as dbf
 
 
@@ -47,6 +48,9 @@ def main():
 
   if algorithm =="Slithering Snake":
     solver = ss.SlitheringSnakeSolver(params)
+
+  if algorithm == "Alpha Beta 3D":
+    solver = ab3d.alpha_beta_3d(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"

@@ -12,8 +12,8 @@ import json
 from copy import deepcopy
 
 class alpha_beta(ProteinChainClass.ProteinChain):
-    print "This code has started"
-    def solve(self):
+
+    def solve(self, h_value, p_value, adjacent_value, diagonal_value, twice_removed_value):
       self.chosen_coords = []
 
       self.chosen_coords.append([0,0])
@@ -39,6 +39,8 @@ class alpha_beta(ProteinChainClass.ProteinChain):
 
         current_chain_index += 1
 
+      self.setCoords(self.chosen_coords)
+
       acids = []
       self.getEnergy()
       for i in range(len(self.chosen_coords)):
@@ -47,11 +49,18 @@ class alpha_beta(ProteinChainClass.ProteinChain):
       actually_json = json.dumps(dictionary_to_be_turned_into_json)
       return actually_json
 
+      self.find_corner()#self-fixer that bends corners the other way
+      self.change_corner()
+      self.get_rest_of_chain()
+
+
+
+
 
     def get_score_of_single_coordinate(self, coordinate, adjacent_value, diagonal_value, twice_removed_value):
       total_score = 0
       h_value = 4
-      p_value = 1
+      p_value = 0
       neighbor_locations = [[coordinate[0] + 1, coordinate[1]],[coordinate[0] - 1, coordinate[1]],[coordinate[0], coordinate[1] + 1],[coordinate[0], coordinate[1] - 1]]
       diagonal_locations = [[coordinate[0] + 1, coordinate[1] + 1],[coordinate[0] - 1, coordinate[1] - 1],[coordinate[0] - 1, coordinate[1] + 1],[coordinate[0] + 1, coordinate[1] - 1]]
       twice_removed_neighbors = self.get_twice_removed_neighbors(coordinate)
@@ -106,7 +115,6 @@ class alpha_beta(ProteinChainClass.ProteinChain):
       return non_duplicated_neighbors
 
 
-
     def remove_filled_positions(self, test_coordinates):
       legal_coords = []
       for coordinate in test_coordinates:
@@ -114,8 +122,84 @@ class alpha_beta(ProteinChainClass.ProteinChain):
           legal_coords.append(coordinate)
       return legal_coords
 
+    def find_corner(self):
+        corners = []
 
-##s = Alpha_Beta("HHHHHHHHHHHHHHHH")
-##s.solve()
-##
-##print s.chosen_coords
+        location_of_previous_acid = self.chosen_coords[current_chain_index-1]
+        location_of_next_acid = self.chosen_coords[current_chain_index+1]
+        if location_of_previous_acid[0] != location_of_next_acid[0] and location_of_previous_acid[1]!= location_of_next_acid[1]:
+            location_of_current_acid = self.chosen_coords[current_chain_index]
+            corners.append(location_of_current_acid)
+
+    def get_rest_of_chain(self, amino_acid_chain):
+        i = 0
+        current_amino_acid = self.amino_acid_chain[current_chain_index] #gives us "H" or "P"
+        for i in range(len(amino_acid_chain)):
+            if i <= amino_acid_chain.index(current_amino_acid):#everything before and inluding the corner
+                amino_acid_chain.pop(amino_acid_chain[i])#outputs smaller amino acid chain (everything after the corner)
+
+    def change_corner(self, corners):
+        possible_paths = []
+        possible_final_paths = []
+        for current_corner in range(corners()):
+            possible_paths.append(current_corner)#original path
+            possible_paths = [[current_corner[0] + 1, current_corner[1]],[current_corner[0] - 1, current_corner[1]],[current_corner[0], current_corner[1] + 1],[current_corner[0], current_corner[1] - 1]]
+            possible_paths = self.remove_filled_positions(possible_paths)
+            for coordinate in chosen_coords:
+                if chosen_coords.index(coordinate) > chosen_coords.index(current_corner):
+                    chosen_coords.pop(coordinate)
+            for i in range(len(self.possible_paths)):
+                chosen_coords.append(possible_paths[i])
+                self.amino_acid_chain()
+                amino_acid_chain.solve()#FIX NEEDED: solve, only calculating potential energy
+                self.getEnergy()
+                potential_energy_per_path = []
+                potential_energy_per_path.append(self.Energy)
+
+                minimum_energy = min(potential_energy_per_path)
+                minimum_energy_index = potential_energy_per_path.index(minimum_energy)
+                minimum_path = possible_paths[minimum_energy_index]
+
+                potential_energy_per_final_path = []
+                potential_energy_per_final_path.append(minimum_energy)
+
+                possible_final_paths.append(minimum_path)
+                #current_chain_index += 1
+
+<<<<<<< HEAD
+            minimum_final_energy = min(potential_energy_per_final_path)
+            minimum_final_energy_index = potential_energy_per_final_path.index(minimum_final_energy)
+            minimum_final_path = possible_final_paths[minimum_final_energy_index]
+
+            print minimum_final_path
+            #current_chain_index += 1
+
+s = alpha_beta("HPHPHPHPHPHPHPHPHPPPPPPHHHHHHPPPPPPHPHPHPHPHPHPH")
+    i = 0
+    for i in range(500):
+    ##    p_value+=i
+    ##    h_value+=i
+    ##    adjacent_value+=i
+    ##    diagonal_value+=i
+    ##    twice_removed_value+=i
+        s.solve( i, i, i, i, i)
+        modified_energy = []
+        self.getEnergy()
+        modified_energy.append(self.Energy)
+    minimum_modified_energy = min(modified_energy)
+    modified_energy.index(minimum_modified_energy)
+    p_value+=modified_energy.index(minimum_modified_energy)
+    h_value+=modified_energy.index(minimum_modified_energy)
+    adjacent_value+=modified_energy.index(minimum_modified_energy)
+    diagonal_value+=modified_energy.index(minimum_modified_energy)
+    twice_removed_value+=modified_energy.index(minimum_modified_energy)
+    s.solve()
+
+
+    print s.chosen_coords
+=======
+# s = alpha_beta("HHHHHHHHHHHHHHHHHHHHHHHHHH")
+# s.solve()
+
+# print s.chosen_coords
+>>>>>>> b932688c5d0cedf4a1a428df638c22f32352cdce

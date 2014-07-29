@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   match '/tsp', to: 'traveling_salesmen#index', via: :get
   match '/protein', to: 'proteins#index', via: :get
-  match '/metalics', to: 'metalics#index', via: :get
+  match '/metallics', to: 'metalics#index', via: :get
 
   match '/pose_traveling_salesman_problem', to: 'traveling_salesmen#pose_problem', via: :post
   match '/retreive_traveling_salesman_problem', to: 'traveling_salesmen#retreive_problem', via: :post
