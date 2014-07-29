@@ -21,6 +21,7 @@ function addJob(){
 	}
 	//$("#job"+jobs).append(" <div class=\"progress\"> <div id=\"progress"+jobs+"\" class=\"progress-bar progress-bar-striped active\"  role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"> <span id=\"statusDone"+jobs+"\">Waiting in queue...</span></div></div>");
 	$("#floatingProgressBar").fadeIn(500);
+	$("#loading").fadeIn(500);
 }
 
 function doneProcessing(){
@@ -28,6 +29,7 @@ function doneProcessing(){
 	DB_ID=0;
 	$("#progress").css("width",$("#floatingProgressBar").width());
 	$("#floatingProgressBar").fadeOut(500);
+	$("#loading").fadeOut(500);
 }
 
 function docReady(){
