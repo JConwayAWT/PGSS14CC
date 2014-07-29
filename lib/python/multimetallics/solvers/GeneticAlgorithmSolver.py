@@ -36,7 +36,7 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     for i in range(100): #Mutates particle 100 times and pushes results into a heap
         if i%5==0:
             pDone=float(i)/100
-            self.setStatusDone("Stage 1: "+str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+            self.setStatusDone(str(math.floor(pDone*100))+"% | Stage 1 | "+self.remainingTime(pDone))
             self.checkTimeout()
         self.bestParticle = self.mutate(self.particle);
         heapq.heappush(self.bestParticles, (self.bestParticle.get_potential_energy(), self.bestParticle));
@@ -46,7 +46,7 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     for i in range(CALCULATIONS):
         if i%1==0 and i>0:
             pDone=float(i)/CALCULATIONS
-            self.setStatusDone("Stage 2: "+str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+            self.setStatusDone(str(math.floor(pDone*100))+"% | Stage 2  | "+self.remainingTime(pDone))
             self.checkTimeout()
             self.setSolution(self.getAnswer())
         self.currentEnergy = 1000000;

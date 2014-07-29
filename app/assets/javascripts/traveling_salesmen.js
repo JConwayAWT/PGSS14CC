@@ -26,6 +26,7 @@ function addJob(){
 function doneProcessing(){
 	processing=false;
 	DB_ID=0;
+	$("#progress").css("width",$("#floatingProgressBar").width());
 	$("#floatingProgressBar").fadeOut(500);
 }
 

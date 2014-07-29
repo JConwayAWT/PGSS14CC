@@ -72,6 +72,8 @@ function doneProcessing(){
   processing=false;
   DB_ID=0;
 
+  $("#progress").css("width",$("#progbar").width());
+
   $("#progbar").fadeOut(500);
 }
 
