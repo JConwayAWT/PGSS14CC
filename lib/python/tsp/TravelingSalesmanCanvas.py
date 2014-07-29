@@ -68,8 +68,13 @@ def main():
   if algorithm =="Fast Dijkstra (n^2)":
     solver = dts2.DijkstraTravelingSalesmanSolver(params)
 
-  if algorithm =="Simulated Annealing":
+  if algorithm =="Annealing (Dijkstra start)":
     solver = sas.SimulatedAnnealingSalesmanSolver(params)
+    solver.enforce_random_start = False
+
+  if algorithm =="Annealing (random start)":
+    solver = sas.SimulatedAnnealingSalesmanSolver(params)
+    solver.enforce_random_start = True
 
   solver.REMOVE_LINE_CROSSES=remove_overlaps
 
