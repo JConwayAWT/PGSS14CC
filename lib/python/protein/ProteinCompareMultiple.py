@@ -47,18 +47,26 @@ def generateRandomString(length, percent_h):
             string += "P"
     return string
 
-percent_h = .5
-length = 50
-string = generateRandomString(length,percent_h)
-print string
-solver = ss.SlitheringSnakeSolver(string)
-solution = solver.solve()
-print getPotentialEnergy(solution)
+def main():
+  minPoints = 10
+  maxPoints = 300
+  pointInterval = 5
+  iteration = 2
+  for points in xrange(minPoints,maxPoints,pointInterval):
+      print points
+      distances = [0,0,0,0,0,0,0,0,0,0,0]
+      for iterations in xrange(iteration):
+        string = generateRandomString(points,50)
 
-solver = ab.alpha_beta(string)
-solution = solver.solve()
-print getPotentialEnergy(solution)
 
-solver = ab3d.alpha_beta_3d(string)
-solution = solver.solve()
-print getPotentialEnergy(solution)
+        solver = []
+        solver.append(ab3d.alpha_beta_3d(string))
+        solver.append(ab.alpha_beta(string))
+        solver.append(ss.SlitheringSnakeSolver(string))
+
+        for solves in xrange(len(solver)):
+           solution = solver[solves].solve()
+           distances[solves] += getPotentialEnergy(solution)
+      for solves in xrange(len(solver)):
+        print distances[solves]/iteration
+main()

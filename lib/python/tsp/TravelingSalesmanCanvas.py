@@ -55,10 +55,10 @@ def main():
   if algorithm =="Ant Total Distance (n^2)":
     solver = atd.AntTotalDistanceSolver(params)
 
-  if algorithm =="Random":
+  if algorithm =="Random (n)":
     solver = loe.LineOverlapEliminatorTravelingSalesmanSolver(params)
 
-  if algorithm =="Gravity":
+  if algorithm =="Gravity (n^2)":
     solver = gts.GravitationalTravelingSalesmanSolver(params)
 
   #Change this to Wheel Dijkstra and the other one to just Dijkstra

@@ -168,3 +168,48 @@ class ProteinChain(ProteinFoldingSolver.ProteinFoldingSolver):
     dictionary_to_be_turned_into_json = {"potentialEnergy": self.bestEnergy, "acids": acids}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
     return actually_json
+
+  def find_corner(self):
+        corners = []
+
+        location_of_previous_acid = self.chosen_coords[current_chain_index-1]
+        location_of_next_acid = self.chosen_coords[current_chain_index+1]
+        if location_of_previous_acid[0] != location_of_next_acid[0] and location_of_previous_acid[1]!= location_of_next_acid[1]:
+            location_of_current_acid = self.chosen_coords[current_chain_index]
+            corners.append(location_of_current_acid)
+
+  def get_rest_of_chain(self, amino_acid_chain):
+        i = 0
+        current_amino_acid = self.amino_acid_chain[current_chain_index] #gives us "H" or "P"
+        for i in range(len(amino_acid_chain)):
+            if i <= amino_acid_chain.index(current_amino_acid):#everything before and inluding the corner
+                amino_acid_chain.pop(amino_acid_chain[i])#outputs smaller amino acid chain (everything after the corner)
+
+  def change_corner(self, corners):
+        possible_paths = []
+        possible_final_paths = []
+        for current_corner in range(corners()):
+            possible_paths.append(current_corner)#original path
+            possible_paths = [[current_corner[0] + 1, current_corner[1]],[current_corner[0] - 1, current_corner[1]],[current_corner[0], current_corner[1] + 1],[current_corner[0], current_corner[1] - 1]]
+            possible_paths = self.remove_filled_positions(possible_paths)
+            for coordinate in chosen_coords:
+                if chosen_coords.index(coordinate) > chosen_coords.index(current_corner):
+                    chosen_coords.pop(coordinate)
+            for i in range(len(self.possible_paths)):
+                chosen_coords.append(possible_paths[i])
+                self.amino_acid_chain()
+                amino_acid_chain.solve()#FIX NEEDED: solve, only calculating potential energy
+                self.getEnergy()
+                potential_energy_per_path = []
+                potential_energy_per_path.append(self.Energy)
+
+                minimum_energy = min(potential_energy_per_path)
+                minimum_energy_index = potential_energy_per_path.index(minimum_energy)
+                minimum_path = possible_paths[minimum_energy_index]
+
+                potential_energy_per_final_path = []
+                potential_energy_per_final_path.append(minimum_energy)
+
+                possible_final_paths.append(minimum_path)
+                #current_chain_index += 1
+

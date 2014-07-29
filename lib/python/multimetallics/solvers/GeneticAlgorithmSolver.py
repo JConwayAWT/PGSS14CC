@@ -27,80 +27,133 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
 
   def solve(self):
     #Create the initial particle from the defining string/number atoms
-    self.particle = genParticle("Pt50Au30", 80)
+    self.particle = genParticle(self.definingString,int(self.numberOfAtoms)); #Generates the base particle
+    print self.particle.get_potential_energy(); #Prints base case energy
+    self.bestParticles = []; #Initializes the list of bestParticles
+    self.bestEnergy = self.particle.get_potential_energy(); #Initializes best energy
+    self.bestParticle = copy.copy(self.particle); #Best particle is a copy of particle
+    heapq.heappush(self.bestParticles, (self.particle.get_potential_energy(), self.particle)); #Pushes particle to bestParticles
+    for i in range(100): #Mutates particle 100 times and pushes results into a heap
+        if i%5==0:
+            pDone=float(i)/100
+            self.setStatusDone(str(math.floor(pDone*100))+"% | Stage 1 | "+self.remainingTime(pDone))
+            self.checkTimeout()
+        self.bestParticle = self.mutate(self.particle);
+        heapq.heappush(self.bestParticles, (self.bestParticle.get_potential_energy(), self.bestParticle));
+    self.currentEnergy = 0;
+    self.currentParticle = None;
+    CALCULATIONS=15
+    for i in range(CALCULATIONS):
+        if i%1==0 and i>0:
+            pDone=float(i)/CALCULATIONS
+            self.setStatusDone(str(math.floor(pDone*100))+"% | Stage 2  | "+self.remainingTime(pDone))
+            self.checkTimeout()
+            self.setSolution(self.getAnswer())
+        self.currentEnergy = 1000000;
+        self.newBestParticles = [];
+        for l in range(10):
+            self.newBestParticles.append(heapq.heappop(self.bestParticles));
+            print((self.newBestParticles[-1])[0]);
+        self.bestParticles = copy.copy(self.newBestParticles);
+        self.children = self.breed(self.bestParticles);
+        for j in range(len(self.bestParticles)):
+            newparticle = self.mutate((self.bestParticles[j])[1]);
+            self.bestParticles[j] = (newparticle.get_potential_energy(), newparticle);
+            if((self.bestParticles[j])[0] < self.currentEnergy):
+                self.currentParticle = (self.bestParticles[j])[1];
+                self.currentEnergy = (self.bestParticles[j])[0];
+        for index in range(len(self.children)):
+            newparticle = (self.children[index]);
+            heapq.heappush(self.bestParticles, (newparticle.get_potential_energy(), newparticle));
+        print("-------------");
 
-    # self.definingString looks like: "Pt50Au30"
-    print "my defining string is " + self.definingString
+    return self.getAnswer()
 
-    # self.numberOfAtoms looks like: "80" (you'll need to call int(self.numberOfAtoms))
-    print "my number of atoms is " + self.numberOfAtoms
+  def getAnswer(self):
+    self.minEnergy = 100000;
+    self.bestParticle = None;
+    for i in range(len(self.bestParticles)):
+        if((self.bestParticles[i])[0] < self.minEnergy):
+            self.bestParticle = (self.bestParticles[i])[1];
+            minEnergy = (self.bestParticles[i])[0];
 
-    #do all of your solving stuff you want...
-
-    FINAL_SOLUTION = IMPLEMENT_FINAL_SOLUTION()
-
-    a = {"symbol": "Pt", "x": 1, "y": 2, "z": 3}
-    b = {"symbol": "Au", "x": 2, "y": 1, "z": -2}
-    c = {"symbol": "Pt", "x": 1, "y": 1, "z": -2}
-    listOfAtoms = [a, b, c]
-    potentialEnergy = -325.43
-    dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": potentialEnergy}
+    listOfAtoms = [];
+    for atom in self.bestParticle:
+      dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
+      listOfAtoms.append(dictElement)
+    dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": minEnergy}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
-
-    # this gets returned to the parent class and shoved into the database as a string, then
-    # parsed as JSON on the page and displayed/drawn for the user
     return actually_json
+  def breed(self, generation):
+    children = [];
+    for i in range(len(generation)):
+        for j in range(i, len(generation)):
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+            children.append(self.breedParticles((generation[i])[1], (generation[j])[1]));
+    return children;
 
-  def fitnessAlgorithm(allAtoms):
-   return 1.0/allAtoms.getPotentialEnergy();
-
-  def breed(generation):
-	children = [];
-	for i in range(len(generation)):
-		for j in range(i, len(generation)):
-			children.append(breedAtoms(generation[i], generation[j]));
-			children.append(breedAtoms(generation[i], generation[j]));
-
-  def mutate(atoms1):
-    return true;
+  def mutate(self, particle):
+    temp = particle.get_potential_energy;
+    for atom in particle:
+        if(random.random() < 0.05):
+            val = random.random()/100.0;
+            atom.x += val;
+            if(particle.get_potential_energy > temp):
+                atom.x -= 2*val
+        elif(random.random() < 0.05):
+            val = random.random()/100.0;
+            atom.y += val;
+            if(particle.get_potential_energy > temp):
+                atom.y -= 2*val
+        elif(random.random() < 0.05):
+            val = random.random()/100.0;
+            atom.z += val;
+            if(particle.get_potential_energy > temp):
+                atom.z -= 2*val
+        elif(random.random() < 0.05):
+            val = random.random()/100.0;
+            atom.x -= val;
+            if(particle.get_potential_energy > temp):
+                atom.x += 2*val
+        elif(random.random() < 0.05):
+            val = random.random()/100.0;
+            atom.y -= val;
+            if(particle.get_potential_energy > temp):
+                atom.y += 2*val
+        elif(random.random() < 0.05):
+            val = random.random()/100.0;
+            atom.z -= val;
+            if(particle.get_potential_energy > temp):
+                atom.z += 2*val
+    return particle;
 
     #NEED TO FIX
-  def breedAtoms(atoms1, atoms2):
-    atoms1xheap = [];
-	atoms2xheap = [];
-    for atom in atoms1:
-        heappush(atoms1xheap, (atom.position[0], atom));
-    for atom in atoms2:
-		heappush(atoms2xheap, (atom.position[0], atom));
-    output = [];
-    int atom1counter = 0;
-    int atom2counter = 0;
-    String atom1counter = atoms1.get_chemical_symbols()[0];
-    String atom2counter = atoms2.get_chemical_symbols()[1];
-    atom1counter = atoms1[]
-    for atom in atoms1:
+  def breedParticles(self, particle1, particle2):
+    index = 0;
+    mindistance = 0;
+    bestatom = None;
+    for atom in particle1:
+        mindistance = 1000000;
+        bestatom = None;
+        if(random.random() < 0.5):
+            for atom2 in particle2:
+                if(atom2.symbol == atom.symbol and (atom.position[0] - atom2.position[0])**2 + (atom.position[1] - atom2.position[1])**2 + (atom.position[2] - atom2.position[2])**2 < mindistance**2):
+                    mindistance = ((atom.position[0] - atom2.position[0])**2 + (atom.position[1] - atom2.position[1])**2 + (atom.position[2] - atom2.position[2])**2)**0.5;
+                    bestatom = atom2;
+            atom.x = bestatom.position[0];
+            atom.y = bestatom.position[1];
+            atom.z = bestatom.position[2];
+    return particle1;
 
-    if(random() < 0.25):
-        for index in range(50):
-			output.append(atom);
-		for index2 in range(50):
-			output.append(heapPop(atoms2.xheap(-1)[1]);
-	elif(random() < 0.50):
-		for index in range(50):
-			output.append(atoms1xheap.pop(0)[1]);
-		for index2 in range(50):
-			output.append(heapPop(atoms1.xheap(-1)[1]);
-	elif(random() < 0.75):
-		for index in range(50):
-			output.append(atoms2xheap.pop(0)[1]);
-		for index2 in range(50):
-			output.append(heapPop(atoms1.xheap(-1)[1]);
-	else:
-		for index in range(50):
-			output.append(atoms2xheap.pop(0)[1]);
-		for index2 in range(50):
-			output.append(heapPop(atoms2.xheap(-1)[1]);
-	return output;
-
-  def IMPLEMENT_FINALSOLUTION():
-    return [];
+if __name__ == '__main__':
+    GA = GeneticSolver();
+    GA.definingString = "Pt10Au5";
+    GA.numberOfAtoms = 15;
+    print GA.solve();
+    print "DONE";

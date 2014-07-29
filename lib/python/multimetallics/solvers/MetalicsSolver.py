@@ -25,13 +25,12 @@ class MetalicFoldingSolver:
 	TIMEOUT_TIME=10
 
 	def __init__(self, params=None):
+		self.startTime = self.millis()
 		if params == None:
 			return
 		data = json.loads(params)
 		self.definingString = str(data["definingString"])
 		self.numberOfAtoms = int(data["numberOfAtoms"])
-
-		self.startTime = self.millis()
 
 	def solve(self):
 		return "No solution implemented!"
