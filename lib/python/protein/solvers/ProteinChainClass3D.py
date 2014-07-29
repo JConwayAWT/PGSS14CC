@@ -200,7 +200,7 @@ class ProteinChain3D(ProteinFoldingSolver.ProteinFoldingSolver):
   def formatSolution(self):
     acids = []
     for i in self.bestCords:
-      acids.append({"type": i[2], "x": i[0], "y": i[1]})
+      acids.append({"type": i[3], "x": i[0], "y": i[1], "z": i[2]})
     dictionary_to_be_turned_into_json = {"potentialEnergy": self.bestEnergy, "acids": acids}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
     return actually_json
