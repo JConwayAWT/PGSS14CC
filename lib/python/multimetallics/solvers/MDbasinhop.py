@@ -21,7 +21,7 @@ import json
 import NanoClass
 import ase
 from ase.md.nvtberendsen import NVTBerendsen
-from ase.md.verlet import VelocityVerlet
+from ase.md.langevin import Langevin
 from ase.md.velocitydistribution import MaxwellBoltzmannDistribution
 from ase import units
 from ase.optimize import FIRE
@@ -36,9 +36,10 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
     self.reCenter()
     self.bestEnergy = self.particle.get_potential_energy()
     self.bestParticle = deepcopy(self.particle)
-    berendsen = NVTBerendsen(self.particle, 2.5 * units.fs, 1500, taut=0.5*1000*units.fs)
+#    berendsen = NVTBerendsen(self.particle, 2.5 * units.fs, 2000, taut=0.5*100*units.fs)
+    berendsen = Langevin(self.particle, 5 * units.fs, units.kB * 2000, 0.005)
     dyn = FIRE(atoms=self.particle)
-    MaxwellBoltzmannDistribution(self.particle,1500*units.kB)
+    MaxwellBoltzmannDistribution(self.particle,2000*units.kB)
     CALCULATIONS=100
     for i in range(CALCULATIONS):
       if i%1==0:
@@ -46,8 +47,7 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
         self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
         self.checkTimeout()
         self.setSolution(self.getAnswer())
-      self.particle.rattle(stdev=0.1)
-      MaxwellBoltzmannDistribution(self.particle,1500*units.kB)
+      MaxwellBoltzmannDistribution(self.particle,2000*units.kB)
       self.particle.get_potential_energy()
       berendsen.run(500)
       dyn.run()
@@ -56,9 +56,9 @@ class MDSolver(MetalicsSolver.MetalicFoldingSolver):
       if (testEnergy < self.bestEnergy):
         self.bestEnergy = testEnergy
         self.bestParticle = deepcopy(self.particle)
-      elif ((testEnergy +5.) > self.bestEnergy):
+      elif ((testEnergy + .5) > self.bestEnergy):
         self.particle = NanoClass.genParticle(self.definingString, int(self.numberOfAtoms))
-        MaxwellBoltzmannDistribution(self.particle,1500*units.kB)
+        MaxwellBoltzmannDistribution(self.particle,2000*units.kB)
         self.particle.get_potential_energy()
         if (testEnergy < self.bestEnergy):
           self.bestEnergy = testEnergy
