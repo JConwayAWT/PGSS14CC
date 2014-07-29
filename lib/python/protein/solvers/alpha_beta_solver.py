@@ -12,8 +12,7 @@ import json
 from copy import deepcopy
 
 class alpha_beta(ProteinChainClass.ProteinChain):
-
-    def solve(self, h_value, p_value, adjacent_value, diagonal_value, twice_removed_value):
+    def solve(self, adjacent_value, diagonal_value, twice_removed_value):
       self.chosen_coords = []
 
       self.chosen_coords.append([0,0])
@@ -29,7 +28,7 @@ class alpha_beta(ProteinChainClass.ProteinChain):
         scores_per_coordinate = []
 
         for coordinate in test_coords:
-          scores_per_coordinate.append(self.get_score_of_single_coordinate(coordinate, 9, 3, 1))
+          scores_per_coordinate.append(self.get_score_of_single_coordinate(coordinate, adjacent_value, diagonal_value, twice_removed_value))
 
         maximum_score = max(scores_per_coordinate)
         maximum_score_index = scores_per_coordinate.index(maximum_score)
@@ -166,16 +165,16 @@ class alpha_beta(ProteinChainClass.ProteinChain):
                 possible_final_paths.append(minimum_path)
                 #current_chain_index += 1
 
-
             minimum_final_energy = min(potential_energy_per_final_path)
             minimum_final_energy_index = potential_energy_per_final_path.index(minimum_final_energy)
             minimum_final_path = possible_final_paths[minimum_final_energy_index]
 
             print minimum_final_path
             current_chain_index += 1
-
 """
+
 s = alpha_beta("HPHPHPHPHPHPHPHPHPPPPPPHHHHHHPPPPPPHPHPHPHPHPHPH")
+<<<<<<< HEAD
     i = 0
     for i in range(500):
     ##    p_value+=i
@@ -203,5 +202,23 @@ s = alpha_beta("HPHPHPHPHPHPHPHPHPPPPPPHHHHHHPPPPPPHPHPHPHPHPHPH")
 # s.solve()
 
 # print s.chosen_coords
-"""
 
+
+maxA = 20
+arraycoords = []
+for a in range(9,maxA):
+    for b in range(3,a):
+         for c in range(1,b):
+            s.solve(a, b, c)
+#          print s.chosen_coords
+            modified_energy = []
+            s.getEnergy()
+            modified_energy.append(s.Energy)
+            arraycoords.append(s.chosen_coords)
+            print('.'),
+minimum_modified_energy = min(modified_energy)
+minimum_modified_energy_index = modified_energy.index(minimum_modified_energy)
+minimum_drawing = arraycoords[minimum_modified_energy_index]
+print minimum_drawing
+print minimum_modified_energy
+"""

@@ -28,7 +28,7 @@ from solvers import AntSolver as ats
 
 def main():
 
-  minPoints = 15
+  minPoints = 5
   maxPoints = 200
   pointInterval = 5
   iteration = 2
@@ -62,7 +62,7 @@ def main():
         #solver[-1].REMOVE_LINE_CROSSES=False
         #solver.append(dts.DijkstraSolver())
         #solver.append(dts2.DijkstraTravelingSalesmanSolver())
-        solver.append(ats.AntSolver())
+        #solver.append(ats.AntSolver())
         for solves in xrange(len(solver)):
            solver[solves].loadCoordinatesFromXYArrays(xvalues,yvalues)
            solver[solves].solve()
