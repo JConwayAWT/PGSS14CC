@@ -147,12 +147,13 @@ function docReady(){
 		var n=0;
 		var notNum=false;
 		while(true){
-			s=prompt("How many points do you want to be added? \n\n"+(notNum?"You must enter a number!":""));
+			s=prompt("How many points do you want to be added? All existing points will be erased!\n\n"+(notNum?"You must enter a number!":""));
 			if(s==null||s==""){
 				break;
 			}
 			n=parseInt(s);
 			if(s==n+""){
+				cords=[];
 				addRandomCoordinates(n);
 				break;
 			}
