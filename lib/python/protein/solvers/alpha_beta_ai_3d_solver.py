@@ -81,7 +81,7 @@ class alpha_beta_ai_3d(ProteinChainClass3D.ProteinChain3D):
                     self.bestCords = copy.deepcopy(self.chosen_coords)
                     j = self.formatForSolution(bestEnergy, bestChain)
                     self.setSolution(j)
-                    print "Successfully set solution as ", j
+                    #print "Successfully set solution as ", j
 
       self.setCoords(bestChain)
       self.getEnergy()

@@ -30,10 +30,11 @@ f = open(os.devnull, 'w')
 
 class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
 
+  veryBestParticle = None;
+
   def solve(self):
     #Create the initial particle from the defining string/number atoms
     self.particle = genParticle(self.definingString,int(self.numberOfAtoms)); #Generates the base particle
-    print self.particle.get_potential_energy(); #Prints base case energy
     self.bestParticles = []; #Initializes the list of bestParticles
     self.bestEnergy = self.particle.get_potential_energy(); #Initializes best energy
     self.bestParticle = deepcopy(self.particle); #Best particle is a copy of particle
@@ -49,7 +50,7 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     self.currentEnergy = 0;
     self.currentParticle = None;
     self.startTime = self.millis()
-    CALCULATIONS=15
+    CALCULATIONS=2;
     for i in range(CALCULATIONS):
         if i%1==0 and i>0:
             pDone=float(i)/CALCULATIONS
@@ -58,9 +59,8 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
             self.setSolution(self.getAnswer())
         self.currentEnergy = 1000000;
         self.newBestParticles = [];
-        for l in range(4):
+        for l in range(5):
             self.newBestParticles.append(heapq.heappop(self.bestParticles));
-            print((self.newBestParticles[l])[0]);
         self.bestParticles = deepcopy(self.newBestParticles);
         self.children = self.breed(self.bestParticles);
         for j in range(len(self.bestParticles)):
@@ -72,36 +72,28 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
         for index in range(len(self.children)):
             newparticle = (self.children[index]);
             heapq.heappush(self.bestParticles, (newparticle.get_potential_energy(), newparticle));
-        print("-------------");
-
-    return self.getAnswer()
+        self.veryBestParticle = heapq.heappop(self.bestParticles);
+    return self.getAnswer();
 
   def getAnswer(self):
-    self.minEnergy = 100000;
-    self.bestParticle = None;
-    for i in range(len(self.bestParticles)):
-        if((self.bestParticles[i])[0] < self.minEnergy):
-            self.bestParticle = (self.bestParticles[i])[1];
-            minEnergy = (self.bestParticles[i])[0];
-
     listOfAtoms = [];
-    for atom in self.bestParticle:
+    for atom in self.veryBestParticle[1]:
       dictElement = {"symbol":atom.symbol,"x":atom.position[0],"y":atom.position[1],"z":atom.position[2]}
       listOfAtoms.append(dictElement)
-    dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": minEnergy}
+    dictionary_to_be_turned_into_json = {"atoms": listOfAtoms, "potentialEnergy": self.veryBestParticle[0]}
     actually_json = json.dumps(dictionary_to_be_turned_into_json)
     return actually_json
+
   def breed(self, generation):
     children = [];
     for i in range(len(generation)):
         for j in range(i, len(generation)):
           children = []
-          for k in range(7):
+          for k in range(3):
             child1 = deepcopy(generation[i][1])
             child2 = deepcopy(generation[j][1])
             child = self.breedParticles(child1,child2)
             children.append(child);
-          print i, j, k
     return children;
 
   def mutate(self, particle):
@@ -167,5 +159,5 @@ if __name__ == '__main__':
     GA = GeneticSolver();
     GA.definingString = "Pt10Au5";
     GA.numberOfAtoms = 15;
-    print GA.solve();
-    print "DONE";
+    #print GA.solve();
+    #print "DONE";

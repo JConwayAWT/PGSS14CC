@@ -50,9 +50,9 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     self.Temperature = 1.0
     self.bestscore = None
     self.bestPath = []
-    self.repeat = 0
+    #self.repeat = 0
 
-    self.logScalingFactor =0
+    #self.logScalingFactor =0
 
 #  def solve(self):
     #self.bestDistance=float("inf")
@@ -71,15 +71,25 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
         return CM;
   def TemperatureUpdate (self, Iter, maxiter):
 
-        if Iter >= 0 and Iter <= maxiter/5:
+        if Iter >= 0 and Iter <= (maxiter/10):
             return 0.9
-        if Iter > maxiter/5 and Iter <= maxiter*2/5:
+        if Iter > maxiter/10 and Iter <= maxiter*2/10:
             return 0.8
-        if Iter > maxiter*2/5 and Iter <= maxiter*3/5:
+        if Iter > maxiter*2/10 and Iter <= maxiter*3/10:
             return 0.6
-        if Iter > maxiter*3/5 and Iter <= maxiter*4/5:
+        if Iter > maxiter*3/10 and Iter <= maxiter*4/10:
             return 0.5
-        if Iter > maxiter*4/5 and Iter <= maxiter:
+        if Iter > maxiter *4/10 and Iter <= maxiter*5/10:
+            return 0.8
+        if Iter > maxiter*5/10 and Iter <= maxiter*6/10:
+            return 0.6
+        if Iter > maxiter*6/10 and Iter <= maxiter*7/10:
+            return 0.5
+        if Iter > maxiter *7/10 and Iter <= maxiter*8/10:
+            return 0.8
+        if Iter > maxiter*8/10 and Iter <= maxiter*9/10:
+            return 0.6
+        if Iter > maxiter*9/10 and Iter <= maxiter:
             return 1-(float(Iter)/float(maxiter))
 
 
@@ -193,17 +203,17 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     newscore = self.Scoringfunction(newpath)
 
     score = newscore
-    print (currentpath, currentscore, newpath, score)
+    #print (currentpath, currentscore, newpath, score)
 
     if currentscore >= newscore:
         #print ("YAYAYAY", newpath)
-        self.repeat = 0
+        #self.repeat = 0
         return [newpath, score,newpath]
     #elif self.repeat >= len(path):
         #print self.repeat
         #return [newpath, score, newpath]
     else:
-        self.repeat +=1
+        #self.repeat +=1
         randint = random.random()
         probability = 1/(1+exp(-(newscore-currentscore)/self.Temperature))#/self.Temperature)
         if randint > probability:
@@ -230,6 +240,7 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     if self.enforce_random_start:
         currentpath = [k for k in range(len(self.cords))]
         CALCULATIONS=30000
+    self.bestPath = currentpath
     currentscore = self.Scoringfunction(currentpath)
     for timestried in range(CALCULATIONS):
         #print (self.calculateIntersects())
@@ -262,17 +273,17 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
 
     return self.getAnswer()
 
-#
-if __name__ == '__main__':
-    A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(-2,0,0))
-    A.cords.append(CC.Coordinate(-1,2,1))
-    A.cords.append(CC.Coordinate(0,2,2))
-    A.cords.append(CC.Coordinate(1,1,3))
+##if __name__ == '__main__':
+##    A=SimulatedAnnealingSalesmanSolver()
+##    A.cords.append(CC.Coordinate(-2,0,0))
+##    A.cords.append(CC.Coordinate(-1,2,1))
+##    A.cords.append(CC.Coordinate(0,2,2))
+##    A.cords.append(CC.Coordinate(1,1,3))
+##
+##    A.cords.append(CC.Coordinate(0,-2,5))
+##    A.cords.append(CC.Coordinate(2,0,4))
+##    #print(A.solve(), "sol")
+##    #print(A.distance([0,1,2,3]))
+##    #print(A.distance([0,2,1,3]))
+##    #print(A.distance([1,0,2,3]))
 
-    A.cords.append(CC.Coordinate(0,-2,5))
-    A.cords.append(CC.Coordinate(2,0,4))
-    #print(A.solve(), "sol")
-    #print(A.distance([0,1,2,3]))
-    #print(A.distance([0,2,1,3]))
-    #print(A.distance([1,0,2,3]))
