@@ -63,6 +63,7 @@ def main():
         solver.append(ab3d.alpha_beta_3d(string))
         solver.append(ab.alpha_beta(string))
         solver.append(ss.SlitheringSnakeSolver(string))
+        solver.append()
 
         for solves in xrange(len(solver)):
            solution = solver[solves].solve()
