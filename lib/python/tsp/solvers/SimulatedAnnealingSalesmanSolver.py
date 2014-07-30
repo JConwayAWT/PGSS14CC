@@ -74,21 +74,21 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
         if Iter >= 0 and Iter <= (maxiter/10):
             return 0.9
         if Iter > maxiter/10 and Iter <= maxiter*2/10:
-            return 0.5
-        if Iter > maxiter*2/10 and Iter <= maxiter*3/10:
-            return 0.2
-        if Iter > maxiter*3/10 and Iter <= maxiter*4/10:
             return 0.8
-        if Iter > maxiter *4/10 and Iter <= maxiter*5/10:
+        if Iter > maxiter*2/10 and Iter <= maxiter*3/10:
             return 0.6
+        if Iter > maxiter*3/10 and Iter <= maxiter*4/10:
+            return 0.5
+        if Iter > maxiter *4/10 and Iter <= maxiter*5/10:
+            return 0.8
         if Iter > maxiter*5/10 and Iter <= maxiter*6/10:
-            return 0.1
+            return 0.6
         if Iter > maxiter*6/10 and Iter <= maxiter*7/10:
-            return 0.7
+            return 0.5
         if Iter > maxiter *7/10 and Iter <= maxiter*8/10:
-            return 0.4
+            return 0.8
         if Iter > maxiter*8/10 and Iter <= maxiter*9/10:
-            return 0.2
+            return 0.6
         if Iter > maxiter*9/10 and Iter <= maxiter:
             return 1-(float(Iter)/float(maxiter))
 
