@@ -71,15 +71,25 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
         return CM;
   def TemperatureUpdate (self, Iter, maxiter):
 
-        if Iter >= 0 and Iter <= maxiter/5:
+        if Iter >= 0 and Iter <= (maxiter/10):
             return 0.9
-        if Iter > maxiter/5 and Iter <= maxiter*2/5:
-            return 0.8
-        if Iter > maxiter*2/5 and Iter <= maxiter*3/5:
-            return 0.6
-        if Iter > maxiter*3/5 and Iter <= maxiter*4/5:
+        if Iter > maxiter/10 and Iter <= maxiter*2/10:
             return 0.5
-        if Iter > maxiter*4/5 and Iter <= maxiter:
+        if Iter > maxiter*2/10 and Iter <= maxiter*3/10:
+            return 0.2
+        if Iter > maxiter*3/10 and Iter <= maxiter*4/10:
+            return 0.8
+        if Iter > maxiter *4/10 and Iter <= maxiter*5/10:
+            return 0.6
+        if Iter > maxiter*5/10 and Iter <= maxiter*6/10:
+            return 0.1
+        if Iter > maxiter*6/10 and Iter <= maxiter*7/10:
+            return 0.7
+        if Iter > maxiter *7/10 and Iter <= maxiter*8/10:
+            return 0.4
+        if Iter > maxiter*8/10 and Iter <= maxiter*9/10:
+            return 0.2
+        if Iter > maxiter*9/10 and Iter <= maxiter:
             return 1-(float(Iter)/float(maxiter))
 
 
@@ -226,10 +236,10 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     dijkstra_solver.REMOVE_LINE_CROSSES=self.REMOVE_LINE_CROSSES
     dijkstra_solution = dijkstra_solver.solve()
     currentpath = [int(k) for k in dijkstra_solution.split(",")]
-    CALCULATIONS=100000#*len(currentpath)
+    CALCULATIONS=10000#*len(currentpath)
     if self.enforce_random_start:
         currentpath = [k for k in range(len(self.cords))]
-        CALCULATIONS=300000
+        CALCULATIONS=30000
     self.bestPath = currentpath
     currentscore = self.Scoringfunction(currentpath)
     for timestried in range(CALCULATIONS):
