@@ -159,5 +159,5 @@ if __name__ == '__main__':
     GA = GeneticSolver();
     GA.definingString = "Pt10Au5";
     GA.numberOfAtoms = 15;
-    print GA.solve();
-    print "DONE";
+    #print GA.solve();
+    #print "DONE";

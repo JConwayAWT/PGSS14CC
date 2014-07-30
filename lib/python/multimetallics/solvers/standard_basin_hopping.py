@@ -53,8 +53,8 @@ class randomSolver(MetalicsSolver.MetalicFoldingSolver):
           new_parent = heappop(queue)[1].copy()
           calc = EMT()
           new_parent.set_calculator(calc)
-          print new_parent.get_positions()
-          print new_parent.get_potential_energy()
+          #print new_parent.get_positions()
+          #print new_parent.get_potential_energy()
 
           for x in range(5):
             new_child = self.create_child_from(new_parent)
@@ -63,11 +63,11 @@ class randomSolver(MetalicsSolver.MetalicFoldingSolver):
             heappush(queue, (potential_energy, new_child))
 
             if potential_energy < BEST_POTENTIAL_ENERGY:
-              print "--------------- NEW BEST FOUND ---------------"
-              print "POTENTIAL ENERGY = ", potential_energy
+              #print "--------------- NEW BEST FOUND ---------------"
+              #print "POTENTIAL ENERGY = ", potential_energy
               BEST_POTENTIAL_ENERGY = potential_energy
               self.bestParticle = new_child
-              print new_child.positions
+              #print new_child.positions
 
           pDone=float(ITERATION)/MAXIMUM_ITERATIONS
           self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
