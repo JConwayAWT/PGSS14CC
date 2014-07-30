@@ -28,29 +28,34 @@ class BFTS2 (TravelingSalesmanSolver.TravelingSalesmanSolver):
   def solve(self):
     self.CALCULATIONS=math.factorial(len(self.cords))
     perms = itertools.permutations(range(len(self.cords)),len(self.cords))
-    bestOrderPerm=None
-    bestDistance=float("inf")
+    self.bestOrderPerm=None
+    self.bestDistance=float("inf")
 
     for p in perms:
         self.CALCS_DONE+=1
         if self.CALCS_DONE%self.CALCULATION_UPDATES==0:
             pDone=float(self.CALCS_DONE)/self.CALCULATIONS
             self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
+            self.setSolution(self.getAnswer())
+            self.checkTimeout(None)
         d=0
         pr=p[-1]
         for n in p:
             d+=self.cdists[n][pr]
             pr=n
-        if d<bestDistance:
-            bestOrderPerm = p
-            bestDistance = d
+        if d<self.bestDistance:
+            self.bestOrderPerm = p
+            self.bestDistance = d
 
-    self.answer=";"
-    self.bestOrder = []
-    for c in bestOrderPerm:
-      self.answer+=str(c)+","
-      self.bestOrder.append(c)
-    self.answer+="0"
-    return self.answer;
+    return self.getAnswer();
+  def getAnswer(self):
+    if self.bestOrderPerm != None:
+      self.answer=";"
+      self.bestOrder = []
+      for c in self.bestOrderPerm:
+        self.answer+=str(c)+","
+        self.bestOrder.append(c)
+      self.answer+="0"
+    return self.answer
 
 

@@ -113,8 +113,7 @@ function docReady(){
 			cord.draw();
 		}
 		drawSolution();
-		
-		//canvas.width=window.innerWidth-200;
+				
 		$("#submit_data").prop('disabled', processing);
 		$("#cancel_solution").prop('disabled', !processing);
 		$("#remove_all_datapoints").prop('disabled', processing);
@@ -287,11 +286,12 @@ function docReady(){
 		   	totalDist+=cords[p].getDistCord(cords[solution[i]]);
 		   	p=solution[i];	
 		}
+		totalDist = Math.floor(totalDist);
 	}
 	function drawSolution(){
 		try{
-			totalDist=0;
 			if(solution!=null){
+				td=0;
 				p= solution[cords.length-1];
 				for(var i=0;i<cords.length;i++){
 					context.beginPath();
@@ -299,8 +299,14 @@ function docReady(){
 			    	context.lineTo(cords[solution[i]].x, cords[solution[i]].y);
 			    	context.stroke();
 			    	p=solution[i];
-			    	totalDist+=cords[p].getDistCord(cords[solution[i]]);
+			    	//td+=Math.sqrt(Math.pow(cords[solution[i]].x-cords[p].x,2)+Math.pow(cords[solution[i]].y-cords[p].y,2));
+			    	console.log("TD"+td);
 				}
+				calculateTotalDist();
+				context.font="bold 40px BebasNeue";	
+				text=totalDist+" px";
+				var meas = context.measureText(text);
+				context.fillText(text,$("#canvas").width()-meas.width,$("#canvas").height()-40);
 			}
 		}catch(err){
 			console.log("Draw error "+err);
