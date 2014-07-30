@@ -193,7 +193,7 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     newscore = self.Scoringfunction(newpath)
 
     score = newscore
-    print (currentpath, currentscore, newpath, score)
+    #print (currentpath, currentscore, newpath, score)
 
     if currentscore >= newscore:
         #print ("YAYAYAY", newpath)
@@ -263,17 +263,17 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
 
     return self.getAnswer()
 
-#
-if __name__ == '__main__':
-    A=SimulatedAnnealingSalesmanSolver()
-    A.cords.append(CC.Coordinate(-2,0,0))
-    A.cords.append(CC.Coordinate(-1,2,1))
-    A.cords.append(CC.Coordinate(0,2,2))
-    A.cords.append(CC.Coordinate(1,1,3))
+##if __name__ == '__main__':
+##    A=SimulatedAnnealingSalesmanSolver()
+##    A.cords.append(CC.Coordinate(-2,0,0))
+##    A.cords.append(CC.Coordinate(-1,2,1))
+##    A.cords.append(CC.Coordinate(0,2,2))
+##    A.cords.append(CC.Coordinate(1,1,3))
+##
+##    A.cords.append(CC.Coordinate(0,-2,5))
+##    A.cords.append(CC.Coordinate(2,0,4))
+##    #print(A.solve(), "sol")
+##    #print(A.distance([0,1,2,3]))
+##    #print(A.distance([0,2,1,3]))
+##    #print(A.distance([1,0,2,3]))
 
-    A.cords.append(CC.Coordinate(0,-2,5))
-    A.cords.append(CC.Coordinate(2,0,4))
-    #print(A.solve(), "sol")
-    #print(A.distance([0,1,2,3]))
-    #print(A.distance([0,2,1,3]))
-    #print(A.distance([1,0,2,3]))

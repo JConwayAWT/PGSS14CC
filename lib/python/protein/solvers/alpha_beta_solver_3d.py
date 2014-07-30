@@ -108,8 +108,8 @@ class alpha_beta_3d(ProteinChainClass3D.ProteinChain3D):
       return legal_coords
 
 
-s = alpha_beta_3d("HHHHPHHPHPHPPPHPPHPPPPPHHHHHPHPHPHHPPPPHHHHHH")
-s.solve()
-
-print s.chosen_coords
-print s.Energy
+##s = alpha_beta_3d("HHHHPHHPHPHPPPHPPHPPPPPHHHHHPHPHPHHPPPPHHHHHH")
+##s.solve()
+##
+##print s.chosen_coords
+##print s.Energy
