@@ -25,6 +25,7 @@ from solvers import ExampleSolver as e
 from solvers import MetalicsSolver as ms
 from solvers import MDbasinhop as md
 from solvers import SimulatedAnnealingNanoparticles as san
+from solvers import standard_basin_hopping as sbh
 from database import database_connect as dbf
 from solvers import GeneticAlgorithmSolver as gas
 
@@ -50,6 +51,8 @@ def main():
     solver = gas.GeneticSolver(params)
   elif algorithm == "Simulated Annealing":
     solver = san.simulatedAnnealingNano(params)
+  elif algorithm == "Basin Hopping":
+    solver = sbh.randomSolver(params)
 
   if solver is None:
     print "ERROR: Invalid solver!"

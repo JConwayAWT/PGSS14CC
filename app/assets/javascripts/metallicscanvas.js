@@ -9,10 +9,6 @@ $(document).ready(function(){
 	$("#metallics-canvas").html( renderer.domElement );
 	camera.position.z = 25;
 	
-	$("input#slider-goes-here").on('slide', function() {
-		camera.position.z = 50 - $("input#slider-goes-here").slider('getValue');
-	});
-
 	scene.add(camera);
 	var pointLight = new THREE.PointLight( 0xFFFFFF );
 
@@ -27,7 +23,7 @@ $(document).ready(function(){
 	function render() {
 	  requestAnimationFrame(render);
 	  renderer.render(scene, camera);
-
+	  camera.position.z = 50 - $("input#slider-goes-here").slider('getValue');
 	}
 	render();
 
@@ -90,11 +86,15 @@ function centerSpheres(){
 
   	}
 }
+
+first_time = true;
+
 function loadSpheres(atoms){
 	centerSpheres();	
 	scene.remove(content);
-	if(content==null){
+	if(first_time == true){
 		content =  new THREE.Object3D();
+		first_time = false;
 	}else{
 		oldcontent = content;
 		content =  new THREE.Object3D();
@@ -117,8 +117,7 @@ function loadSpheres(atoms){
 	var material_Pt = new THREE.MeshPhongMaterial( { color: 0xABAD7B} );
 	var material_Au = new THREE.MeshPhongMaterial( { color: 0xBDC23E} );
 
-  	for(var i=0;i<atoms.length;i++){
-	    console.log(atoms[i]);
+  	for(var i=0;i<atoms.length;i++){	  
     	switch (atoms[i].symbol){
 			case "Al":
 			var sphere = new THREE.Mesh(geometry_Al, material_Al) ;
@@ -145,8 +144,7 @@ function loadSpheres(atoms){
 		sphere.position.x=atoms[i].x;
 	    sphere.position.y=atoms[i].y;
 	    sphere.position.z=atoms[i].z;
-	    content.add(sphere);
-	    console.log("add sphere "+i);
+	    content.add(sphere);	    
   	}
   	scene.add(content);
 }

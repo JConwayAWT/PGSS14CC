@@ -3,7 +3,7 @@ lib_path = os.path.abspath('../../helpers')
 sys.path.append(lib_path)
 lib_path = os.path.abspath('../')
 sys.path.append(lib_path)
-import ProteinChainClass
+import ProteinChainClass3D
 #import Coordinate
 import math
 import random
@@ -11,7 +11,7 @@ import copy
 import json
 from copy import deepcopy
 
-class alpha_beta_3d(ProteinChainClass.ProteinChain):
+class alpha_beta_3d(ProteinChainClass3D.ProteinChain3D):
     def solve(self):
       self.chosen_coords = []
 
@@ -39,6 +39,8 @@ class alpha_beta_3d(ProteinChainClass.ProteinChain):
         current_chain_index += 1
 
       acids = []
+
+      self.setCoords(self.chosen_coords)
       self.getEnergy()
       for i in range(len(self.chosen_coords)):
         acids.append({"type": self.amino_acid_chain[i], "x": self.chosen_coords[i][0], "y": self.chosen_coords[i][1], "z": self.chosen_coords[i][2]})
@@ -67,7 +69,7 @@ class alpha_beta_3d(ProteinChainClass.ProteinChain):
     def get_score_of_single_coordinate(self, coordinate, values_at_hop_distance):
       total_score = 0
       h_value = 4
-      p_value = 1
+      p_value = 0
       coordinates_for_neighbords_with_manhattan_distance_of_index = [None]
       for k in range(1, 7):
         coordinates_for_neighbords_with_manhattan_distance_of_index.append(self.get_hops_at_distance(k, coordinate))
@@ -106,7 +108,8 @@ class alpha_beta_3d(ProteinChainClass.ProteinChain):
       return legal_coords
 
 
-##s = alpha_beta_3d("HHHHHHHHHHHPPPPPHHHHHHPPPHPHPHHHPPPPHHHHHHHHHHHHHHHHHPPPPPHHHHHHPPPHPHPHHHPPPPHHHHHHHHHHHHHHHHHPPPPPHHHHHHPPPHPHPHHHPPPPHHHHHH")
-##s.solve()
+s = alpha_beta_3d("HHHHPHHPHPHPPPHPPHPPPPPHHHHHPHPHPHHPPPPHHHHHH")
+s.solve()
 
-##print s.chosen_coords
+print s.chosen_coords
+print s.Energy
