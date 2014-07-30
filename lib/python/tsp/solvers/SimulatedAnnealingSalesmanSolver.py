@@ -226,10 +226,10 @@ class SimulatedAnnealingSalesmanSolver (LineOverlapEliminatorTravelingSalesmanSo
     dijkstra_solver.REMOVE_LINE_CROSSES=self.REMOVE_LINE_CROSSES
     dijkstra_solution = dijkstra_solver.solve()
     currentpath = [int(k) for k in dijkstra_solution.split(",")]
-    CALCULATIONS=10000#*len(currentpath)
+    CALCULATIONS=100000#*len(currentpath)
     if self.enforce_random_start:
         currentpath = [k for k in range(len(self.cords))]
-        CALCULATIONS=30000
+        CALCULATIONS=300000
     self.bestPath = currentpath
     currentscore = self.Scoringfunction(currentpath)
     for timestried in range(CALCULATIONS):
