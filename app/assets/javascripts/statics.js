@@ -11,7 +11,7 @@ function docReady(){
 					"We were twine to design better algorithms than brute force",
 					"We'll get you the best pawsible solution",
 					"We're feline pretty good about our solvers",
-					"Do cats have tails? <br> Lets paws and think about it.<br>Do cats make trails?<br>Yeah, they follow the mouse.",
+					"Do cats have tails? <br> Let's paws and think about it.<br>Do cats make trails?<br>Yeah, they follow the mouse.",
 					"Use our solvers - don't wait nine lives waiting for brute force to run",
 					"Our paths don't stray from the best",
 					"Such cat, very algorithm",

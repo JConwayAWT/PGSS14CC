@@ -51,6 +51,7 @@ class GeneticSolver(MetalicsSolver.MetalicFoldingSolver):
     self.currentParticle = None;
     self.startTime = self.millis()
     CALCULATIONS=2;
+    self.setStatusDone("100% | Stage 1 | Starting stage 2")
     for i in range(CALCULATIONS):
         if i%1==0 and i>0:
             pDone=float(i)/CALCULATIONS

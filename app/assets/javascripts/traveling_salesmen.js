@@ -409,13 +409,19 @@ function docReady(){
 		}
 		this.draw = function(){
 			var radius=5;
+			if(cords.length>100){
+				radius=3;
+			}
+			if(cords.length>200){
+				radius=2;
+			}
 			context.beginPath();
 			context.arc(this.x, this.y, radius, 0, 2 * Math.PI, false);
 			context.fillStyle = this.moving?'red':'green';
 			context.fill();
 			context.stroke();
-			context.fillStyle='black';
-			context.fillText(this.i,this.x+radius,this.y+radius/2); 
+			//context.fillStyle='black';
+			//context.fillText(this.i,this.x+radius,this.y+radius/2); 
 		}
 	}
 

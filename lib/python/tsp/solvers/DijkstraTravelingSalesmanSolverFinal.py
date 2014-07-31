@@ -11,10 +11,12 @@ from copy import deepcopy
 class DijkstraSolver(LineOverlapEliminatorTravelingSalesmanSolver.LineOverlapEliminatorTravelingSalesmanSolver):
 
   def solve(self):
+    self.bestitinerary=[]
     for i in range(len(self.cords)):      
       pDone=float(i)/len(self.cords)
       self.setStatusDone(str(math.floor(pDone*100))+"% | "+self.remainingTime(pDone))
       self.checkTimeout(self)
+      self.setSolution(",".join([str(element) for element in self.bestitinerary]))
 
       self.initialize_necessary_variables(i)
       self.distances_array = self.initialize_distances_array()
